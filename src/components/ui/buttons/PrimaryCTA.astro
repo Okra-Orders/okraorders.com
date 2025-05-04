@@ -10,22 +10,22 @@ interface Props {
 }
 // Define CSS classes for styling the button
 const baseClasses =
-  "group inline-flex items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-sm font-bold text-neutral-50 ring-zinc-500 transition duration-300 focus-visible:ring-3 outline-hidden";
+  "group inline-flex items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-sm font-bold text-neutral-50 ring-offset-white transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
 const borderClasses = "border border-transparent";
+// Use the variable-linked Tailwind classes
+// Assuming hover/active states are defined in tailwind.config.cjs referencing CSS vars
 const bgColorClasses =
-  "bg-orange-400 hover:bg-orange-500 active:bg-orange-500 dark:focus:outline-hidden";
+  "bg-primary hover:bg-primary-hover active:bg-primary-active"; // Or use hover:bg-primary/90 if hover vars aren't defined
 const disableClasses = "disabled:pointer-events-none disabled:opacity-50";
 const fontSizeClasses = "2xl:text-base";
-const ringClasses = "dark:ring-zinc-200";
 ---
 
 <!-- Link styled as a button, with dynamic title, URL, and optional arrow -->
 <a
-  class={`${baseClasses} ${borderClasses} ${bgColorClasses} ${disableClasses} ${fontSizeClasses} ${ringClasses}`}
+  class={`${baseClasses} ${borderClasses} ${bgColorClasses} ${disableClasses} ${fontSizeClasses}`}
   href={url}
 >
   {title}
   <!-- Display the arrow based on the 'noArrow' property -->
-
   {noArrow ? null : <Icon name="arrowRight" />}
 </a>
