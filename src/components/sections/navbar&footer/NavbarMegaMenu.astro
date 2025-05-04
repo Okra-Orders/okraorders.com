@@ -1,48 +1,50 @@
 ---
-//Import relevant dependencies
-import ThemeIcon from "@components/ThemeIcon.astro";
-import NavLink from "@components/ui/links/NavLink.astro";
-import MegaMenuLink from "@components/ui/links/MegaMenuLink.astro";
-import Authentication from "../misc/Authentication.astro";
-import enStrings from "@utils/navigation.ts";
-import frStrings from "@utils/fr/navigation.ts";
+// Import necessary modules and components
+import type { NavLinkItem } from "@utils/navigation";
+// import { getLocale } from "astro-i18n-aut"; // Removed unused i18n utility
+// import enStrings from "@utils/en/navigation.ts"; // Removed unused i18n strings
+// import frStrings from "@utils/fr/navigation.ts"; // Removed unused i18n strings
 import BrandLogo from "@components/BrandLogo.astro";
-import LanguagePicker from "@components/ui/LanguagePicker.astro";
+import Authentication from "@components/ui/buttons/Authentication.astro";
+import IconSet from "@components/ui/icons/IconSet.astro";
+import ThemeIcon from "@components/ThemeIcon.astro";
+// import LanguagePicker from "@components/ui/LanguagePicker.astro"; // Removed LanguagePicker import
+import navigation from "@utils/navigation";
 
 // Select the correct translation based on the page's lang prop:
-const strings = Astro.currentLocale === "fr" ? frStrings : enStrings;
-const homeUrl = Astro.currentLocale === "fr" ? "/fr" : "/";
+// const currentLocale = getLocale(Astro.url); // Removed unused i18n logic
+// const t = currentLocale === "fr" ? frStrings : enStrings; // Removed unused i18n logic
+
+// Define props, with a default value for navLinks
+const { navBarLinks = navigation.navBarLinks } = Astro.props;
+interface Props {
+  navBarLinks?: NavLinkItem[];
+}
 ---
 
-<!-- Main header component -->
 <header
-  class="sticky inset-x-0 top-4 z-50 flex w-full flex-wrap text-sm md:flex-nowrap md:justify-start"
+  id="header-nav"
+  class="fixed inset-x-0 top-0 z-50 flex w-full flex-wrap border-b border-neutral-200 bg-white py-3 text-sm dark:border-neutral-800 dark:bg-neutral-950 sm:flex-nowrap sm:justify-start sm:py-0"
 >
-  <!-- Navigation container -->
   <nav
-    class="relative mx-2 w-full rounded-[36px] border border-yellow-100/40 bg-yellow-50/60 px-4 py-3 backdrop-blur-md dark:border-neutral-700/40 dark:bg-neutral-800/80 dark:backdrop-blur-md md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto"
+    class="relative mx-auto w-full max-w-[85rem] px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8"
     aria-label="Global"
   >
+    <!-- Logo and Hamburger Menu Container -->
     <div class="flex items-center justify-between">
-      <!-- Brand logo -->
-      <a
-        class="flex-none rounded-lg text-xl font-bold outline-hidden ring-zinc-500 focus-visible:ring-3 dark:ring-zinc-200 dark:focus:outline-hidden"
-        href={homeUrl}
-        aria-label="Brand"
-      >
-        <BrandLogo class="h-auto w-24" />
-      </a>
-      <!-- Collapse toggle for smaller screens -->
-      <div class="ml-auto mr-5 md:hidden">
+      <BrandLogo />
+      <!-- Hamburger Menu Toggle Button -->
+      <div class="sm:hidden">
         <button
           type="button"
-          class="hs-collapse-toggle flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-neutral-600 transition duration-300 hover:bg-neutral-200 disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:focus:outline-hidden"
+          class="hs-collapse-toggle flex size-9 items-center justify-center gap-x-2 rounded-lg border border-neutral-200 bg-white text-sm font-medium text-neutral-700 shadow-sm transition-all hover:bg-neutral-50 focus:outline-none focus:ring-1 focus:ring-neutral-400 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300 dark:hover:bg-neutral-900 dark:focus:ring-neutral-600"
           data-hs-collapse="#navbar-collapse-with-animation"
           aria-controls="navbar-collapse-with-animation"
           aria-label="Toggle navigation"
         >
           <svg
-            class="h-[1.25rem] w-[1.25rem] shrink-0 hs-collapse-open:hidden"
+            class="hs-collapse-open:hidden size-4 flex-shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -57,7 +59,8 @@ const homeUrl = Astro.currentLocale === "fr" ? "/fr" : "/";
             <line x1="3" x2="21" y1="18" y2="18"></line>
           </svg>
           <svg
-            class="hidden h-[1.25rem] w-[1.25rem] shrink-0 hs-collapse-open:block"
+            class="hs-collapse-open:block hidden size-4 flex-shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -72,143 +75,26 @@ const homeUrl = Astro.currentLocale === "fr" ? "/fr" : "/";
           </svg>
         </button>
       </div>
-      <!-- ThemeIcon component specifically for smaller screens -->
-      <span class="inline-block md:hidden">
-        <ThemeIcon />
-      </span>
     </div>
-    <!-- Contains navigation links -->
+    <!-- Navigation Links and Theme/Language Pickers -->
     <div
       id="navbar-collapse-with-animation"
-      class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 md:block"
+      class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 sm:block"
     >
-      <!-- Navigation links container -->
       <div
-        class="mt-5 flex flex-col gap-x-0 gap-y-4 md:mt-0 md:flex-row md:items-center md:justify-end md:gap-x-4 md:gap-y-0 md:ps-7 lg:gap-x-7"
+        class="mt-5 flex flex-col gap-x-0 gap-y-4 sm:mt-0 sm:flex-row sm:items-center sm:justify-end sm:gap-x-7 sm:gap-y-0 sm:ps-7"
       >
-        <!-- Navigation links and Authentication component -->
-        {
-          strings.navBarLinks.map((link) => {
-            if (link.name === "Services") {
-              return <MegaMenuLink />;
-            } else {
-              return <NavLink url={link.url} name={link.name} />;
-            }
-          })
-        }
-
+        <!-- Navigation Links -->
+        {navBarLinks.map((link) => <a href={link.url}>{link.name}</a>)}
         <Authentication />
-        <LanguagePicker />
-        <!-- ThemeIcon component specifically for larger screens -->
-        <span class="hidden md:inline-block">
+        <!-- Theme and Language Pickers -->
+        <div class="flex flex-row items-center justify-end gap-x-1">
           <ThemeIcon />
-        </span>
+          <!-- Language Picker Dropdown -->
+          <!-- <LanguagePicker /> --> <!-- Removed LanguagePicker usage -->
+        </div>
+        <!-- Hamburger Menu -->
       </div>
     </div>
   </nav>
 </header>
-<!-- Theme Appearance script to manage light/dark modes -->
-<script is:inline>
-  const HSThemeAppearance = {
-    init() {
-      const defaultTheme = "default";
-      let theme = localStorage.getItem("hs_theme") || defaultTheme;
-
-      if (document.querySelector("html").classList.contains("dark")) return;
-      this.setAppearance(theme);
-    },
-    _resetStylesOnLoad() {
-      const $resetStyles = document.createElement("style");
-      $resetStyles.innerText = `*{transition: unset !important;}`;
-      $resetStyles.setAttribute("data-hs-appearance-onload-styles", "");
-      document.head.appendChild($resetStyles);
-      return $resetStyles;
-    },
-    setAppearance(theme, saveInStore = true, dispatchEvent = true) {
-      const $resetStylesEl = this._resetStylesOnLoad();
-
-      if (saveInStore) {
-        localStorage.setItem("hs_theme", theme);
-      }
-
-      if (theme === "auto") {
-        theme = window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "default";
-      }
-
-      document.querySelector("html").classList.remove("dark");
-      document.querySelector("html").classList.remove("default");
-      document.querySelector("html").classList.remove("auto");
-
-      document
-        .querySelector("html")
-        .classList.add(this.getOriginalAppearance());
-
-      setTimeout(() => {
-        $resetStylesEl.remove();
-      });
-
-      if (dispatchEvent) {
-        window.dispatchEvent(
-          new CustomEvent("on-hs-appearance-change", { detail: theme })
-        );
-      }
-    },
-    getAppearance() {
-      let theme = this.getOriginalAppearance();
-      if (theme === "auto") {
-        theme = window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "default";
-      }
-      return theme;
-    },
-    getOriginalAppearance() {
-      const defaultTheme = "default";
-      return localStorage.getItem("hs_theme") || defaultTheme;
-    },
-  };
-  HSThemeAppearance.init();
-
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", () => {
-      if (HSThemeAppearance.getOriginalAppearance() === "auto") {
-        HSThemeAppearance.setAppearance("auto", false);
-      }
-    });
-
-  window.addEventListener("load", () => {
-    const $clickableThemes = document.querySelectorAll(
-      "[data-hs-theme-click-value]"
-    );
-    const $switchableThemes = document.querySelectorAll(
-      "[data-hs-theme-switch]"
-    );
-
-    $clickableThemes.forEach(($item) => {
-      $item.addEventListener("click", () =>
-        HSThemeAppearance.setAppearance(
-          $item.getAttribute("data-hs-theme-click-value"),
-          true,
-          $item
-        )
-      );
-    });
-
-    $switchableThemes.forEach(($item) => {
-      $item.addEventListener("change", (e) => {
-        HSThemeAppearance.setAppearance(e.target.checked ? "dark" : "default");
-      });
-
-      $item.checked = HSThemeAppearance.getAppearance() === "dark";
-    });
-
-    window.addEventListener("on-hs-appearance-change", (e) => {
-      $switchableThemes.forEach(($item) => {
-        $item.checked = e.detail === "dark";
-      });
-    });
-  });
-</script>

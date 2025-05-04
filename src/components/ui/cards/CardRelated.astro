@@ -4,19 +4,21 @@ import { Image } from "astro:assets";
 import { formatDate } from "@utils/utils";
 import type { CollectionEntry } from "astro:content";
 
-const { blogEntry, recentBlogLocale = "" } = Astro.props;
+// const { blogEntry, recentBlogLocale = "" } = Astro.props; // Removed recentBlogLocale
+const { blogEntry } = Astro.props; // Simplified props
 
 interface Props {
   blogEntry: CollectionEntry<"blog">;
-  recentBlogLocale?: string;
+  // recentBlogLocale?: string; // Removed recentBlogLocale prop type
 }
+
+// Simplify URL generation: assume all remaining posts are English (or default)
+const postUrl = `/blog/${blogEntry.id.replace(/^en\//, "")}/`;
 ---
 
 <a
   class="group block rounded-xl outline-hidden ring-zinc-500 transition duration-300 focus-visible:ring-3 dark:ring-zinc-200 dark:focus:outline-hidden"
-  href={recentBlogLocale && recentBlogLocale !== "en"
-    ? `/${recentBlogLocale}/blog/${blogEntry.id.replace(/^fr\//, "")}/`
-    : `/blog/${blogEntry.id.replace(/^en\//, "")}/`}
+  href={postUrl}
   data-astro-prefetch
 >
   <div>
