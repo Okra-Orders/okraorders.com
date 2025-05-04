@@ -13,7 +13,7 @@ interface Props {
 
 // Set default values if needed, or infer from image dimensions
 // Adjusted default width to 140px and height proportionally to 32px
-const { width = 140, height = 32, class: className } = Astro.props;
+const { width = 110, class: className } = Astro.props;
 ---
 
 <!-- Eager load logo as it's likely LCP -->
@@ -21,7 +21,6 @@ const { width = 140, height = 32, class: className } = Astro.props;
   src={logo}
   alt="Okra Orders Logo"
   width={width}
-  height={height}
   loading="eager"
   decoding="async"
   class:list={[className]}

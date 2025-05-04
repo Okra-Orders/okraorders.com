@@ -1,0 +1,178 @@
+---
+// Layout and Base Components
+import MainLayout from "@/layouts/MainLayout.astro";
+import HeroSection from "@components/sections/landing/HeroSection.astro";
+import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
+import Icon from "@components/ui/icons/Icon.astro"; // Assuming this might be needed for payment section
+import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
+import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // Needed for CTA
+
+// --- Helper Functions ---
+// Simple SVG placeholder function (replicated for self-containment)
+const svgPlaceholder = (width: number, height: number, text: string = "Placeholder") => {
+  const escapedText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236B7280' font-family='sans-serif' font-size='16'%3E${escapedText}%3C/text%3E%3C/svg%3E`; // Tailwind gray-200 background, gray-500 text
+}
+
+// --- Page Data ---
+const pageTitle = "Streamlined Catering Operations & Order Management | Okra Orders";
+
+const hero = {
+  title: "Manage Orders, Payments, and Fulfillment – All in One Place",
+  subTitle: "Stop chasing orders across different platforms. Okra Orders centralizes your entire catering operation, from viewing incoming requests to managing payments and optimizing kitchen workflow.",
+  imgAlt: "Order Dashboard Placeholder",
+  imgSrc: svgPlaceholder(900, 450, "Screenshot: Order Dashboard"), // Wider placeholder
+};
+
+const featureUnifiedView = {
+  title: "See Everything at a Glance",
+  subTitle: "Get a complete picture of your daily workload instantly. Okra's central dashboard displays all your orders – whether placed directly through your Okra storefront or synced from **ezCater**. Filter by date, status, store, or source to plan your prep efficiently.",
+  listItems: [
+    "Single view for Okra and ezCater orders.",
+    "Powerful filtering and search capabilities.",
+    "Clear status indicators for each order.",
+    "Simplifies daily kitchen planning and preparation.",
+  ],
+  imgSrc: svgPlaceholder(500, 600, "Screenshot: Unified Order List"),
+  imgAlt: "Unified Order List Placeholder (Okra + ezCater)",
+  imagePosition: "left" as const,
+};
+
+const featureOrderEditing = {
+  title: "Adapt to Changes Instantly",
+  subTitle: "Customer needs to add drinks last minute? Increase the headcount? No problem. Okra allows your admin team to easily edit *any* detail of an existing order – items, quantities, options, delivery info – right up until it's time for fulfillment. Use the \"Open Food\" feature to add completely custom items on the fly.",
+  listItems: [
+    "Modify quantities, items, and customizations easily.",
+    "Update delivery addresses or pickup times.",
+    "Add custom \"Open Food\" items with unique pricing.",
+    "Flexibility accommodates last-minute customer requests.",
+  ],
+  imgSrc: svgPlaceholder(500, 600, "GIF: Admin Editing Order Details"),
+  imgAlt: "Admin Editing Order Details Placeholder",
+  imagePosition: "right" as const,
+};
+
+const featureFulfillment = {
+  title: "Optimize Your Kitchen Workflow",
+  subTitle: "Manage your kitchen capacity and delivery logistics effectively. Okra supports ghost kitchen operations seamlessly and allows admins to easily transfer orders between locations to balance workload or accommodate driver availability – all without impacting the customer.",
+  listItems: [
+    "Designate specific locations as hidden Ghost Kitchens.",
+    "System intelligently assigns orders based on proximity (delivery).",
+    "Manually transfer orders between any stores within your brand.",
+    "Improve efficiency and manage kitchen load effectively.",
+  ],
+  imgSrc: svgPlaceholder(500, 600, "Visual: Order Transfer / Ghost Kitchen Flow"),
+  imgAlt: "Order Transfer / Ghost Kitchen Flow Placeholder",
+  imagePosition: "left" as const,
+};
+
+const finalCTA = {
+  title: "Ready to Streamline Your Day-to-Day Operations?",
+  subTitle: "Discover how Okra Orders brings clarity and efficiency to managing your catering orders and fulfillment.",
+  primaryBtn: "Start Free Trial",
+  primaryBtnURL: "/signup",
+  secondaryBtn: "Try Live Demo",
+  secondaryBtnURL: "https://demo.okraorders.com",
+};
+
+---
+
+<MainLayout title={pageTitle}>
+
+  <!-- Page Hero Section -->
+  <div class="bg-gradient-to-b from-green-50 to-white pt-16 md:pt-24 pb-8 md:pb-12"> <!-- Green accent -->
+      <HeroSection
+        title={hero.title}
+        subTitle={hero.subTitle}
+        primaryBtn={undefined}
+        primaryBtnURL={undefined}
+        secondaryBtn={undefined}
+        secondaryBtnURL={undefined}
+      >
+        <Fragment slot="image">
+          <div class="mt-8 px-6">
+             <img src={hero.imgSrc} alt={hero.imgAlt} class="h-72 w-full max-w-3xl mx-auto rounded-lg shadow-md object-cover"/>
+          </div>
+        </Fragment>
+      </HeroSection>
+  </div>
+
+  <!-- Feature Detail 1: Unified Order View -->
+  <section class="py-16 md:py-24 bg-white">
+    <FeaturesStatsAlt
+        title={featureUnifiedView.title}
+        subTitle={featureUnifiedView.subTitle}
+        benefits={featureUnifiedView.listItems}
+        imgSrc={featureUnifiedView.imgSrc}
+        imgAlt={featureUnifiedView.imgAlt}
+        imagePosition={featureUnifiedView.imagePosition}
+     />
+  </section>
+
+  <!-- Feature Detail 2: Flexible Order Editing -->
+  <section class="py-16 md:py-24 bg-gray-100">
+    <FeaturesStatsAlt
+        title={featureOrderEditing.title}
+        subTitle={featureOrderEditing.subTitle}
+        benefits={featureOrderEditing.listItems}
+        imgSrc={featureOrderEditing.imgSrc}
+        imgAlt={featureOrderEditing.imgAlt}
+        imagePosition={featureOrderEditing.imagePosition}
+    />
+  </section>
+
+  <!-- Feature Detail 3: Fulfillment Optimization -->
+  <section class="py-16 md:py-24 bg-white">
+     <FeaturesStatsAlt
+        title={featureFulfillment.title}
+        subTitle={featureFulfillment.subTitle}
+        benefits={featureFulfillment.listItems}
+        imgSrc={featureFulfillment.imgSrc}
+        imgAlt={featureFulfillment.imgAlt}
+        imagePosition={featureFulfillment.imagePosition}
+    />
+  </section>
+
+  <!-- Feature Detail 4: Payment Management (Custom Section) -->
+  <section class="py-16 md:py-24 bg-gray-100">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold text-neutral-800 mb-4">Streamlined & Reliable Payments</h2>
+        <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
+           Take the stress out of getting paid. Okra handles payment capture securely based on your rules, notifies you of issues, and provides tools to manage payments effectively right within the app.
+        </p>
+        <div class="grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
+            <div class="text-center p-6 border rounded-lg bg-white shadow-sm">
+                {/* Could add an Icon here, e.g., heroicons:credit-card */}
+                <h3 class="font-semibold text-neutral-700 mb-2 text-lg">Automated Capture</h3>
+                <p class="text-sm text-gray-600">Set rules to automatically charge saved customer tokens (e.g., 1 hour before fulfillment).</p>
+            </div>
+            <div class="text-center p-6 border rounded-lg bg-white shadow-sm">
+                 {/* Could add an Icon here, e.g., heroicons:clipboard-document-check */}
+                <h3 class="font-semibold text-neutral-700 mb-2 text-lg">Clear Status Tracking</h3>
+                <p class="text-sm text-gray-600">Easily see payment status (Pending, Paid, Failed) on the order dashboard.</p>
+            </div>
+            <div class="text-center p-6 border rounded-lg bg-white shadow-sm">
+                 {/* Could add an Icon here, e.g., heroicons:exclamation-triangle */}
+                <h3 class="font-semibold text-neutral-700 mb-2 text-lg">Proactive Error Handling</h3>
+                <p class="text-sm text-gray-600">Get notified automatically if a payment fails, with options for retries on backup cards.</p>
+            </div>
+        </div>
+        <p class="mt-8 text-sm text-gray-500 italic">(In-app Void & Refund capabilities coming soon!)</p>
+      </div>
+  </section>
+
+  <!-- CTA Section (Custom Section) -->
+  <section class="bg-gradient-to-r from-primary to-green-700 text-white py-16"> <!-- Consistent gradient CTA -->
+      <div class="container mx-auto px-6 text-center">
+          <h2 class="text-3xl font-bold mb-4">{finalCTA.title}</h2>
+          <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">{finalCTA.subTitle}</p>
+          <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} />
+               <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer" class="inline-block border border-white text-white px-6 py-2.5 rounded-md text-base font-semibold hover:bg-white hover:text-primary transition duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white">
+                 {finalCTA.secondaryBtn}
+              </a>
+          </div>
+      </div>
+  </section>
+
+</MainLayout> 

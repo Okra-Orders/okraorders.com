@@ -1,0 +1,173 @@
+---
+// Layout and Base Components
+import MainLayout from "@/layouts/MainLayout.astro";
+import HeroSection from "@components/sections/landing/HeroSection.astro";
+import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro"; // Import for feature sections
+import Icon from "@components/ui/icons/Icon.astro"; // For potential icons
+import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // For CTA button
+import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For CTA button
+
+
+// --- Page Data ---
+const pageTitle = "Effortless Online Ordering for Your Customers | Okra Orders";
+
+// Simple SVG placeholder function
+const svgPlaceholder = (width: number, height: number) => {
+  return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3C/svg%3E`; // Tailwind gray-200
+}
+
+const hero = {
+  tagline: "Customer Experience",
+  title: "Give Your Customers an Ordering Experience They'll Love",
+  subTitle: "Your online presence is crucial. Okra Orders provides a professional, mobile-friendly storefront that makes browsing, customizing, and paying for catering orders simple and accurate for your customers.",
+  imgAlt: "Mobile Ordering Snippet Placeholder",
+  imgSrc: svgPlaceholder(800, 400), // Use SVG placeholder
+};
+
+const featureCustomization = {
+  title: "Handle Any Customization with Ease",
+  subTitle: "From choosing tortilla types and salad options to adding specific desserts or sides, Okra handles it all. Clearly present required choices (single or multiple) and optional upsells with accurate, real-time pricing updates. No more confusing phone calls to clarify complex orders.",
+  listItems: [
+    "Configure required vs. optional choices.",
+    "Support single-select (radio) & multi-select (checkboxes).",
+    "Display clear pricing per option (e.g., \"$0.00 per person\", \"$2.00 per item\").",
+    "Reduce errors by ensuring customers make necessary selections.",
+  ],
+  imgSrc: svgPlaceholder(500, 600), // Use SVG placeholder
+  imgAlt: "Detailed Customization Example Placeholder",
+  imagePosition: "left" as const,
+};
+
+const featureMobile = {
+  title: "Order Anytime, Anywhere",
+  subTitle: "Most catering orders start on a phone. Okra Orders provides a beautiful, responsive experience across all devices. Customers can easily browse menus, configure orders, and check out whether they're at their desk or on the go.",
+  listItems: [
+    "Mobile-first design ensures great usability on phones.",
+    "Intuitive navigation and clear layouts.",
+    "Large, tappable buttons and easy-to-read text.",
+  ],
+  imgSrc: svgPlaceholder(500, 600), // Use SVG placeholder
+  imgAlt: "Responsive Menu View Placeholder",
+  imagePosition: "right" as const,
+};
+
+const featureCheckout = {
+  title: "Smart, Secure, and Streamlined Checkout",
+  subTitle: "Make paying easy and prevent frustration. Okra automatically enforces your delivery/pickup times and blackout dates *before* checkout. Customers can securely save cards for faster repeat orders, and approved clients can utilize Net 30 terms.",
+  listItems: [
+    "Prevents orders outside operating hours or on blackout dates.",
+    "Securely save multiple credit cards or ACH details (tokenized).",
+    "Automatic fallback to secondary cards minimizes payment failures.",
+    "Offer Net 30 terms selectively to trusted clients.",
+  ],
+  imgSrc: svgPlaceholder(500, 600), // Use SVG placeholder
+  imgAlt: "Secure Checkout / Payment Options Placeholder",
+  imagePosition: "left" as const,
+};
+
+const finalCTA = {
+  title: "Ready to Elevate Your Customer's Ordering Experience?",
+  subTitle: "See how Okra Orders can make online catering simple and professional for your customers.",
+  primaryBtn: "Start Free Trial",
+  primaryBtnURL: "/signup",
+  secondaryBtn: "Try Live Demo",
+  secondaryBtnURL: "https://demo.okraorders.com",
+};
+
+---
+
+<MainLayout title={pageTitle}>
+
+  <!-- Page Hero Section -->
+  <div class="bg-gradient-to-b from-green-50 to-white pt-16 md:pt-24 pb-8 md:pb-12">
+      <HeroSection
+        title={hero.title}
+        subTitle={hero.subTitle}
+        primaryBtn={undefined}
+        primaryBtnURL={undefined}
+        secondaryBtn={undefined}
+        secondaryBtnURL={undefined}
+      >
+        <Fragment slot="image">
+          <div class="mt-8 px-6">
+             <img src={hero.imgSrc} alt={hero.imgAlt} class="h-64 w-full max-w-2xl mx-auto rounded-lg shadow-md object-cover"/>
+          </div>
+        </Fragment>
+      </HeroSection>
+  </div>
+
+  <!-- Feature Detail 1: Customization -->
+  <section class="py-16 md:py-24 bg-white">
+    <FeaturesStatsAlt
+        title={featureCustomization.title}
+        subTitle={featureCustomization.subTitle}
+        benefits={featureCustomization.listItems}
+        imgSrc={featureCustomization.imgSrc}
+        imgAlt={featureCustomization.imgAlt}
+        imagePosition={featureCustomization.imagePosition}
+     />
+  </section>
+
+  <!-- Feature Detail 2: Mobile & Intuitive Flow -->
+  <section class="py-16 md:py-24 bg-gray-100">
+    <FeaturesStatsAlt
+        title={featureMobile.title}
+        subTitle={featureMobile.subTitle}
+        benefits={featureMobile.listItems}
+        imgSrc={featureMobile.imgSrc}
+        imgAlt={featureMobile.imgAlt}
+        imagePosition={featureMobile.imagePosition}
+    />
+  </section>
+
+  <!-- Feature Detail 3: Smart & Secure Checkout -->
+  <section class="py-16 md:py-24 bg-white">
+     <FeaturesStatsAlt
+        title={featureCheckout.title}
+        subTitle={featureCheckout.subTitle}
+        benefits={featureCheckout.listItems}
+        imgSrc={featureCheckout.imgSrc}
+        imgAlt={featureCheckout.imgAlt}
+        imagePosition={featureCheckout.imagePosition}
+    />
+  </section>
+
+  <!-- Feature Detail 4: Automated Communication (Custom Section) -->
+  <section class="py-16 md:py-24 bg-gray-100">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold text-neutral-800 mb-4">Keep Customers in the Loop, Automatically</h2>
+        <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            Reduce "Where's my order?" calls. Okra automatically sends email and SMS text notifications to confirm orders and update customers on payment status, providing peace of mind and a professional touch.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-y-6 sm:gap-x-12">
+            <div class="text-center">
+                <Icon name="heroicons:envelope" class="w-12 h-12 mx-auto text-primary mb-2" />
+                <p class="font-semibold text-neutral-700">Order Confirmations</p>
+            </div>
+            <div class="text-center">
+                <Icon name="heroicons:chat-bubble-left-ellipsis" class="w-12 h-12 mx-auto text-primary mb-2" />
+                <p class="font-semibold text-neutral-700">Payment Status Updates</p>
+            </div>
+            <div class="text-center">
+                <Icon name="heroicons:clock" class="w-12 h-12 mx-auto text-gray-400 mb-2" />
+                <p class="font-semibold text-gray-400">(More coming soon)</p>
+            </div>
+        </div>
+      </div>
+  </section>
+
+  <!-- CTA Section (Custom Section) -->
+  <section class="bg-primary text-white py-16">
+      <div class="container mx-auto px-6 text-center">
+          <h2 class="text-3xl font-bold mb-4">{finalCTA.title}</h2>
+          <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">{finalCTA.subTitle}</p>
+          <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} />
+              <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer">
+                 <SecondaryCTA title={finalCTA.secondaryBtn} url={finalCTA.secondaryBtnURL} />
+              </a>
+          </div>
+      </div>
+  </section>
+
+</MainLayout> 
