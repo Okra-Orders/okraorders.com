@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import compressor from "astro-compressor";
 import starlight from "@astrojs/starlight";
 import iconify from "astro-iconify";
+import icon from "astro-icon";
 
 import mdx from "@astrojs/mdx";
 
@@ -114,7 +115,11 @@ export default defineConfig({
   }), compressor({
     gzip: false,
     brotli: true,
-  }), mdx(), iconify()],
+  }), mdx(), icon({
+    include: {
+      heroicons: ["*"],
+    }
+  })],
   experimental: {
     clientPrerender: true,
   },

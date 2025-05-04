@@ -98,6 +98,7 @@
 
   /* --- START: Added Custom Okra Colors --- */
   --color-primary: #8DC640; /* OKLCH equivalent could be generated if preferred, but hex is fine */
+  --color-primary-light: #f0f9e8; /* Light shade for gradients/backgrounds */
   --color-secondary: #50555C; /* OKLCH equivalent could be generated if preferred, but hex is fine */
    /* Optional: Define hover/active states if needed elsewhere */
   --color-primary-hover: color-mix(in srgb, var(--color-primary) 90%, black); /* Example hover */

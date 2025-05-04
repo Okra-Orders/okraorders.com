@@ -3,7 +3,8 @@
 import MainLayout from "@/layouts/MainLayout.astro";
 import HeroSection from "@components/sections/landing/HeroSection.astro";
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
-import { Icon } from "astro-iconify";
+// import { Icon } from "astro-iconify"; // Temporarily commented out
+import { Icon } from 'astro-icon/components'; // Use astro-icon component
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 // SecondaryCTA is not explicitly used in the final HTML CTA, but keeping import for consistency
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
@@ -71,7 +72,7 @@ const finalCTA = {
 <MainLayout title={pageTitle}>
 
   <!-- Page Hero Section -->
-  <div class="bg-gradient-to-b from-orange-50 to-white pt-16 md:pt-24 pb-8 md:pb-12"> <!-- Different Accent Color -->
+  <div class="bg-gradient-to-b from-primary-50 to-white pt-16 md:pt-24 pb-8 md:pb-12"> <!-- Different Accent Color -->
       <HeroSection
         title={hero.title}
         subTitle={hero.subTitle}
@@ -86,11 +87,13 @@ const finalCTA = {
             <div class="p-2 rounded bg-white shadow-md">
                 <img src={svgPlaceholder(100, 40, "ezCater Logo")} alt="ezCater Logo Placeholder" class="h-8 md:h-10" />
             </div>
-            <Icon name="heroicons:arrow-long-right" class="w-8 h-8 text-primary flex-shrink-0" />
+            <Icon name="heroicons:arrow-long-right" class="w-8 h-8 text-primary flex-shrink-0" /> <!-- Restored Icon -->
+            <!-- <span class="w-8 h-8 text-primary flex-shrink-0">➡️</span> --> <!-- Removed Placeholder -->
             <div class="p-2 rounded bg-white shadow-md text-center">
                 <span class="text-lg font-bold text-neutral-800">Okra<span class="text-primary">Orders</span></span>
             </div>
-             <Icon name="heroicons:arrow-long-right" class="w-8 h-8 text-primary flex-shrink-0" />
+             <Icon name="heroicons:arrow-long-right" class="w-8 h-8 text-primary flex-shrink-0" /> <!-- Restored Icon -->
+             <!-- <span class="w-8 h-8 text-primary flex-shrink-0">➡️</span> --> <!-- Removed Placeholder -->
             <div class="p-2 rounded bg-white shadow-md">
                 <img src={svgPlaceholder(120, 40, "QuickBooks Logo")} alt="QuickBooks Logo Placeholder" class="h-8 md:h-10" />
             </div>
@@ -145,17 +148,20 @@ const finalCTA = {
         </p>
         <div class="flex flex-col sm:flex-row justify-center items-start gap-y-8 sm:gap-x-12 md:gap-x-16 text-gray-700">
             <div class="text-center max-w-xs mx-auto sm:mx-0">
-                <Icon name="heroicons:bolt" class="w-12 h-12 mx-auto text-primary mb-3" />
+                <Icon name="heroicons:bolt" class="w-12 h-12 mx-auto text-primary mb-3" /> <!-- Restored Icon -->
+                <!-- <span class="text-4xl">⚡️</span> --> <!-- Removed Placeholder -->
                 <h3 class="font-semibold text-neutral-700 mb-1">API-First</h3>
                 <p class="text-sm text-gray-600">Foundation for future integrations.</p>
             </div>
             <div class="text-center max-w-xs mx-auto sm:mx-0">
-                 <Icon name="heroicons:arrows-right-left" class="w-12 h-12 mx-auto text-primary mb-3" />
+                 <Icon name="heroicons:arrows-right-left" class="w-12 h-12 mx-auto text-primary mb-3" /> <!-- Restored Icon -->
+                 <!-- <span class="text-4xl">↔️</span> --> <!-- Removed Placeholder -->
                 <h3 class="font-semibold text-neutral-700 mb-1">Central Hub</h3>
                  <p class="text-sm text-gray-600">Connect your critical apps.</p>
             </div>
              <div class="text-center max-w-xs mx-auto sm:mx-0">
-                 <Icon name="heroicons:chart-bar-square" class="w-12 h-12 mx-auto text-primary mb-3" />
+                 <Icon name="heroicons:chart-bar-square" class="w-12 h-12 mx-auto text-primary mb-3" /> <!-- Restored Icon -->
+                 <!-- <span class="text-4xl">📊</span> --> <!-- Removed Placeholder -->
                 <h3 class="font-semibold text-neutral-700 mb-1">Future-Ready</h3>
                  <p class="text-sm text-gray-600">Adapts as your needs evolve.</p>
             </div>

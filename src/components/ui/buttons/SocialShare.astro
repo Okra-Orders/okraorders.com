@@ -1,5 +1,7 @@
 ---
-import { Icon } from "astro-iconify";
+import { Icon } from 'astro-icon/components';
+import { SITE } from "@/data_files/constants";
+import ClipboardJS from "clipboard";
 // Destructure the properties from Astro.props
 const {
   pageTitle,
@@ -75,7 +77,7 @@ const socialPlatforms: SocialPlatform[] = [
     <div class="py-2 first:pt-0 last:pb-0">
       <button
         type="button"
-        class="js-clipboard hover:text-dark focus-visible:ring-secondary group inline-flex w-full items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-200 focus:bg-neutral-100 focus:outline-hidden focus-visible:outline-hidden focus-visible:ring-1 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
+        class="copy-link-button hover:text-dark focus-visible:ring-secondary group inline-flex w-full items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-200 focus:bg-neutral-100 focus:outline-hidden focus-visible:outline-hidden focus-visible:ring-1 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
         data-clipboard-success-text="Copied"
       >
         <svg
@@ -118,56 +120,37 @@ const socialPlatforms: SocialPlatform[] = [
 <!-- https://clipboardjs.com/ -->
 
 <script>
-  import ClipboardJS from "clipboard";
-
   // Initialization of Clipboard
   (function () {
-    window.addEventListener("load", () => {
-      const clipboards =
-        document.querySelectorAll<HTMLElement>(".js-clipboard");
+    var clipboard = new ClipboardJS(".copy-link-button");
 
-      clipboards.forEach((el) => {
-        const clipboard = new ClipboardJS(el, {
-          text: () => {
-            return window.location.href;
-          },
-        });
+    clipboard.on("success", function (e) {
+      // Update button text to indicate success
+      const originalText = e.trigger.innerHTML;
+      e.trigger.innerHTML = "Copied!";
+      e.trigger.disabled = true; // Optionally disable button after copying
 
-        clipboard.on("success", () => {
-          const defaultElement = el.querySelector<HTMLElement>(
-            ".js-clipboard-default"
-          );
-          const successElement = el.querySelector<HTMLElement>(
-            ".js-clipboard-success"
-          );
-          const successTextElement = el.querySelector<HTMLElement>(
-            ".js-clipboard-success-text"
-          );
-          const successText = el.dataset.clipboardSuccessText || "";
-          let oldSuccessText: string | undefined;
+      // Reset button text after 2 seconds
+      setTimeout(() => {
+        e.trigger.innerHTML = originalText;
+        e.trigger.disabled = false; // Re-enable button
+      }, 2000);
 
-          if (successTextElement) {
-            oldSuccessText = successTextElement.textContent || "";
-            successTextElement.textContent = successText;
-          }
+      e.clearSelection();
+    });
 
-          if (defaultElement && successElement) {
-            defaultElement.style.display = "none";
-            successElement.style.display = "block";
-          }
+    clipboard.on("error", function (e) {
+      // Handle error (e.g., show an error message)
+      console.error("Action:", e.action);
+      console.error("Trigger:", e.trigger);
+      // Optionally update button text to indicate error
+      const originalText = e.trigger.innerHTML;
+      e.trigger.innerHTML = "Copy failed!";
 
-          setTimeout(() => {
-            if (successTextElement && oldSuccessText !== undefined) {
-              successTextElement.textContent = oldSuccessText;
-            }
-
-            if (defaultElement && successElement) {
-              successElement.style.display = "";
-              defaultElement.style.display = "";
-            }
-          }, 800);
-        });
-      });
+      // Reset button text after 2 seconds
+      setTimeout(() => {
+        e.trigger.innerHTML = originalText;
+      }, 2000);
     });
   })();
 </script>

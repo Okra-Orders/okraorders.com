@@ -18,7 +18,7 @@
     "@tailwindcss/vite": "^4.1.4",
     "astro": "^5.7.7",
     "astro-compressor": "^1.0.0",
-    "astro-iconify": "^1.2.0",
+    "astro-icon": "^1.1.5",
     "clipboard": "^2.0.11",
     "globby": "^14.1.0",
     "gsap": "^3.12.7",
@@ -31,6 +31,7 @@
     "tailwindcss": "^4.1.4"
   },
   "devDependencies": {
+    "@iconify-json/heroicons": "^1.2.2",
     "@tailwindcss/forms": "^0.5.10",
     "astro-vtbot": "^2.1.2",
     "prettier": "^3.5.3",
