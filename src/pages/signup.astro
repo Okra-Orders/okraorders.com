@@ -1,0 +1,172 @@
+---
+// Layout and Base Components
+import MainLayout from "@/layouts/MainLayout.astro";
+import { Icon } from 'astro-icon/components';
+import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
+import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For demo button link
+
+// --- Page Data ---
+const pageTitle = "Start Free Trial | Okra Orders";
+const pageDescription = "Sign up for a 14-day free trial of Okra Orders catering software. Explore full features, manage menus, sync orders, and automate accounting. No credit card required.";
+
+const signupForm = {
+  headline: "Start Your Free 14-Day Okra Orders Trial",
+  subHeadline: "Ready to automate the hassle and focus on the food? Sign up in seconds to explore the full Okra Orders platform with your own private trial environment. See firsthand how easy managing online orders, menus, ezCater sync, and QuickBooks can be. No credit card required.",
+  companyHelp: "Used to create your unique Okra Orders web address (e.g., yourcompany.okraorders.com). You can suggest changes later if needed.",
+  emailHelp: "This will be your login username.",
+  passwordHelp: "Minimum 8 characters.",
+  submitButton: "Start My Free 14-Day Trial",
+  termsLink: "/terms/",
+  privacyLink: "/privacy/",
+};
+
+const trialVsDemo = {
+  trial: {
+    icon: "heroicons:check-circle", // Changed icon
+    headline: "Your Private Sandbox for Real Evaluation",
+    description: "The 14-day free trial gives you full access to:",
+    points: [
+      "Private Environment: Your data is yours alone and persists throughout the trial.",
+      "Real Store Setup: Configure your actual menu items, settings, hours, and branding.",
+      "Test Integrations: Connect to your QuickBooks sandbox (if desired) or test the ezCater view with sample data.",
+      "True Evaluation: The best way to see how Okra Orders fits your specific catering business."
+    ]
+  },
+  demo: {
+    icon: "heroicons:eye", // Changed icon
+    headline: "Take a Quick Look Around",
+    description: "Not ready for a trial? Explore our public demo instantly. Keep in mind:",
+    points: [
+      "Shared Environment: Multiple users may be active simultaneously.",
+      "Data Wiped: All demo data is automatically reset every few hours.",
+      "Exploration Only: You cannot save your own store configuration.",
+      "Caution: Please do not enter any real customer, business, or payment information in the demo."
+    ],
+    buttonText: "Try the Live Demo (No Signup Needed)",
+    buttonUrl: "https://demo.okraorders.com"
+  }
+};
+
+const featureReinforcement = {
+  headline: "What You Can Do During Your Trial:",
+  features: [
+    { icon: "heroicons:chart-pie", text: "Unify Orders: See direct & ezCater orders in one place." }, // Changed icon
+    // TODO: Find a suitable QB icon if available or use a generic one
+    { icon: "heroicons:arrows-right-left", text: "Automate Accounting: Test pushing orders to QuickBooks." }, // Placeholder icon
+    { icon: "heroicons:clipboard-document-list", text: "Manage Menus Easily: Set up items, options & copy across locations." }, // Changed icon
+    { icon: "heroicons:shopping-cart", text: "Preview Ordering: See the smooth customer experience." },
+    { icon: "heroicons:paint-brush", text: "Brand Your Store: Add your logo and explore setup." } // Changed icon
+  ]
+};
+
+const existingUser = {
+  text: "Already have an account?",
+  linkText: "Log In Here",
+  linkUrl: "/login/"
+};
+
+---
+
+<MainLayout title={pageTitle} meta={pageDescription}>
+
+  <div class="container mx-auto px-6 py-16 md:py-24">
+
+    <!-- 1. Header/Nav assumed handled by MainLayout -->
+
+    <!-- 2. Main Content Area: Headline + Signup Form -->
+    <section class="max-w-xl mx-auto text-center mb-16 md:mb-24">
+      <h1 class="text-4xl md:text-5xl font-bold text-neutral-800 mb-4">{signupForm.headline}</h1>
+      <p class="text-lg text-gray-600 mb-8">{signupForm.subHeadline}</p>
+
+      <form class="text-left space-y-4">
+        <div>
+          <label for="companyName" class="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
+          <input type="text" id="companyName" name="companyName" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" aria-describedby="companyNameHelp">
+          <p id="companyNameHelp" class="mt-1 text-xs text-gray-500">{signupForm.companyHelp}</p>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Your Email Address</label>
+          <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" aria-describedby="emailHelp">
+          <p id="emailHelp" class="mt-1 text-xs text-gray-500">{signupForm.emailHelp}</p>
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Create Password</label>
+          <input type="password" id="password" name="password" required minlength="8" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" aria-describedby="passwordHelp">
+          <p id="passwordHelp" class="mt-1 text-xs text-gray-500">{signupForm.passwordHelp}</p>
+        </div>
+
+        <div class="flex items-start">
+          <div class="flex items-center h-5">
+            <input id="terms" name="terms" type="checkbox" required class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
+          </div>
+          <div class="ml-3 text-sm">
+            <label for="terms" class="text-gray-700">I agree to the <a href={signupForm.termsLink} target="_blank" class="text-primary hover:underline">Terms of Service</a> and <a href={signupForm.privacyLink} target="_blank" class="text-primary hover:underline">Privacy Policy</a>.</label>
+          </div>
+        </div>
+
+        <div class="pt-4">
+           <button type="submit" class="w-full inline-flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light transition duration-150 ease-in-out">
+             {signupForm.submitButton}
+           </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 3. Trial Benefits vs. Demo Information -->
+    <section class="mb-16 md:mb-24">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <!-- Trial Column -->
+        <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+           <Icon name={trialVsDemo.trial.icon} class="w-10 h-10 text-primary mb-3" />
+           <h2 class="text-2xl font-semibold text-neutral-800 mb-2">{trialVsDemo.trial.headline}</h2>
+           <p class="text-neutral-700 mb-4">{trialVsDemo.trial.description}</p>
+           <ul class="space-y-2 text-neutral-600 list-disc list-inside">
+             {trialVsDemo.trial.points.map(point => (<li>{point}</li>))}
+           </ul>
+        </div>
+        <!-- Demo Column -->
+        <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+           <Icon name={trialVsDemo.demo.icon} class="w-10 h-10 text-gray-500 mb-3" />
+           <h2 class="text-2xl font-semibold text-neutral-800 mb-2">{trialVsDemo.demo.headline}</h2>
+           <p class="text-neutral-700 mb-4">{trialVsDemo.demo.description}</p>
+           <ul class="space-y-2 text-neutral-600 list-disc list-inside mb-6">
+             {trialVsDemo.demo.points.map(point => (<li>{point}</li>))}
+           </ul>
+           <a href={trialVsDemo.demo.buttonUrl} target="_blank" rel="noopener noreferrer" class="inline-block">
+              <SecondaryCTA title={trialVsDemo.demo.buttonText} url={trialVsDemo.demo.buttonUrl}/>
+           </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Key Feature Reinforcement -->
+    <section class="text-center mb-16 md:mb-24">
+        <h2 class="text-3xl font-bold text-neutral-800 mb-8">{featureReinforcement.headline}</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 max-w-4xl mx-auto">
+           {featureReinforcement.features.map(feature => (
+             <div class="flex items-center text-left space-x-4">
+                <div class="flex-shrink-0">
+                    <Icon name={feature.icon} class="w-8 h-8 text-primary" />
+                </div>
+                <p class="text-lg text-neutral-700">{feature.text}</p>
+             </div>
+           ))}
+        </div>
+    </section>
+
+    <!-- 5. Existing User Link -->
+    <section class="text-center">
+      <p class="text-neutral-600">
+        {existingUser.text} <a href={existingUser.linkUrl} class="text-primary hover:underline font-medium">{existingUser.linkText}</a>
+      </p>
+    </section>
+
+  </div>
+
+</MainLayout>
+
+<style>
+  /* Optional: Add minor style adjustments if needed */
+</style> 

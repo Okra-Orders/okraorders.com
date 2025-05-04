@@ -7,6 +7,7 @@ import { Icon } from 'astro-icon/components'; // Added new import
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // For CTA button
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For CTA button
 import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
+import FAQ from "@components/sections/misc/FAQ.astro"; // Import the FAQ component
 
 
 // --- Page Data ---
@@ -73,6 +74,39 @@ const finalCTA = {
   primaryBtnURL: "/signup",
   secondaryBtn: "Try Live Demo",
   secondaryBtnURL: "https://demo.okraorders.com",
+};
+
+const onlineOrderingFaqs = {
+  faqs: [
+    {
+      question: "My customers often get confused ordering complex packages over the phone. How does Okra make online customization clearer?",
+      answer: "Okra lets you set up customization options step-by-step. You can group choices logically (like \"Choose Your Salad,\" then \"Add a Dessert\"), mark selections as required or optional, and specify if customers pick one or multiple items per group. Prices update instantly as they choose, making complex orders transparent and accurate."
+    },
+    {
+      question: "We have specific lead times (e.g., 8 hours for pickup, 12 for delivery). Can the system prevent customers from ordering too last-minute?",
+      answer: "Yes. You configure your minimum lead times per order type (pickup/delivery) in the admin settings. When a customer selects their desired date and time, Okra automatically checks against these lead times and your store's operating hours, only showing available slots and preventing orders that don't meet your requirements."
+    },
+    {
+      question: "Some of our regulars place the same order frequently. Is there a way to make repeat ordering faster for them?",
+      answer: "Absolutely. Customers can securely save their payment methods (credit card or ACH) after their first order. For future orders, they can simply select their saved card, speeding up the checkout process significantly. They can also view their past orders easily in their account section. (Future enhancement might include a 'reorder' button)."
+    },
+    {
+      question: "We offer Net 30 terms to some corporate clients, but not everyone. How does Okra handle different payment options?",
+      answer: "Okra allows you to enable Net 30 payment terms on a per-customer basis in the admin panel. Only customers you've approved for Net 30 will see that option during checkout. All other customers will see standard payment options like 'Pay with Card' (which securely saves their card via token for later charging)."
+    },
+    {
+      question: "Sometimes card payments fail when we try to charge them on the delivery day. How does the system handle that?",
+      answer: "Okra helps minimize disruptions. If the primary saved card fails when charged, the system can be configured to automatically attempt the charge on a secondary saved card (if the customer provided one). If payment ultimately fails, automated notifications can be sent to both you and the customer, allowing you to arrange alternative payment."
+    },
+    {
+      question: "How do customers know their order went through or when payment is taken?",
+      answer: "Okra keeps customers informed with automated email and SMS notifications. They receive confirmation when their order is successfully placed. You can also configure notifications for when payment is successfully processed or if an issue occurs."
+    },
+    {
+      question: "Will my customers be ordering directly from my specific location, or is it confusing if we have multiple stores or use ghost kitchens?",
+      answer: "The experience is designed to be clear for the customer. They either select a specific pickup location or provide a delivery address. The system handles routing the order to the correct fulfillment kitchen (including ghost kitchens) behind the scenes based on your setup and rules, without exposing internal operational details to the customer."
+    }
+  ]
 };
 
 ---
@@ -175,6 +209,11 @@ const finalCTA = {
               </a>
           </div>
       </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900">
+    <FAQ title="Your Online Ordering Questions Answered" faqs={onlineOrderingFaqs} />
   </section>
 
 </MainLayout> 

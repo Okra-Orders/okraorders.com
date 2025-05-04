@@ -1,0 +1,195 @@
+---
+// Layout and Base Components
+import MainLayout from "@/layouts/MainLayout.astro";
+import HeroSection from "@components/sections/landing/HeroSection.astro";
+import PricingSection from "@components/sections/pricing/PricingSection.astro"; // For pricing tiers
+import FAQ from "@components/sections/misc/FAQ.astro"; // For FAQ section
+import { Icon } from 'astro-icon/components'; // For icons
+import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // For CTA button
+import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For CTA button
+
+// Import pricing data directly from JSON
+import pricingContent from "@/data_files/pricing.json";
+
+// --- Page Data ---
+const pageTitle = "Pricing | Okra Orders";
+const pageDescription = "Simple, flexible pricing for Okra Orders catering software. Choose a plan that fits your business size and volume, from startups to multi-location operations.";
+
+const hero = {
+  title: "Simple, Flexible Pricing That Grows With Your Catering Business",
+  subTitle: "Okra Orders offers straightforward pricing designed to fit caterers of all sizes – from single-location startups to thriving multi-brand operations. Choose the model that best aligns with your volume and operational needs. No hidden fees, just clear value.",
+  // Add visual placeholder comment/asset later if needed
+};
+
+const coreValueProps = {
+  headline: "More Than Just Software: An Investment in Efficiency",
+  subTitle: "Okra Orders isn't just another tool; it's your operational hub. Our pricing reflects the value we bring by automating manual tasks, unifying your platforms, enhancing your customer experience, and ultimately giving you back time to focus on great food and service.",
+  benefits: [
+    { icon: "heroicons:clock", title: "Save Hours Weekly", description: "Drastically reduce manual entry for orders & accounting." },
+    { icon: "heroicons:arrows-pointing-in", title: "Unified Platform", description: "Manage direct orders, ezCater, and QuickBooks sync in one place." }, // Changed icon
+    { icon: "heroicons:sparkles", title: "Elevated Customer Experience", description: "Professional online ordering your customers will love." }, // Changed icon
+    { icon: "heroicons:chart-bar-square", title: "Scales With You", description: "Tools and pricing designed to support your growth." } // Changed icon
+  ]
+};
+
+const pricingPhilosophy = {
+  headline: "Choose the Plan That Fits Your Flow",
+  body: "We understand that every catering business is different. That's why we offer flexible pricing options. Whether you prefer a predictable monthly subscription or a model that aligns more closely with your order volume, we have a plan designed to provide exceptional value. Our goal is to make Okra Orders accessible and beneficial, regardless of your current size.",
+  optionA: "Our standard plans offer comprehensive features for a flat monthly fee, ideal for businesses seeking budget predictability.",
+  optionB: "For businesses starting out or those who prefer costs tied to usage, we offer models where the platform fee adjusts based on your processed order volume through our integrated payment system.",
+  cta: "Contact us or start a trial to discuss the best fit for your specific needs."
+};
+
+const integratedPayments = {
+  headline: "Competitive, Integrated Payment Processing",
+  body: "Okra Orders includes secure, integrated payment processing. Our rates are competitive, and managing payments happens directly within the platform, further simplifying your workflow. Specific rates are provided during onboarding."
+};
+
+// FAQ Data
+const pricingFaqs = {
+  title: "Your Pricing Questions Answered",
+  faqs: [
+    { question: "Is there a free trial?", answer: "Yes! We offer a full-featured 14-day free trial so you can explore the entire platform and see if it's the right fit for your business before committing. No credit card is required to start." },
+    { question: "What if I only have one small catering location? Is Okra Orders still affordable?", answer: "Absolutely. We offer flexible pricing models designed to scale with your business. Options may include plans with low monthly fees combined with transaction processing, making it accessible even for smaller operations. Our goal is for Okra to provide value regardless of your size." },
+    { question: "Do I need to sign a long-term contract?", answer: "We typically offer flexible monthly subscription options, allowing you to adjust as your business needs change." },
+    { question: "Are there additional fees for integrating with ezCater or QuickBooks?", answer: "No, the core integrations with ezCater (viewing orders) and QuickBooks Online (pushing sales receipts) are included as standard features within our plans." },
+    { question: "How does the volume-based pricing work? Do I pay less if I process more orders?", answer: "Some of our flexible models link your platform fee to your processed order volume. In these scenarios, as your volume grows, the effective platform cost per order can decrease, ensuring the pricing scales fairly with your success. Contact us for details specific to your volume." },
+    { question: "Are there setup fees or hidden costs?", answer: "We aim for transparent pricing. Our standard plans typically involve a monthly subscription fee and integrated payment processing rates. We clearly outline costs upfront, and there are no hidden setup fees for standard onboarding." },
+    { question: "What's included in terms of support?", answer: "All plans include access to our in-app help resources (tours, tooltips, knowledge base) and standard support channels like live chat and email. Higher tiers may include more personalized support options like dedicated account management or priority video calls." }
+  ]
+};
+
+// Final CTA Data
+const finalCTA = {
+  headline: "Ready to Find the Perfect Fit?",
+  subTitle: "Explore the platform risk-free with our live demo or start your 14-day trial. Have specific questions about pricing for your volume? Contact our team!",
+  primaryBtn: "Start Free Trial",
+  primaryBtnURL: "/signup",
+  secondaryBtn: "Try Live Demo",
+  secondaryBtnURL: "https://demo.okraorders.com",
+  tertiaryBtn: "Contact Sales", // Added third button
+  tertiaryBtnURL: "/support#contact", // Link to contact section on support page
+};
+
+---
+
+<MainLayout title={pageTitle} meta={pageDescription}>
+
+  <!-- 1. Hero Section -->
+  <div class="bg-gradient-to-b from-green-50 to-white pt-16 md:pt-24 pb-8 md:pb-12">
+    <HeroSection
+      title={hero.title}
+      subTitle={hero.subTitle}
+      primaryBtn={undefined}
+      primaryBtnURL={undefined}
+      secondaryBtn={undefined}
+      secondaryBtnURL={undefined}
+    />
+    <!-- Visual Placeholder -->
+    <!-- <div class="text-center mt-8"><div class="inline-block bg-gray-200 h-48 w-96 rounded-lg"></div></div> -->
+  </div>
+
+  <!-- 2. Core Value Proposition -->
+  <section class="py-16 md:py-24">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold text-neutral-800 mb-4">{coreValueProps.headline}</h2>
+      <p class="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">{coreValueProps.subTitle}</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {coreValueProps.benefits.map(benefit => (
+          <div class="text-center">
+            <Icon name={benefit.icon} class="w-12 h-12 mx-auto text-primary mb-3" />
+            <h3 class="text-xl font-semibold text-neutral-800 mb-1">{benefit.title}</h3>
+            <p class="text-neutral-600">{benefit.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Pricing Model Philosophy / Flexibility Explanation -->
+  <section class="py-16 md:py-24 bg-white rounded-xl">
+    <div class="container mx-auto px-6 max-w-3xl text-center">
+        <h2 class="text-3xl font-bold text-neutral-800 mb-4">{pricingPhilosophy.headline}</h2>
+        <p class="text-lg text-gray-600 mb-6">{pricingPhilosophy.body}</p>
+        <div class="text-left space-y-4 bg-neutral-50 p-6 rounded-lg border border-neutral-200 mb-6">
+           <p><strong class="text-neutral-700">Option A Teaser:</strong> {pricingPhilosophy.optionA}</p>
+           <p><strong class="text-neutral-700">Option B Teaser:</strong> {pricingPhilosophy.optionB}</p>
+        </div>
+        <p class="text-lg text-gray-700 font-medium">{pricingPhilosophy.cta}</p>
+        <!-- Maybe add a subtle contact button here? -->
+    </div>
+  </section>
+
+  <!-- 4. Pricing Tiers Section - Data passed via prop -->
+  <section class="py-16 md:py-24">
+     <PricingSection pricing={pricingContent} />
+     {/* Removed manual footnote, assuming component handles relevant data from JSON */}
+  </section>
+
+  <!-- 5. Integrated Payments Note -->
+  <section class="py-16 md:py-24 bg-neutral-50 rounded-xl">
+      <div class="container mx-auto px-6 max-w-3xl text-center">
+         <Icon name="heroicons:credit-card" class="w-12 h-12 mx-auto text-primary mb-3" />
+         <h2 class="text-3xl font-bold text-neutral-800 mb-4">{integratedPayments.headline}</h2>
+         <p class="text-lg text-gray-600">{integratedPayments.body}</p>
+      </div>
+  </section>
+
+  <!-- 6. FAQ Section -->
+  <section class="py-16 md:py-24 bg-white">
+    <FAQ title={pricingFaqs.title} faqs={pricingFaqs} />
+  </section>
+
+  <!-- 7. Final CTA Section -->
+  <section class="bg-primary text-white py-16 md:py-20 rounded-xl">
+      <div class="container mx-auto px-6 text-center">
+          <h2 class="text-3xl font-bold mb-4">{finalCTA.headline}</h2>
+          <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">{finalCTA.subTitle}</p>
+          <div class="flex flex-col sm:flex-row justify-center items-center flex-wrap gap-4">
+              <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} />
+              <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer">
+                 <SecondaryCTA title={finalCTA.secondaryBtn} url={finalCTA.secondaryBtnURL}/>
+              </a>
+              {/* Removed Tertiary Button for Contact Sales */}
+              {/* 
+              <a 
+                href={finalCTA.tertiaryBtnURL} 
+                class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-center text-white border border-white rounded-lg hover:bg-white hover:text-primary focus:ring-4 focus:ring-gray-100 transition duration-150 ease-in-out"
+              >
+                 {finalCTA.tertiaryBtn}
+              </a> 
+              */}
+          </div>
+      </div>
+  </section>
+
+</MainLayout>
+
+<script>
+  // Optional: Add GSAP animations if desired
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    gsap.utils.toArray<HTMLElement>('section').forEach((section, i) => {
+      // Skip hero if desired
+      if (i === 0 && section.parentElement?.classList.contains('bg-gradient-to-b')) return;
+
+      gsap.from(section, {
+        scrollTrigger: {
+          trigger: section,
+          start: "top 85%",
+          end: "bottom 15%",
+          toggleActions: "play none none reverse",
+          // markers: true,
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.6,
+        ease: "power1.out",
+      });
+    });
+  });
+</script> 

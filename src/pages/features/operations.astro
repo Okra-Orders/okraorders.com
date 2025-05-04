@@ -8,6 +8,7 @@ import { SITE } from "@/data_files/constants";
 import { Icon } from 'astro-icon/components';
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // Needed for CTA
+import FAQ from "@components/sections/misc/FAQ.astro"; // Import the FAQ component
 
 // --- Helper Functions ---
 // Simple SVG placeholder function (replicated for self-containment)
@@ -75,6 +76,39 @@ const finalCTA = {
   primaryBtnURL: "/signup",
   secondaryBtn: "Try Live Demo",
   secondaryBtnURL: "https://demo.okraorders.com",
+};
+
+const operationsFaqs = {
+  faqs: [
+    {
+      question: "How do we manage daily prep if orders come from both Okra and ezCater?",
+      answer: "Okra provides a unified order dashboard where you see all incoming orders, clearly marked by source (Okra or ezCater). This gives your kitchen team a single, consolidated view for planning daily production and fulfillment without needing to check multiple systems."
+    },
+    {
+      question: "Customers often call to change order details (like headcount or adding an item) after placing an order. How does Okra handle edits?",
+      answer: "Okra gives your admin team full flexibility. You can open any existing order (until it's processed for payment/fulfillment) and modify quantities, add/remove items, update delivery details, apply discounts, or even add completely custom \"Open Food\" items with specific pricing to accommodate any request."
+    },
+    {
+      question: "We have a central kitchen (ghost kitchen) that fulfills orders for some areas. How does that work in Okra without confusing customers?",
+      answer: "Okra handles this seamlessly. You designate your ghost kitchens internally. For delivery orders, the system automatically assigns the order to the closest capable kitchen (which could be a ghost kitchen), but the customer only interacts with your main brand presence. Admins can also manually transfer orders between any locations (ghost or regular) to manage kitchen load or driver logistics."
+    },
+    {
+      question: "How do we know if a customer's payment actually went through, especially since it's charged later?",
+      answer: "The order dashboard clearly displays the payment status for each order (e.g., Pending, Paid, Failed). You can set rules for when automatic charging occurs (e.g., day of delivery). If an automated charge fails, notifications can be sent to your team and the customer. Admins can also manually trigger payment attempts."
+    },
+    {
+      question: "What happens if a customer's primary card fails? Do we lose the order?",
+      answer: "Not necessarily. If a customer has saved multiple payment methods, Okra can be configured to automatically try charging a secondary card if the primary one fails. This increases the chance of successful payment capture without manual intervention."
+    },
+    {
+      question: "Can different staff members have different levels of access (e.g., only viewing orders vs. editing menus)?",
+      answer: "Yes. Okra includes role-based access control. You can assign roles like Store Manager or Staff, limiting their view and actions to only what's necessary for their job, which helps prevent accidental errors and maintains control."
+    },
+    {
+      question: "How are we notified about new orders? Can it become overwhelming?",
+      answer: "You have control. Okra can send email notifications to designated store managers or staff for new orders. However, you can configure the frequency or disable these if the volume is too high, relying instead on the central order dashboard for management."
+    }
+  ]
 };
 
 ---
@@ -181,6 +215,11 @@ const finalCTA = {
               </a>
           </div>
       </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900">
+    <FAQ title="Your Operational Questions Answered" faqs={operationsFaqs} />
   </section>
 
 </MainLayout>

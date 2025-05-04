@@ -7,6 +7,7 @@ import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
 import { Icon } from 'astro-icon/components'; // Added import for Iconify
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
+import FAQ from "@components/sections/misc/FAQ.astro"; // Import the FAQ component
 
 // --- Helper Functions ---
 // Simple SVG placeholder function
@@ -91,6 +92,35 @@ const finalCTA = {
   primaryBtnURL: "/signup",
   secondaryBtn: "Try Live Demo",
   secondaryBtnURL: "https://demo.okraorders.com",
+};
+
+const analyticsFaqs = {
+  faqs: [
+    {
+      question: "What key numbers can I see immediately when I log into Okra?",
+      answer: "The main dashboard gives you an instant snapshot of your business health, including total sales revenue, total number of orders, and breakdowns per location for the current day or week. Simple charts also visualize your recent sales trends."
+    },
+    {
+      question: "How does the AI Insights feature actually help me run my business?",
+      answer: "Instead of you needing to constantly dig through data, Okra's AI proactively analyzes your sales patterns daily. It automatically alerts you on the dashboard if it detects something noteworthy – like a sudden drop in sales at one location, a significant increase in a specific menu item, or unusual ordering trends. This helps you spot potential issues or opportunities faster."
+    },
+    {
+      question: "Does the dashboard show performance for just my direct Okra orders, or everything?",
+      answer: "It shows everything together! Because Okra integrates ezCater orders, the sales figures, order counts, and AI insights on your dashboard reflect your total catering performance across both channels, giving you a complete and accurate picture."
+    },
+    {
+      question: "Can I see performance for just one specific store location?",
+      answer: "Yes. While the main dashboard defaults to a brand-wide view (if you have multiple stores), you can easily filter the metrics and charts to view the performance data for any individual store location."
+    },
+    {
+      question: "Are there more detailed reports available beyond the main dashboard?",
+      answer: "For V1, the primary focus is the interactive dashboard with its key metrics, charts, and AI insights. You can also view and filter your complete order history list. More advanced, customizable reporting features are planned for future development based on user feedback."
+    },
+    {
+      question: "How accurate are the AI insights? Can I trust them?",
+      answer: "The AI analyzes the factual sales and order data within your Okra account. It's designed to spot statistical deviations and significant changes based on historical patterns. While it provides valuable flags and potential areas to investigate, it's always best practice to use these insights as a starting point for your own deeper analysis or verification."
+    }
+  ]
 };
 
 ---
@@ -182,6 +212,11 @@ const finalCTA = {
               </a>
           </div>
       </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900">
+    <FAQ title="Your Analytics Questions Answered" faqs={analyticsFaqs} />
   </section>
 
 </MainLayout> 

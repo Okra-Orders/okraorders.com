@@ -442,4 +442,31 @@ await Promise.all(
     // File processing and minification logic
   })
 );
-We encourage you to refer to the detailed documentation for each tool to fully understand their capabilities and how they contribute to the project:
+
+
+Centralized CSS Variables: Define core brand colors (e.g., primary, secondary) and their variations (e.g., primary-light, primary-hover) as CSS custom properties (variables) within the @theme block in the global stylesheet (src/assets/styles/global.css). Example: --color-primary: #8DC640; --color-primary-light: #f0f9e8;. This keeps the canonical color definitions in one place.
+Tailwind Configuration Mapping: In tailwind.config.cjs, map Tailwind's theme colors to these CSS variables using the var() function within the theme.extend.colors object. For colors with shades (like primary-50), use a nested object structure:
+Apply to NavLink.astr...
+    // tailwind.config.cjs
+    // ...
+    colors: {
+      primary: {
+        DEFAULT: "var(--color-primary)",
+        50: "var(--color-primary-light)", // Map shade 50
+        hover: "var(--color-primary-hover)" // Map hover state
+      },
+      secondary: "var(--color-secondary)",
+      // ... other colors
+    }
+    // ...
+Initial attempts used direct hex codes in Tailwind config (primary: { 50: '#f0f9e8' }) as a debugging step when CSS variable mapping for gradients failed, but the primary approach is mapping to CSS variables.
+Standard Tailwind Usage (Preferred): Utilize standard Tailwind utility classes (e.g., text-primary, bg-secondary, border-primary-hover) within .astro components for applying colors to text, backgrounds, borders, etc.
+CSS Override for Complex/Problematic Utilities: If standard Tailwind utilities fail to apply correctly (as observed with bg-gradient-* classes potentially due to theme conflicts or specific Tailwind version behavior), define a custom utility class directly in global.css. This custom class should apply the desired style (e.g., background-image: linear-gradient(...)) using the centrally defined CSS color variables. Then, apply this custom class to the element in the .astro component instead of the non-functional Tailwind utility classes. Example:
+Apply to NavLink.astr...
+    /* global.css */
+    .hero-gradient-primary {
+      background-image: linear-gradient(to bottom, var(--color-primary-light), var(--color-white));
+    }
+Apply to NavLink.astr...
+    <!-- component.astro -->
+    <div class="hero-gradient-primary ..."> ... </div>

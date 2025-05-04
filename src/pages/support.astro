@@ -1,0 +1,232 @@
+---
+// Layout and Base Components
+import MainLayout from "@/layouts/MainLayout.astro";
+import HeroSection from "@components/sections/landing/HeroSection.astro";
+import ContactSection from "@components/sections/misc/ContactSection.astro"; // For contact form/details
+import FAQ from "@components/sections/misc/FAQ.astro"; // For FAQ section
+import { Icon } from 'astro-icon/components'; // For icons
+import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // For CTA button
+import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For CTA button
+
+// --- Page Data ---
+const pageTitle = "Support & Contact Us | Okra Orders";
+const pageDescription = "Get help and contact the Okra Orders team. Explore in-app help, live chat, video support, and contact options for your catering software needs."; // Added meta description
+
+const hero = {
+  tagline: "Help When You Need It",
+  title: "Get the Support You Need to Succeed with Okra Orders",
+  subTitle: "We believe great software deserves great support. Whether you're just getting started, have a quick question, or want to discuss optimizing your workflow, Okra Orders provides comprehensive help resources and accessible, business-focused assistance to ensure you get the most out of the platform. Find answers yourself, or connect with our team – we're here to help.",
+  // No image needed here for now, can add later if desired
+};
+
+// In-App Help Feature Data
+const inAppHelp = {
+  title: "Learn As You Go, Right Within the App",
+  subTitle: "Don't get stuck trying to figure things out. Okra Orders features a built-in help system designed to provide answers and guidance exactly when and where you need them. Reduce training time for your team and master new features faster without ever leaving the application.",
+  features: [
+    {
+      icon: "heroicons:question-mark-circle",
+      title: "Contextual Tooltips",
+      description: "Not sure what a setting does? Helpful tooltips appear for many fields and options, providing clear explanations on the spot.",
+      imgPlaceholder: "<!-- Screenshot: Example of a tooltip appearing over an admin field -->" // Placeholder for visual
+    },
+    {
+      icon: "heroicons:cursor-arrow-rays", // Changed icon
+      title: "Guided Tours",
+      description: "Learn key workflows step-by-step. Interactive tours guide you through processes like setting up your first menu item or configuring store hours.",
+      imgPlaceholder: "<!-- GIF/Screenshot: Example of a Product Fruits guided tour step -->" // Placeholder for visual
+    },
+    {
+      icon: "heroicons:book-open", // Changed icon
+      title: "Searchable Knowledge Base",
+      description: "Need more detail? Access articles, guides, and answers to common questions directly from the help widget within the app.",
+      imgPlaceholder: "<!-- Screenshot: Showing the Product Fruits help widget with search results -->" // Placeholder for visual
+    }
+  ]
+};
+
+// Human Support Feature Data
+const humanSupport = {
+  title: "Talk to Real People Focused on Your Business",
+  subTitle: "Sometimes you just need to talk to someone. Our support team understands the nuances of the catering business and is ready to assist not just with technical troubleshooting, but with helping you leverage Okra Orders effectively to streamline your specific operations and achieve your goals.",
+  features: [
+    {
+      icon: "heroicons:chat-bubble-left-right", // Changed icon
+      title: "Live Chat Support",
+      description: "Have a quick question during business hours? Reach our support team directly via live chat for prompt assistance right from the admin panel.",
+      imgPlaceholder: "<!-- Simple graphic or stylized icon representing Live Chat -->" // Placeholder for visual
+    },
+    {
+      icon: "heroicons:video-camera",
+      title: "Personalized Video Calls",
+      description: "Need more in-depth guidance or want to discuss optimizing your setup? We offer personalized video call support to dive deeper into your specific needs and help you maximize Okra's potential for your business.",
+      imgPlaceholder: "<!-- Simple graphic or stylized icon representing Video Call Support -->" // Placeholder for visual
+    }
+  ]
+};
+
+// Contact Section Data (Leveraging ContactSection component)
+const contact = {
+    title: "Get in Touch with the Okra Team",
+    subTitle: "Have questions about features, pricing, getting started, or how Okra Orders can fit your unique catering business? Don't hesitate to reach out. We're happy to chat!",
+    // ContactSection likely handles form fields internally, but we provide details
+    contactDetails: [
+        { type: "Email", value: "support@okraorders.com", description: "For general inquiries or support requests." },
+        { type: "Live Chat", value: "Available in Admin Panel (9 AM - 5 PM ET, Mon-Fri)", description: "Look for the chat icon during business hours." },
+        { type: "Sales", value: "sales@okraorders.com", description: "For personalized demos or sales discussions (use form or email)." }
+    ]
+};
+
+// FAQ Data
+const supportFaqs = {
+  title: "Your Platform & Support Questions Answered",
+  faqs: [
+    {
+      question: "Is Okra Orders complicated to learn, especially for staff who aren't very tech-savvy?",
+      answer: "We've designed Okra Orders to be intuitive and user-friendly. Plus, we offer extensive in-app help, including tooltips explaining specific fields, guided tours for common tasks (like setting up a menu item), and a searchable knowledge base, all accessible right within the platform to minimize the learning curve."
+    },
+    {
+      question: "What if I run into a problem or have a question that the in-app help doesn't cover?",
+      answer: "We're here to help! You can reach our support team directly via live chat during business hours, using the contact form on this page, or emailing us. For more complex issues or strategic discussions on how to best use Okra for your operations, we can also arrange video calls."
+    },
+    {
+      question: "Can I manage my catering business from my phone or tablet using Okra?",
+      answer: "Yes. Okra Orders is fully responsive. While the admin panel is optimized for desktop use due to the amount of information, you can access and use all core functionalities – check dashboards, manage orders, update basic settings – from your tablet or smartphone."
+    },
+    {
+      question: "How often is the platform updated? Will I need to pay for new features?",
+      answer: "Okra Orders is under active development, meaning we release improvements and new features regularly based on user feedback. Updates are typically included as part of your subscription plan, ensuring you always have access to the latest capabilities."
+    },
+    {
+      question: "Is your support just for technical problems, or can you help with optimizing how we use the app for our catering business?",
+      answer: "Our support is business-focused. While we certainly fix technical issues, our goal is to help you use Okra Orders effectively to streamline your specific catering operations. We can offer guidance on best practices for menu setup, workflow optimization, leveraging integrations, and more, based on our experience."
+    }
+  ]
+};
+
+// Final CTA Data
+const finalCTA = {
+  title: "Ready to Experience Supported Catering Management?",
+  subTitle: "Sign up for your free trial and see how Okra's platform and dedicated support can make a difference for your business.",
+  primaryBtn: "Start Free Trial",
+  primaryBtnURL: "/signup",
+  secondaryBtn: "Try Live Demo",
+  secondaryBtnURL: "https://demo.okraorders.com", // Assuming same demo link
+};
+
+---
+
+<MainLayout title={pageTitle} meta={pageDescription}>
+
+  <!-- 1. Hero Section -->
+  <div class="bg-gradient-to-b from-green-50 to-white pt-16 md:pt-24 pb-8 md:pb-12">
+    <HeroSection
+      title={hero.title}
+      subTitle={hero.subTitle}
+      primaryBtn={undefined}
+      primaryBtnURL={undefined}
+      secondaryBtn={undefined}
+      secondaryBtnURL={undefined}
+    />
+    <!-- Optional: Add a visual placeholder/image here if desired later -->
+  </div>
+
+  <!-- 2. Feature: Integrated In-App Help -->
+  <section class="py-16 md:py-24 bg-white rounded-xl">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-neutral-800 text-center mb-4">{inAppHelp.title}</h2>
+      <p class="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">{inAppHelp.subTitle}</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        {inAppHelp.features.map(feature => (
+          <div class="p-6 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+            <Icon name={feature.icon} class="w-12 h-12 mx-auto text-primary mb-4" />
+            <h3 class="text-xl font-semibold text-neutral-800 mb-2">{feature.title}</h3>
+            <p class="text-neutral-600">{feature.description}</p>
+            <!-- Visual Placeholder (commented out) -->
+            <!-- <div class="mt-4 bg-gray-200 h-32 rounded flex items-center justify-center text-gray-500 text-sm">{feature.imgPlaceholder}</div> -->
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Feature: Dedicated Human Support -->
+  <section class="py-16 md:py-24">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-neutral-800 text-center mb-4">{humanSupport.title}</h2>
+      <p class="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">{humanSupport.subTitle}</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center max-w-4xl mx-auto">
+        {humanSupport.features.map(feature => (
+          <div class="p-6 border border-gray-200 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+            <Icon name={feature.icon} class="w-12 h-12 mx-auto text-primary mb-4" />
+            <h3 class="text-xl font-semibold text-neutral-800 mb-2">{feature.title}</h3>
+            <p class="text-neutral-600">{feature.description}</p>
+             <!-- Visual Placeholder (commented out) -->
+             <!-- <div class="mt-4 bg-gray-200 h-32 rounded flex items-center justify-center text-gray-500 text-sm">{feature.imgPlaceholder}</div> -->
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Contact Us Section - Integrated -->
+  <section id="contact" class="py-16 md:py-24 bg-white rounded-xl scroll-mt-16">
+      <ContactSection
+          title={contact.title}
+          subTitle={contact.subTitle}
+          contactDetails={contact.contactDetails}
+      />
+      <!-- ContactSection should include the form. Adjust props if needed based on its implementation -->
+  </section>
+
+  <!-- 5. FAQ Section -->
+  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900">
+    <FAQ title={supportFaqs.title} faqs={supportFaqs} />
+  </section>
+
+  <!-- 6. Final CTA Section -->
+  <section class="bg-primary text-white py-16 md:py-20 rounded-xl">
+      <div class="container mx-auto px-6 text-center">
+          <h2 class="text-3xl font-bold mb-4">{finalCTA.title}</h2>
+          <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">{finalCTA.subTitle}</p>
+          <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} />
+              <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer">
+                 <!-- Need to check if SecondaryCTA needs a URL prop or wraps an <a> -->
+                 <SecondaryCTA title={finalCTA.secondaryBtn} url={finalCTA.secondaryBtnURL}/>
+              </a>
+          </div>
+      </div>
+  </section>
+
+</MainLayout>
+
+<script>
+  // Optional: Add GSAP animations if desired, similar to online-ordering page
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Simple fade-in animation for sections
+    gsap.utils.toArray<HTMLElement>('section').forEach((section, i) => {
+      // Skip hero for this animation if desired
+      if (i === 0 && section.parentElement?.classList.contains('bg-gradient-to-b')) return;
+
+      gsap.from(section, {
+        scrollTrigger: {
+          trigger: section,
+          start: "top 85%", // Start animation when 85% of the section is visible
+          end: "bottom 15%", // Reverse animation when section is 15% from bottom
+          toggleActions: "play none none reverse",
+          // markers: true, // Uncomment for debugging scroll trigger points
+        },
+        opacity: 0,
+        y: 30, // Move up slightly
+        duration: 0.6,
+        ease: "power1.out",
+      });
+    });
+  });
+</script> 

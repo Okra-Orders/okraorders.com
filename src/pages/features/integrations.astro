@@ -8,6 +8,7 @@ import { Icon } from 'astro-icon/components'; // Use astro-icon component
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 // SecondaryCTA is not explicitly used in the final HTML CTA, but keeping import for consistency
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
+import FAQ from "@components/sections/misc/FAQ.astro"; // Import the FAQ component
 
 // --- Helper Functions ---
 // Simple SVG placeholder function
@@ -67,12 +68,41 @@ const finalCTA = {
   secondaryBtnURL: "https://demo.okraorders.com",
 };
 
+const integrationsFaqs = {
+  faqs: [
+    {
+      question: "We get a lot of orders through ezCater. Do I still need to manually enter those into QuickBooks?",
+      answer: "No! This is a major time-saver with Okra. Okra integrates with ezCater to pull those orders into your dashboard. Crucially, it then uses the QuickBooks integration to automatically create Sales Receipts for those ezCater orders, just like it does for your direct Okra orders."
+    },
+    {
+      question: "How exactly does the ezCater integration work? Can I manage the order fully in Okra?",
+      answer: "Okra connects to ezCater via webhooks. When an order is approved on ezCater, it automatically appears in your Okra order list with all the details (items, customizations, totals). While you can view the order details and manage its fulfillment status within Okra (and sync it to QB), modifications to the order itself (like changing items) must still be done through ezCater support, as per their system rules."
+    },
+    {
+      question: "What information from Okra gets sent to QuickBooks Online?",
+      answer: "Okra primarily creates detailed Sales Receipts in QuickBooks for every completed and paid order (both direct Okra orders and synced ezCater orders). This includes line items, quantities, pricing, customer information (if available), taxes, tips, and discounts, streamlining your reconciliation process."
+    },
+    {
+      question: "Is the data sync between Okra, ezCater, and QuickBooks reliable?",
+      answer: "Yes. For ezCater, we use their official API and webhooks for real-time updates. For QuickBooks, we use their secure API connection. We map the data carefully to ensure consistency, so the Sales Receipts generated in QuickBooks accurately reflect the order details from Okra (which includes the mapped ezCater data)."
+    },
+    {
+      question: "We use a different accounting system / ERP. Can Okra integrate with that?",
+      answer: "While ezCater and QuickBooks Online are our primary V1 integrations, Okra is built with an API-first approach. This means the platform is designed for connectivity. We are open to exploring integrations with other systems based on customer needs and technical feasibility in the future."
+    },
+    {
+      question: "Does the QuickBooks integration handle sales tax correctly, especially if we operate in multiple states?",
+      answer: "Okra allows you to configure tax rates per store location. When generating the Sales Receipt for QuickBooks, it uses the appropriate tax rate based on the fulfilling store, ensuring accurate tax reporting for different jurisdictions."
+    }
+  ]
+};
+
 ---
 
 <MainLayout title={pageTitle}>
 
   <!-- Page Hero Section -->
-  <div class="bg-gradient-to-b from-primary-50 to-white pt-16 md:pt-24 pb-8 md:pb-12"> <!-- Different Accent Color -->
+  <div class="hero-gradient-primary pb-8 md:pb-12"> <!-- Removed top padding -->
       <HeroSection
         title={hero.title}
         subTitle={hero.subTitle}
@@ -103,7 +133,7 @@ const finalCTA = {
   </div>
 
   <!-- Feature Detail 1: ezCater Integration -->
-  <section class="py-16 md:py-24 bg-white rounded-xl">
+  <section class="py-16 md:py-24 bg-white rounded-b-xl"> <!-- Changed rounding -->
     <FeaturesStatsAlt
         title={featureEzCater.title}
         subTitle={featureEzCater.subTitle}
@@ -181,6 +211,11 @@ const finalCTA = {
               </a>
           </div>
       </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900">
+    <FAQ title="Your Integration Questions Answered" faqs={integrationsFaqs} />
   </section>
 
 </MainLayout>

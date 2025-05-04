@@ -9,6 +9,7 @@ import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
 import { Icon } from 'astro-icon/components';
 import { SITE } from "@/data_files/constants";
+import FAQ from "@components/sections/misc/FAQ.astro";
 
 // --- Helper Functions ---
 // Simple SVG placeholder function (replicated for self-containment)
@@ -141,6 +142,39 @@ const finalCTA = {
   secondaryBtnURL: "https://demo.okraorders.com",
 };
 
+const storeManagementFaqs = {
+  faqs: [
+    {
+      question: "Setting up a new online menu seems daunting. How does Okra help simplify the process?",
+      answer: "Okra guides you with an onboarding wizard for initial store setup. For menus, you can define reusable option sets (like salad dressings or tortilla choices) and easily apply them to multiple items. If you have multiple locations with similar menus, you can duplicate items (including their options and photos) from one store to others, saving significant setup time."
+    },
+    {
+      question: "We have multiple locations. Can we manage them all from one account but still have different menus or hours for each?",
+      answer: "Yes. Okra is built for multi-location management. You manage all your stores under one brand (or multiple brands if needed). While you can easily copy menu items between stores for efficiency, each store retains its own settings for operating hours (pickup/delivery), blackout dates, menu item availability, and pricing."
+    },
+    {
+      question: "Can I visually arrange how my menu categories and items appear to customers online?",
+      answer: "Absolutely. Within the admin panel, you can easily reorder your menu categories (e.g., put \"Seasonal Specials\" first) and the items within each category using simple drag-and-drop. The changes are reflected instantly on your customer-facing storefront."
+    },
+    {
+      question: "We need to ensure our online storefront matches our brand. How much customization is possible?",
+      answer: "Okra offers significant branding control. You can connect your own custom domain or subdomain, upload your business logo to appear throughout the ordering experience, and (on higher tiers) customize the color scheme to fully align with your brand identity."
+    },
+    {
+      question: "How do we handle holidays or days we need to close unexpectedly?",
+      answer: "The Blackout Dates feature makes this easy. You can pre-schedule recurring closures (like annual holidays) or quickly add single-day closures for unexpected events. Once added, customers will be unable to select those dates for orders, preventing issues."
+    },
+    {
+      question: "We want to suggest drinks or desserts when customers order main courses. Can Okra do that?",
+      answer: "Yes. You can designate specific menu categories (like \"Drinks\" or \"Desserts\") as \"Recommended.\" If a customer adds items to their cart but hasn't included anything from a recommended category, Okra can prompt them with suggestions before they check out."
+    },
+    {
+      question: "Some of our menu items don't need complex configuration (e.g., a simple can of soda). Do customers still have to go through extra steps?",
+      answer: "No. You can configure items differently. Some items (like complex meals) can require customers to visit a detail page to make choices. Other simpler items (like drinks or basic add-ons) can be configured for direct \"add to cart\" right from the main menu listing."
+    }
+  ]
+};
+
 ---
 
 <MainLayout title={pageTitle}>
@@ -240,6 +274,11 @@ const finalCTA = {
               </a>
           </div>
       </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900">
+    <FAQ title="Your Store & Menu Setup Questions Answered" faqs={storeManagementFaqs} />
   </section>
 
 </MainLayout>
