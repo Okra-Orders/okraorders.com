@@ -3,7 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import compressor from "astro-compressor";
 import starlight from "@astrojs/starlight";
-import iconify from "astro-iconify";
+// import iconify from "astro-iconify"; // Removed this lingering import
 import icon from "astro-icon";
 
 import mdx from "@astrojs/mdx";
