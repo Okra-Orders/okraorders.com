@@ -106,5 +106,11 @@
   /* --- END: Added Custom Okra Colors --- */
 }
 
+/* --- START: Custom Gradient Styles --- */
+.hero-gradient-primary {
+  background-image: linear-gradient(to bottom, var(--color-primary-light), var(--color-white));
+}
+/* --- END: Custom Gradient Styles --- */
+
 /*
   The default border color has changed to `

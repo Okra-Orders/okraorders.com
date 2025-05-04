@@ -72,7 +72,7 @@ const finalCTA = {
 <MainLayout title={pageTitle}>
 
   <!-- Page Hero Section -->
-  <div class="bg-gradient-to-b from-primary-50 to-white pt-16 md:pt-24 pb-8 md:pb-12"> <!-- Different Accent Color -->
+  <div class="hero-gradient-primary pb-8 md:pb-12"> <!-- Removed top padding -->
       <HeroSection
         title={hero.title}
         subTitle={hero.subTitle}
@@ -103,7 +103,7 @@ const finalCTA = {
   </div>
 
   <!-- Feature Detail 1: ezCater Integration -->
-  <section class="py-16 md:py-24 bg-white rounded-xl">
+  <section class="py-16 md:py-24 bg-white rounded-b-xl"> <!-- Changed rounding -->
     <FeaturesStatsAlt
         title={featureEzCater.title}
         subTitle={featureEzCater.subTitle}

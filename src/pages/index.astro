@@ -5,6 +5,8 @@ import HeroSection from "@components/sections/landing/HeroSection.astro";
 // import Icon from "@components/ui/icons/Icon.astro"; // Removed unused import
 // import { Image } from "astro:assets"; // Not needed for placeholders
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro"; // Import the adapted component
+import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // Added import
+import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // Added import
 // Removed unused old imports: HeroSectionAlt, ClientsSection, FeaturesGeneral, FeaturesNavs, TestimonialsSection, PricingSection, FAQ, AnnouncementBanner
 // Removed unused old data/image imports: heroImage, faqs, features, pricing, featureImage, construction, tools, dashboard, partnersData, avatarSrcs
 
@@ -300,9 +302,13 @@ const finalCTA = {
        <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90">
          {pricingTeaser.subTitle}
        </p>
-       <a href={pricingTeaser.buttonUrl} class="bg-white text-primary px-8 py-3 rounded-md text-lg font-semibold hover:bg-gray-100 transition duration-200">
-         {pricingTeaser.buttonText}
-       </a>
+       <!-- Use PrimaryCTA with inverted prop -->
+       <PrimaryCTA 
+         title={pricingTeaser.buttonText} 
+         url={pricingTeaser.buttonUrl} 
+         inverted={true} 
+         noArrow={true} 
+       /> 
      </div>
   </section>
 
@@ -313,14 +319,10 @@ const finalCTA = {
            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
                {finalCTA.subTitle}
            </p>
-            {/* Updated spacing from HTML */}
+            {/* Use CTA components */} 
             <div class="space-y-4 sm:space-y-0 sm:space-x-4">
-               <a href={finalCTA.primaryBtnURL} class="inline-block bg-primary text-white px-8 py-3 rounded-md text-lg font-semibold hover:bg-green-700 transition duration-200">
-                   {finalCTA.primaryBtn}
-               </a>
-               <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-200 text-gray-900 px-8 py-3 rounded-md text-lg font-semibold hover:bg-gray-300 transition duration-200"> {/* Used text-gray-900 from original */}
-                   {finalCTA.secondaryBtn}
-               </a>
+               <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} noArrow={true}/>
+               <SecondaryCTA title={finalCTA.secondaryBtn} url={finalCTA.secondaryBtnURL} />
             </div>
        </div>
    </section>

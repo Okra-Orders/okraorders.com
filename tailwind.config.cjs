@@ -5,11 +5,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "var(--color-primary)",
-        "primary-50": "var(--color-primary-light)",
+        primary: {
+          DEFAULT: "var(--color-primary)",
+          50: "#f0f9e8",
+          hover: "var(--color-primary-hover)",
+          active: "var(--color-primary-active)"
+        },
         secondary: "var(--color-secondary)",
-        "primary-hover": "var(--color-primary-hover)",
-        "primary-active": "var(--color-primary-active)",
         orange: {
           50: 'var(--color-orange-50)',
           100: 'var(--color-orange-100)',
