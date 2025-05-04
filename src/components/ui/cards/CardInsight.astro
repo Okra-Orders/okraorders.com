@@ -1,7 +1,8 @@
 ---
 // Import necessary modules and utilities
 import { Image } from "astro:assets";
-import Icon from "@components/ui/icons/Icon.astro";
+// import Icon from "@components/ui/icons/Icon.astro"; // Removed old import
+import { Icon } from "astro-iconify"; // Added new import
 import type { CollectionEntry } from "astro:content";
 
 const {
@@ -51,7 +52,7 @@ interface Props {
       class="mt-5 inline-flex items-center gap-x-1 font-medium text-orange-400 decoration-2 group-hover:underline dark:text-orange-300"
     >
       {label}
-      <Icon name="arrowRightStatic" />
+      <Icon name="heroicons:arrow-right" />
     </p>
   </div>
 </a>

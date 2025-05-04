@@ -2,7 +2,8 @@
 // Import the necessary dependencies
 import TabNav from "@components/ui/blocks/TabNav.astro";
 import TabContent from "@components/ui/blocks/TabContent.astro";
-import Icon from "@components/ui/icons/Icon.astro";
+// import Icon from "@components/ui/icons/Icon.astro"; // Removed old import
+import { Icon } from "astro-iconify"; // Corrected import path
 
 // Define props from Astro
 const { title, tabs } = Astro.props;
@@ -14,6 +15,8 @@ interface Tab {
   svg: string;
   src: any;
   alt: string;
+  width: number;
+  height: number;
   first?: boolean;
   second?: boolean;
 }
@@ -70,6 +73,8 @@ interface Props {
                   aria={`tabs-with-card-item-${index + 1}`}
                   src={tab.src}
                   alt={tab.alt}
+                  width={tab.width}
+                  height={tab.height}
                   first={tab.first}
                   second={tab.second}
                 />

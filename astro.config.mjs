@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import compressor from "astro-compressor";
 import starlight from "@astrojs/starlight";
+import iconify from "astro-iconify";
 
 import mdx from "@astrojs/mdx";
 
@@ -113,7 +114,7 @@ export default defineConfig({
   }), compressor({
     gzip: false,
     brotli: true,
-  }), mdx()],
+  }), mdx(), iconify()],
   experimental: {
     clientPrerender: true,
   },

@@ -6,7 +6,7 @@ import TextInput from "@components/ui/forms/input/TextInput.astro";
 import EmailContactInput from "@components/ui/forms/input/EmailContactInput.astro";
 import PhoneInput from "@components/ui/forms/input/PhoneInput.astro";
 import TextAreaInput from "@components/ui/forms/input/TextAreaInput.astro";
-import Icon from "@components/ui/icons/Icon.astro";
+import { Icon } from "astro-iconify";
 
 // Define the variables that will be used in this component
 const title: string = "Contact us";
@@ -83,7 +83,7 @@ const formSubTitle: string = "We'll get back to you in 1-2 business days.";
           linkTitle="Visit guides & tutorials"
           linkURL="#"
           isArrowVisible={true}
-          ><Icon name="question" />
+          ><Icon name="mdi:help-circle-outline" />
         </ContactIconBlock>
 
         <ContactIconBlock
@@ -93,7 +93,7 @@ const formSubTitle: string = "We'll get back to you in 1-2 business days.";
           linkTitle="Visit FAQ"
           linkURL="#"
           isArrowVisible={true}
-          ><Icon name="chatBubble" />
+          ><Icon name="mdi:message-text-outline" />
         </ContactIconBlock>
 
         <ContactIconBlock
@@ -101,7 +101,7 @@ const formSubTitle: string = "We'll get back to you in 1-2 business days.";
           content="UK ScrewFast"
           isAddressVisible={true}
           addressContent="72 Union Terrace, E10 4PE London"
-          ><Icon name="mapPin" />
+          ><Icon name="mdi:map-marker" />
         </ContactIconBlock>
 
         <ContactIconBlock
@@ -110,7 +110,7 @@ const formSubTitle: string = "We'll get back to you in 1-2 business days.";
           isLinkVisible={true}
           linkTitle="support@screwfast.uk"
           linkURL="#"
-          ><Icon name="envelopeOpen" />
+          ><Icon name="mdi:email-open-outline" />
         </ContactIconBlock>
       </div>
     </div>

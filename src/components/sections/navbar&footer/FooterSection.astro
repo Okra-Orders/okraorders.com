@@ -4,7 +4,7 @@ import FooterSocialLink from "@components/ui/links/FooterSocialLink.astro";
 // REMOVED: import EmailFooterInput from "@components/ui/forms/input/EmailFooterInput.astro";
 import enStrings from "@utils/navigation.ts";
 // REMOVED: import frStrings from "@utils/fr/navigation.ts"; // No longer needed
-import Icon from "@components/ui/icons/Icon.astro";
+import { Icon } from "astro-iconify";
 import BrandLogo from "@components/BrandLogo.astro";
 import { SITE } from "@data/constants"; // Keep SITE for title
 
@@ -75,23 +75,23 @@ const currentYear = new Date().getFullYear();
       <div>
         {/* Keep existing social links for now, assuming FooterSocialLink handles styling */}
         <FooterSocialLink url={strings.socialLinks.facebook}
-          ><Icon name="facebookFooter" />
+          ><Icon name="mdi:facebook" />
         </FooterSocialLink>
 
         <FooterSocialLink url={strings.socialLinks.x}
-          ><Icon name="xFooter" /></FooterSocialLink
+          ><Icon name="mdi:twitter" /></FooterSocialLink
         >
 
         <FooterSocialLink url={strings.socialLinks.github}
-          ><Icon name="githubFooter" />
+          ><Icon name="mdi:github" />
         </FooterSocialLink>
 
         <FooterSocialLink url={strings.socialLinks.google}
-          ><Icon name="googleFooter" />
+          ><Icon name="mdi:google" />
         </FooterSocialLink>
 
         <FooterSocialLink url={strings.socialLinks.slack}
-          ><Icon name="slackFooter" />
+          ><Icon name="mdi:slack" />
         </FooterSocialLink>
       </div>
     </div>

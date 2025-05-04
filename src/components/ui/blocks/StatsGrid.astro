@@ -1,5 +1,6 @@
 ---
-import Icon from "@components/ui/icons/Icon.astro";
+// import Icon from "@components/ui/icons/Icon.astro"; // Removed old import
+import { Icon } from "astro-iconify"; // Added new import
 
 const { count, description, index } = Astro.props;
 
@@ -14,7 +15,7 @@ interface Props {
   <div
     class="mb-2 flex items-end gap-x-2 text-3xl font-bold text-neutral-800 dark:text-neutral-200 sm:text-5xl"
   >
-    {index === 1 || index === 2 ? <Icon name="arrowUp" /> : null}
+    {index === 1 || index === 2 ? <Icon name="mdi:arrow-up" class="h-5 w-5 shrink-0 text-orange-400 dark:text-orange-300" /> : null}
     {count}
   </div>
   <p class="text-sm text-neutral-600 dark:text-neutral-400 sm:text-base">

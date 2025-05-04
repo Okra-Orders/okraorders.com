@@ -1,5 +1,5 @@
 ---
-import Icon from "@components/ui/icons/Icon.astro";
+import { Icon } from "astro-iconify";
 // Destructure the properties from Astro.props
 const {
   pageTitle,
@@ -24,17 +24,17 @@ const socialPlatforms: SocialPlatform[] = [
   {
     name: "Facebook",
     url: `https://www.facebook.com/sharer/sharer.php?u=${encoded_url}`,
-    svg: "facebook",
+    svg: "mdi:facebook",
   },
   {
     name: "X",
     url: `https://twitter.com/intent/tweet?url=${encoded_url}&text=${pageTitle}`,
-    svg: "x",
+    svg: "mdi:twitter",
   },
   {
     name: "LinkedIn",
     url: `https://www.linkedin.com/sharing/share-offsite/?url=${encoded_url}&title=${pageTitle}`,
-    svg: "linkedIn",
+    svg: "mdi:linkedin",
   },
 ];
 ---

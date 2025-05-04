@@ -6,7 +6,7 @@ import TextInput from "@components/ui/forms/input/TextInput.astro";
 import EmailContactInput from "@components/ui/forms/input/EmailContactInput.astro";
 import PhoneInput from "@components/ui/forms/input/PhoneInput.astro";
 import TextAreaInput from "@components/ui/forms/input/TextAreaInput.astro";
-import Icon from "@components/ui/icons/Icon.astro";
+import { Icon } from "astro-iconify";
 
 // Define the variables that will be used in this component
 const title: string = "Contactez-nous";
@@ -84,7 +84,7 @@ const formSubTitle: string =
           linkTitle="Visiter les guides et tutoriels"
           linkURL="#"
           isArrowVisible={true}
-          ><Icon name="question" />
+          ><Icon name="mdi:help-circle-outline" />
         </ContactIconBlock>
 
         <ContactIconBlock
@@ -94,7 +94,7 @@ const formSubTitle: string =
           linkTitle="Visiter la FAQ"
           linkURL="#"
           isArrowVisible={true}
-          ><Icon name="chatBubble" />
+          ><Icon name="mdi:message-text-outline" />
         </ContactIconBlock>
 
         <ContactIconBlock
@@ -102,7 +102,7 @@ const formSubTitle: string =
           content="ScrewFast UK"
           isAddressVisible={true}
           addressContent="72 Union Terrace, E10 4PE London"
-          ><Icon name="mapPin" />
+          ><Icon name="mdi:map-marker" />
         </ContactIconBlock>
 
         <ContactIconBlock
@@ -111,7 +111,7 @@ const formSubTitle: string =
           isLinkVisible={true}
           linkTitle="support@screwfast.uk"
           linkURL="#"
-          ><Icon name="envelopeOpen" />
+          ><Icon name="mdi:email-open-outline" />
         </ContactIconBlock>
       </div>
     </div>

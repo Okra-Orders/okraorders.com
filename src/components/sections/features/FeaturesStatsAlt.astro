@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import Icon from "@components/ui/icons/Icon.astro";
+// import Icon from "@components/ui/icons/Icon.astro"; // Removed old import
+import { Icon } from "astro-iconify"; // Added new import
 
 // Define props from Astro
 const { title, subTitle, benefits, imgSrc, imgAlt, imagePosition = 'left' } = Astro.props;
@@ -53,7 +54,7 @@ const textOrderClass = imagePosition === 'left' ? 'lg:order-2' : 'lg:order-1';
             <ul class="space-y-2 sm:space-y-4">
               {benefits.map((item) => (
                 <li class="flex space-x-3">
-                  <Icon name="checkCircle" class="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+                  <Icon name="mdi:check-circle" class="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
                   <span class="text-pretty text-base font-medium text-gray-700">
                     <Fragment set:html={item} />
                   </span>

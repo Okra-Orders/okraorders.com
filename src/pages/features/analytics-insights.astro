@@ -3,7 +3,8 @@
 import MainLayout from "@/layouts/MainLayout.astro";
 import HeroSection from "@components/sections/landing/HeroSection.astro";
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
-import Icon from "@components/ui/icons/Icon.astro";
+import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
+import { Icon } from "astro-iconify"; // Added import for Iconify
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
 
@@ -39,18 +40,48 @@ const featureDashboard = {
   imagePosition: "left" as const,
 };
 
-const featureAIInsights = {
-  title: "Get Smarter with AI Insights",
-  subTitle: "Don't wait for month-end reports to spot issues. Okra's unique AI engine analyzes your sales data daily, automatically highlighting significant changes, potential problems (like a store with sudden zero sales), or emerging trends you might have missed. Stay proactive, not reactive.",
-  listItems: [
-    "Automated daily analysis of your sales data.",
-    "Proactive alerts for unusual activity or significant trend shifts.",
-    "Identify potential issues before they become major problems.",
-    "Focus your attention where it's needed most.",
+// NEW: Data structure for FeaturesNavs
+const aiInsightsNav = {
+  title: "Get Smarter with AI Insights", // Main title for the section
+  tabs: [
+    {
+      heading: "Automated Daily Analysis",
+      content: "Okra's AI engine reviews your sales data every day, looking for patterns and outliers.",
+      svg: "mdi:chart-timeline-variant-shimmer",
+      src: svgPlaceholder(500, 450, "Visual: Daily Analysis"),
+      alt: "AI Daily Analysis Placeholder",
+      width: 500,
+      height: 450,
+      first: true, // Mark this as the default tab
+    },
+    {
+      heading: "Proactive Alerts",
+      content: "Receive notifications about significant changes, potential issues like zero sales, or emerging trends.",
+      svg: "mdi:bell-alert-outline",
+      src: svgPlaceholder(500, 450, "Visual: Alert Example"),
+      alt: "AI Alert Example Placeholder",
+      width: 500,
+      height: 450,
+    },
+    {
+      heading: "Early Issue Detection",
+      content: "Identify potential problems before they impact your bottom line, allowing you to act quickly.",
+      svg: "mdi:magnify-scan",
+      src: svgPlaceholder(500, 450, "Visual: Issue Detection"),
+      alt: "AI Issue Detection Placeholder",
+      width: 500,
+      height: 450,
+    },
+    {
+      heading: "Focused Attention",
+      content: "The AI highlights where your attention is needed most, saving you time and effort.",
+      svg: "mdi:target-focus",
+      src: svgPlaceholder(500, 450, "Visual: Focused Insight"),
+      alt: "AI Focused Insight Placeholder",
+      width: 500,
+      height: 450,
+    },
   ],
-  imgSrc: svgPlaceholder(500, 600, "Visual: AI Insight Example"),
-  imgAlt: "AI Insight Example Placeholder",
-  imagePosition: "right" as const,
 };
 
 const finalCTA = {
@@ -96,15 +127,11 @@ const finalCTA = {
      />
   </section>
 
-  <!-- Feature Detail 2: AI-Powered Insights -->
+  <!-- Feature Detail 2: AI-Powered Insights (Now using FeaturesNavs) -->
   <section class="py-16 md:py-24 bg-gray-100">
-    <FeaturesStatsAlt
-        title={featureAIInsights.title}
-        subTitle={featureAIInsights.subTitle}
-        benefits={featureAIInsights.listItems}
-        imgSrc={featureAIInsights.imgSrc}
-        imgAlt={featureAIInsights.imgAlt}
-        imagePosition={featureAIInsights.imagePosition}
+    <FeaturesNavs
+        title={aiInsightsNav.title}
+        tabs={aiInsightsNav.tabs}
     />
   </section>
 

@@ -3,7 +3,7 @@
 import { Image } from "astro:assets";
 
 // Destructure the component properties from Astro.props
-const { id, aria, src, alt, first, second } = Astro.props;
+const { id, aria, src, alt, first, second, width, height } = Astro.props;
 
 // Define TypeScript interface for the properties
 interface Props {
@@ -11,6 +11,8 @@ interface Props {
   aria: string;
   src?: any;
   alt: string;
+  width: number;
+  height: number;
   first?: boolean;
   second?: boolean;
 }
@@ -46,6 +48,8 @@ This is the full example:
   <Image
     src={src}
     alt={alt}
+    width={width}
+    height={height}
     class={secondClass}
     draggable={"false"}
     format={"avif"}
