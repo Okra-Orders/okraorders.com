@@ -1,28 +1,57 @@
+// Define interfaces for better type safety
+interface NavLinkItem {
+  name: string;
+  url: string;
+  subLinks?: NavLinkItem[]; // Optional array for sub-links
+}
+
 // An array of links for navigation bar
-const navBarLinks = [
-  { name: "Home", url: "/" },
-  { name: "Products", url: "/products" },
-  { name: "Services", url: "/services" },
-  { name: "Blog", url: "/blog" },
-  { name: "Contact", url: "/contact" },
+const navBarLinks: NavLinkItem[] = [
+  {
+    name: "Features",
+    url: "#", // Main link might not go anywhere directly
+    subLinks: [
+      { name: "Online Ordering", url: "/features/online-ordering/" },
+      { name: "Store Management", url: "/features/store-management/" },
+      { name: "Operations", url: "/features/operations/" },
+      { name: "Integrations", url: "/features/integrations/" }, // Added Integrations here
+      { name: "Analytics & Insights", url: "/features/analytics-insights/" },
+    ],
+  },
+  { name: "Pricing", url: "/pricing/" },
+  { name: "Support", url: "/support/" },
+  // Removed: Products, Services, Blog, Contact
 ];
 // An array of links for footer
 const footerLinks = [
   {
-    section: "Ecosystem",
+    section: "Product",
     links: [
-      { name: "Documentation", url: "/welcome-to-docs/" },
-      { name: "Tools & Equipment", url: "/products" },
-      { name: "Construction Services", url: "/services" },
+      { name: "Online Ordering", url: "/features/online-ordering/" },
+      { name: "Store Management", url: "/features/store-management/" },
+      { name: "Operations", url: "/features/operations/" },
+      { name: "Integrations", url: "/features/integrations/" },
+      { name: "Analytics & Insights", url: "/features/analytics-insights/" },
+      { name: "Pricing", url: "/pricing/" },
+      { name: "Live Demo", url: "https://demo.okraorders.com", external: true }, // Mark external
     ],
   },
   {
     section: "Company",
     links: [
-      { name: "About us", url: "#" },
+      // { name: "About us", url: "#" }, // Removed from HTML
       { name: "Blog", url: "/blog" },
-      { name: "Careers", url: "#" },
-      { name: "Customers", url: "#" },
+      { name: "Contact Us", url: "/contact" },
+      // { name: "Careers", url: "#" }, // Removed from HTML
+      // { name: "Customers", url: "#" }, // Removed from HTML
+    ],
+  },
+   {
+    section: "Support & Legal", // New Section
+    links: [
+      { name: "Help Center", url: "/support/" },
+      { name: "Privacy Policy", url: "/privacy/" },
+      { name: "Terms of Service", url: "/terms/" },
     ],
   },
 ];
@@ -40,3 +69,6 @@ export default {
   footerLinks,
   socialLinks,
 };
+
+// Export the type if needed elsewhere
+export type { NavLinkItem };
