@@ -88,17 +88,15 @@ const homeUrl = "/"; // Defaulting to root
             if (link.subLinks && link.subLinks.length > 0) {
               // STRICTLY Replicate LanguagePicker's Dropdown Structure
               return (
-                // Container div - EXACTLY like LanguagePicker
                 <div class="hs-dropdown relative inline-flex">
                   <button
-                    id={`hs-dropdown-${link.name.toLowerCase()}`} // Keep unique ID
+                    id={`hs-dropdown-${link.name.toLowerCase()}`}
                     type="button"
-                    aria-label={link.name} // Keep accessibility label
-                    // Button classes - EXACTLY like LanguagePicker (removed dark variants)
+                    aria-label={link.name}
                     class="hs-dropdown-toggle inline-flex items-center gap-x-2 rounded-lg px-1.5 py-1.5 text-sm font-medium text-neutral-600 outline-none ring-zinc-500 transition duration-300 hover:bg-neutral-200 hover:text-primary focus:text-primary focus-visible:ring-3"
                   >
-                    {link.name} {/* Content: Features */}
-                    {/* Chevron SVG - EXACTLY like LanguagePicker */}
+                    {link.name}
+                    {/* Chevron SVG */}
                     <svg
                       class="size-4 hs-dropdown-open:rotate-180"
                       width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -108,47 +106,40 @@ const homeUrl = "/"; // Defaulting to root
                     </svg>
                   </button>
 
-                  {/* Menu div - EXACTLY like LanguagePicker (removed dark variants, complex left/top overrides) */}
                   <div
-                     // Basic classes + positioning/transition from LanguagePicker
                     class="hs-dropdown-menu duration mt-2 hidden min-w-max! w-48 rounded-lg bg-white p-2 opacity-0 shadow-md transition-[opacity,margin] before:absolute before:-top-4 before:start-0 before:h-4 before:w-full after:absolute after:-bottom-4 after:start-0 after:h-4 after:w-full hs-dropdown-open:opacity-100"
-                    aria-labelledby={`hs-dropdown-${link.name.toLowerCase()}`} // Link to button ID
+                    aria-labelledby={`hs-dropdown-${link.name.toLowerCase()}`}
                   >
                     {link.subLinks.map((subLink) => (
-                      // Link classes - EXACTLY like LanguagePicker (removed dark variants)
                       <a
                         class="flex items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-neutral-800 hover:bg-neutral-100 focus:bg-neutral-100 focus:text-primary focus:outline-none"
                         href={subLink.url}
                       >
-                        {subLink.name} {/* Content: Sublink name */}
+                        {subLink.name}
                       </a>
                     ))}
                   </div>
                 </div>
               );
             } else {
-              // Render standard NavLink (add padding for alignment)
-              return <NavLink url={link.url} name={link.name} class="px-1.5 py-1.5"/>; // Add padding similar to dropdown button
+              // Render standard NavLink
+              return <NavLink url={link.url} name={link.name} />;
             }
           })
         }
 
-        {/* Live Demo Link (add padding for alignment) */}
+        {/* Live Demo Link */}
         <a
           href="https://demo.okraorders.com"
           target="_blank"
           rel="noopener noreferrer"
-           // Add padding similar to dropdown button
-          class="text-primary font-semibold hover:underline transition duration-300 px-1.5 py-1.5 inline-flex items-center text-sm" // Match button style/size
+          class="text-primary font-semibold hover:underline transition duration-300 px-1.5 py-1.5 inline-flex items-center text-sm"
         >
           Try Live Demo
         </a>
 
-        {/* Authentication (Add padding for alignment if needed) */}
-        {/* Check if Authentication component needs wrapper/padding */}
-        <div class="px-1.5 py-1.5"> {/* Tentative padding wrapper */}
-           <Authentication />
-        </div>
+        {/* Authentication */}
+        <Authentication />
       </div>
     </div>
   </nav>

@@ -1,147 +1,271 @@
 ---
-// Import the necessary components
+// Layout and Base Components
 import MainLayout from "@/layouts/MainLayout.astro";
 import HeroSection from "@components/sections/landing/HeroSection.astro";
-import HeroSectionAlt from "@components/sections/landing/HeroSectionAlt.astro";
-import ClientsSection from "@components/sections/landing/ClientsSection.astro";
-import FeaturesGeneral from "@components/sections/features/FeaturesGeneral.astro";
-import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
-import TestimonialsSection from "@components/sections/testimonials/TestimonialsSection.astro";
-import PricingSection from "@components/sections/pricing/PricingSection.astro";
-import FAQ from "@components/sections/misc/FAQ.astro";
-import AnnouncementBanner from "@components/ui/banners/AnnouncementBanner.astro";
-import heroImage from "@images/hero-image.avif";
-import faqs from "@data/faqs.json";
-import features from "@data/features.json";
-import pricing from "@data/pricing.json";
-import featureImage from "@images/features-image.avif";
-import construction from "@images/construction-image.avif";
-import tools from "@images/automated-tools.avif";
-import dashboard from "@images/dashboard-image.avif";
-import { partnersData } from "@/data_files/constants";
+import Icon from "@components/ui/icons/Icon.astro";
+// import { Image } from "astro:assets"; // Not needed for placeholders
+import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro"; // Import the adapted component
+// Removed unused old imports: HeroSectionAlt, ClientsSection, FeaturesGeneral, FeaturesNavs, TestimonialsSection, PricingSection, FAQ, AnnouncementBanner
+// Removed unused old data/image imports: heroImage, faqs, features, pricing, featureImage, construction, tools, dashboard, partnersData, avatarSrcs
 
-const avatarSrcs: Array<string> = [
-  "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-  "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-  "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80",
-  "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-];
+// --- Define Interfaces for Data (Keep these) ---
+interface FeatureSectionData {
+  tagline?: string; // Made tagline optional as FeaturesStatsAlt doesn't use it directly
+  title: string;
+  description: string; // Renamed to subTitle for FeaturesStatsAlt
+  listItems: string[]; // Renamed to benefits for FeaturesStatsAlt
+  linkText: string;
+  linkUrl: string;
+  imgSrc: string;
+  imgAlt: string;
+  imagePosition: 'left' | 'right';
+}
+
+interface HowItWorksStep {
+  number: number;
+  title: string;
+  description: string;
+}
+
+interface SupportItem {
+  title: string;
+  description: string;
+  linkText: string;
+  linkUrl: string;
+  imgSrc: string;
+  imgAlt: string;
+}
+
+// --- Data for Okra Sections (Keep all this data) ---
+const pageTitle = "Okra Orders - Automate Your Catering Operations";
+const hero = {
+  title: `Automate the Hassle,<br class="hidden md:inline"> Focus on the <span class="text-primary">Food</span>.`,
+  subTitle: "Okra Orders streamlines everything for your catering business - from intuitive online ordering and multi-location menu management to automated ezCater & QuickBooks sync. Get started in minutes, explore freely.",
+  primaryBtn: "Start Free Trial",
+  primaryBtnURL: "/signup",
+  secondaryBtn: "Try Live Demo",
+  secondaryBtnURL: "https://demo.okraorders.com",
+  imgSrc: "https://picsum.photos/seed/okrahero/800/600",
+  imgAlt: "Okra Orders Dashboard Placeholder",
+};
+const feature1: FeatureSectionData = {
+  tagline: "Your Brand, Seamless Experience", // Keep for context, but not used by FeaturesStatsAlt directly
+  title: "Impress Customers with Effortless Ordering",
+  description: "Is your current online ordering clunky or confusing? Okra provides your customers with a professional, mobile-first experience that makes customization simple and checkout a breeze, building loyalty and reducing support calls.", // Use as subTitle
+  listItems: [
+    "Accurately capture complex customizations online.",
+    "Enforce your business rules (hours, lead times) automatically.",
+    "Securely saved payment info for fast repeat orders.",
+    "Automated email & SMS updates keep customers informed.",
+  ], // Use as benefits
+  linkText: "Learn more about the customer experience →",
+  linkUrl: "/features/online-ordering/",
+  imgSrc: "https://picsum.photos/seed/okrafeat1/500/500",
+  imgAlt: "Customer Ordering Flow Placeholder",
+  imagePosition: "left",
+};
+const feature2: FeatureSectionData = {
+  tagline: "Full Control, Less Effort",
+  title: "Manage Stores & Menus Intuitively",
+  description: "Spending too much time updating menus or settings across multiple locations? Okra's admin panel makes setup and daily management efficient, giving you full control without the headache.", // Use as subTitle
+  listItems: [
+    "Quickly onboard with our guided setup wizard.",
+    "Save hours duplicating items/menus across locations.",
+    "Use AI image generation for quick, consistent visuals.",
+    "**Own your presence:** Use your custom domain & logo (White Labeling).",
+  ], // Use as benefits
+  linkText: "Explore management features →",
+  linkUrl: "/features/store-management/",
+  imgSrc: "https://picsum.photos/seed/okrafeat2/500/500",
+  imgAlt: "Admin Menu Duplication Placeholder",
+  imagePosition: "right",
+};
+const feature3: FeatureSectionData = {
+  tagline: "Automate & Unify",
+  title: "Connect Your Workflow, Cut the Manual Entry",
+  description: "Tired of juggling platforms and manual data entry? Okra acts as your central command center, unifying orders and automatically syncing sales data (from both Okra and **ezCater**!) with QuickBooks Online.", // Use as subTitle
+  listItems: [
+    "See Okra & **ezCater** orders side-by-side.",
+    "**Automatically push ezCater sales receipts to QuickBooks.**",
+    "Deep admin order editing capabilities.",
+    "Optimize operations with Ghost Kitchens & order transfers.",
+  ], // Use as benefits
+  linkText: "See how Okra connects your workflow →",
+  linkUrl: "/features/integrations/",
+  imgSrc: "https://picsum.photos/seed/okrafeat3/500/500",
+  imgAlt: "Unified Order Dashboard Placeholder",
+  imagePosition: "left",
+};
+const howItWorks: { title: string; steps: HowItWorksStep[]; footerText: string } = {
+  title: "Get Up and Running Fast",
+  steps: [
+    { number: 1, title: "Start Your Free Trial", description: "Sign up in minutes and begin exploring the Okra admin panel immediately. No credit card required." },
+    { number: 2, title: "Set Up Your Store", description: "Use our guided wizard and in-app help to configure your menus, settings, and locations at your own pace." },
+    { number: 3, title: "Connect & Go Live", description: "We'll help finalize your payment setup in parallel. Once ready, launch your storefront and start taking orders!" },
+  ],
+  footerText: "Start setting up your software right away while we handle the payment onboarding process for you.",
+};
+const supportSection: { title: string; items: SupportItem[] } = {
+  title: "Stay Informed & Get Expert Support",
+  items: [
+    { title: "Actionable AI Insights", description: "Track key metrics and get proactive AI-powered insights to understand performance and spot trends across all your channels (including **ezCater**).", linkText: "Learn about analytics →", linkUrl: "/features/analytics-insights/", imgSrc: "https://picsum.photos/seed/okrasupp1/400/300", imgAlt: "AI Insight Placeholder" },
+    { title: "Help Right Within the App", description: "Get started fast with integrated help guides, tours, and tooltips. Reduce training time and quickly understand new features.", linkText: "Explore help features →", linkUrl: "/support/", imgSrc: "https://picsum.photos/seed/okrasupp2/400/300", imgAlt: "In-App Help Placeholder" },
+    { title: "Business-Focused Support", description: "Reach our expert team via chat or video call for personalized assistance focused on optimizing your catering operations using Okra.", linkText: "Contact support →", linkUrl: "/support#contact", imgSrc: "https://picsum.photos/seed/okrasupp3/400/300", imgAlt: "Support Graphic Placeholder" },
+  ]
+}
+const pricingTeaser = {
+  title: "Pricing That Grows With You",
+  subTitle: "From single-location startups to multi-brand operations, Okra offers flexible plans. Choose between straightforward monthly fees or options tied to your order volume. We scale with your success.",
+  buttonText: "View Plans & Pricing",
+  buttonUrl: "/pricing/",
+};
+const finalCTA = {
+  title: "Ready to Automate Your Catering Business?",
+  subTitle: "Explore Okra Orders risk-free with our live demo or start your free trial today. See how easy catering management can be.",
+  primaryBtn: "Start Your Free Trial",
+  primaryBtnURL: "/signup",
+  secondaryBtn: "Try Live Demo",
+  secondaryBtnURL: "https://demo.okraorders.com",
+}
 ---
 
-<MainLayout>
-  <AnnouncementBanner
-    btnId="dismiss-button"
-    btnTitle="Explore ScrewFast on GitHub"
-    url="https://github.com/mearashadowfax/ScrewFast"
-  />
+<MainLayout title={pageTitle}>
 
+  <!-- 1. Hero Section -->
   <HeroSection
-    title=`Equip Your Projects with <span
-        class="text-yellow-500 dark:text-yellow-400">ScrewFast</span>`
-    subTitle="Top-quality hardware tools and expert construction services for every project need."
-    primaryBtn="Start Exploring"
-    primaryBtnURL="/products"
-    secondaryBtn="Contact Sales Team"
-    secondaryBtnURL="/contact"
-    withReview={true}
-    avatars={avatarSrcs}
-    rating=`<span class="font-bold">4.8</span> / 5`
-    starCount={4}
-    reviews=`From Over <span class="font-bold">12.8k</span> Reviews`
-    src={heroImage}
-    alt="Stack of ScrewFast product boxes containing assorted hardware tools"
-  />
+    title={hero.title}
+    subTitle={hero.subTitle}
+    primaryBtn={hero.primaryBtn}
+    primaryBtnURL={hero.primaryBtnURL}
+    secondaryBtn={hero.secondaryBtn}
+    secondaryBtnURL={hero.secondaryBtnURL}
+    withReview={false}
+  >
+     <Fragment slot="image">
+        <img src={hero.imgSrc} alt={hero.imgAlt} class="rounded-lg shadow-xl mx-auto" loading="eager"/>
+     </Fragment>
+  </HeroSection>
 
-  <ClientsSection
-    title="Trusted by Industry Leaders"
-    subTitle="Experience the reliability chosen by industry giants."
-    partners={partnersData}
-  />
+  <!-- 2. Feature Section 1 -->
+  <section id="features" class="py-16 md:py-24 bg-white">
+     <FeaturesStatsAlt
+        title={feature1.title}
+        subTitle={feature1.description} {/* Mapped description to subTitle */}
+        benefits={feature1.listItems} {/* Mapped listItems to benefits */}
+        imgSrc={feature1.imgSrc}
+        imgAlt={feature1.imgAlt}
+        imagePosition={feature1.imagePosition}
+     >
+        {/* Use the slot for the link */}
+        <Fragment slot="link">
+            <div class="mt-5"> {/* Added spacing */}
+               <a href={feature1.linkUrl} class="text-primary font-semibold hover:underline">{feature1.linkText}</a>
+            </div>
+        </Fragment>
+     </FeaturesStatsAlt>
+  </section>
 
-  <FeaturesGeneral
-    title="Meeting Industry Demands"
-    subTitle="At ScrewFast, we tackle the unique challenges encountered in the hardware and construction sectors. From cutting-edge tools to expert services, we're dedicated to helping you overcome obstacles and achieve your goals."
-    src={featureImage}
-    alt="ScrewFast products in floating boxes"
-    features={features}
-  />
+  <!-- 3. Feature Section 2 -->
+  <section class="py-16 md:py-24 bg-gray-100">
+    <FeaturesStatsAlt
+        title={feature2.title}
+        subTitle={feature2.description}
+        benefits={feature2.listItems}
+        imgSrc={feature2.imgSrc}
+        imgAlt={feature2.imgAlt}
+        imagePosition={feature2.imagePosition}
+     >
+        <Fragment slot="link">
+             <div class="mt-5">
+                <a href={feature2.linkUrl} class="text-primary font-semibold hover:underline">{feature2.linkText}</a>
+             </div>
+        </Fragment>
+     </FeaturesStatsAlt>
+  </section>
 
-  <FeaturesNavs
-    title=`Customize <span class="text-yellow-500 dark:text-yellow-400">ScrewFast</span>'s offerings to perfectly suit your hardware and construction needs.`
-    tabs={[
-      {
-        heading: "Cutting-Edge Tools",
-        content:
-          "Empower your projects with ScrewFast's cutting-edge tools. Experience enhanced efficiency in construction management with our sophisticated automated solutions.",
-        svg: "tools",
-        src: tools,
-        alt: "Yellow and black heavy equipment on brown grass field",
-        first: true,
-      },
-      {
-        heading: "Intuitive Dashboards",
-        content:
-          "Navigate with ease using ScrewFast's intuitive dashboards. Set up and oversee your projects seamlessly, with user-friendly interfaces designed for quick and effective workflow management.",
-        svg: "dashboard",
-        src: dashboard,
-        alt: "A screenshot or graphic representation of the intuitive dashboard",
-        second: true,
-      },
-      {
-        heading: "Robust Features",
-        content:
-          "Minimize complexity, maximize productivity. ScrewFast's robust features are engineered to streamline your construction process, delivering results that stand out for their excellence.",
-        svg: "house",
-        src: construction,
-        alt: "Gray metal building frame near tower crane during daytime",
-      },
-    ]}
-  />
+  <!-- 4. Feature Section 3 -->
+  <section id="integrations" class="py-16 md:py-24 bg-white">
+      <FeaturesStatsAlt
+        title={feature3.title}
+        subTitle={feature3.description}
+        benefits={feature3.listItems}
+        imgSrc={feature3.imgSrc}
+        imgAlt={feature3.imgAlt}
+        imagePosition={feature3.imagePosition}
+     >
+        <Fragment slot="link">
+             <div class="mt-5">
+                <a href={feature3.linkUrl} class="text-primary font-semibold hover:underline">{feature3.linkText}</a>
+             </div>
+        </Fragment>
+     </FeaturesStatsAlt>
+  </section>
 
-  <TestimonialsSection
-    title="Fast-Track Your Projects"
-    subTitle="At ScrewFast, we ensure a swift start with instant account setup. Experience the speed of construction redefined."
-    ;
-    testimonials={[
-      {
-        content:
-          "ScrewFast dramatically boosted our project efficiency. Setup was instant, and their rapid response times are phenomenal. Truly a game-changer in hardware and construction support!",
-        author: "Samantha Ruiz",
-        role: "Chief Operating Officer | ConstructIt Inc.",
-        avatarSrc:
-          "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?q=80&w=1453&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80",
-      },
-    ]}
-    statistics={[
-      {
-        count: "70k+",
-        description:
-          "customers equipped — from DIY to major construction firms",
-      },
-      {
-        count: "35%",
-        description:
-          "uptick in project efficiency with ScrewFast tools and services",
-      },
-      {
-        count: "15.3%",
-        description:
-          "reduction in maintenance costs reported by long-term clients",
-      },
-      {
-        count: "2x",
-        description: "quicker assembly using innovative fastening solutions",
-      },
-    ]}
-  />
+  <!-- 5. How it Works Section (Keep Custom Grid) -->
+  <section class="py-16 md:py-24 bg-gray-100">
+     <div class="container mx-auto px-6 text-center">
+       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12" set:html={howItWorks.title}></h2>
+       <div class="grid md:grid-cols-3 gap-8">
+         {howItWorks.steps.map(step => (
+           <div class="bg-white p-6 rounded-lg shadow-md">
+             <div class="text-4xl text-primary mb-4">{step.number}</div>
+             <h3 class="text-xl font-semibold text-gray-900 mb-2">{step.title}</h3>
+             <p class="text-gray-600">{step.description}</p>
+           </div>
+         ))}
+       </div>
+       <p class="mt-10 text-gray-600 italic">{howItWorks.footerText}</p>
+     </div>
+  </section>
 
-  <PricingSection pricing={pricing} />
+  <!-- 6. Analytics / Support Snippet Section (Keep Custom Grid) -->
+  <section id="support" class="py-16 md:py-24 bg-white">
+     <div class="container mx-auto px-6 text-center">
+       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12" set:html={supportSection.title}></h2>
+       <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8">
+          {supportSection.items.map(item => (
+            <div class="text-left p-6 bg-gray-100 rounded-lg shadow-md">
+              <div class="mb-4 rounded-lg">
+                <img src={item.imgSrc} alt={item.imgAlt} class="rounded-lg w-full h-auto" loading="lazy" />
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
+              <p class="text-gray-600 text-sm mb-4" set:html={item.description}></p>
+              <a href={item.linkUrl} class="text-primary font-semibold hover:underline text-sm">{item.linkText}</a>
+            </div>
+          ))}
+       </div>
+     </div>
+  </section>
 
-  <FAQ title="Frequently<br />asked questions" faqs={faqs} />
+  <!-- 7. Pricing Teaser Section (Keep Custom Section) -->
+  <section id="pricing" class="py-16 md:py-24 bg-primary text-white">
+     <div class="container mx-auto px-6 text-center">
+       <h2 class="text-3xl md:text-4xl font-bold mb-4">{pricingTeaser.title}</h2>
+       <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90">
+         {pricingTeaser.subTitle}
+       </p>
+       <a href={pricingTeaser.buttonUrl} class="bg-white text-primary px-8 py-3 rounded-md text-lg font-semibold hover:bg-gray-100 transition duration-200">
+         {pricingTeaser.buttonText}
+       </a>
+     </div>
+  </section>
 
-  <HeroSectionAlt
-    title="Let's Build Together"
-    subTitle="ScrewFast is an open-source template, meticulously crafted with Astro, Tailwind CSS, and Preline UI frameworks."
-    url="https://github.com/mearashadowfax/ScrewFast"
-  />
+  <!-- 8. Final CTA Section (Keep Custom Section) -->
+   <section class="py-20 md:py-32 bg-white">
+       <div class="container mx-auto px-6 text-center">
+           <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{finalCTA.title}</h2>
+           <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+               {finalCTA.subTitle}
+           </p>
+            <div class="space-x-0 space-y-4 sm:space-y-0 sm:space-x-4">
+               <a href={finalCTA.primaryBtnURL} class="inline-block bg-primary text-white px-8 py-3 rounded-md text-lg font-semibold hover:bg-green-700 transition duration-200">
+                   {finalCTA.primaryBtn}
+               </a>
+               <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-200 text-gray-900 px-8 py-3 rounded-md text-lg font-semibold hover:bg-gray-300 transition duration-200">
+                   {finalCTA.secondaryBtn}
+               </a>
+            </div>
+       </div>
+   </section>
+
 </MainLayout>
