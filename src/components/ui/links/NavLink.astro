@@ -16,10 +16,10 @@ We assign an ID matching the URL for easy reference in our script.
 If URL is '/' (home page), assign ID as 'home' 
 -->
 <a
-  id={url === "/" ? "home" : url.replace("/", "")}
+  id={url === "/" ? "home" : url.replace(/^\/|\/$/g, "")}
   href={url}
   data-astro-prefetch
-  class="rounded-lg text-base font-medium text-neutral-600 outline-hidden ring-zinc-500 hover:text-neutral-500 focus-visible:ring-3 dark:text-neutral-400 dark:ring-zinc-200 dark:hover:text-neutral-500 dark:focus:outline-hidden md:py-3"
+  class="rounded-lg px-2 py-2 text-base text-neutral-600 outline-none ring-zinc-500 transition duration-300 hover:text-primary focus:text-primary focus-visible:ring-2 focus-visible:ring-primary dark:text-neutral-400 dark:ring-zinc-200 dark:hover:text-primary dark:focus:outline-none md:py-3"
 >
   {name}
 </a>
@@ -32,7 +32,7 @@ If URL is '/' (home page), assign ID as 'home'
     if (url === "/") {
       navId = "home";
     } else {
-      navId = url.replace("/", "");
+      navId = url.replace(/^\/|\/$/g, "");
     }
 
     let nav = document.getElementById(navId);
@@ -41,10 +41,14 @@ If URL is '/' (home page), assign ID as 'home'
       nav.classList.remove(
         "text-neutral-600",
         "dark:text-neutral-400",
-        "hover:text-neutral-500",
-        "dark:hover:text-neutral-500"
+        "hover:text-primary",
+        "dark:hover:text-primary"
       );
-      nav.classList.add("text-orange-400", "dark:text-orange-300");
+      nav.classList.add(
+        "font-semibold",
+        "text-primary",
+        "dark:text-primary-light"
+      );
       nav.setAttribute("aria-current", "page");
     }
   });
