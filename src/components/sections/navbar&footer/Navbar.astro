@@ -6,6 +6,7 @@ import Authentication from "../misc/Authentication.astro";
 import stringsData from "@utils/navigation.ts"; // Renamed import
 import type { NavLinkItem } from "@utils/navigation.ts"; // Import type
 import BrandLogo from "@components/BrandLogo.astro";
+import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // Import Primary CTA for Signup
 // REMOVED: import Icon from "@components/ui/icons/Icon.astro"; // Import Icon for dropdown arrow
 // REMOVED: import Button from "@components/ui/buttons/Button.astro";
 // REMOVED: import LanguagePicker from "@components/ui/LanguagePicker.astro";
@@ -20,13 +21,13 @@ const homeUrl = "/"; // Defaulting to root
 >
   <!-- Navigation container -->
   <nav
-    class="relative mx-2 w-full rounded-[36px] border border-yellow-100/40 bg-yellow-50/60 px-4 py-3 backdrop-blur-md md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto"
+    class="relative mx-2 w-full rounded-[36px] border border-gray-200 bg-white px-4 py-3 shadow-sm md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto"
     aria-label="Global"
   >
     <div class="flex items-center justify-between">
       <!-- Brand logo -->
       <a
-        class="flex-none rounded-lg text-xl font-bold outline-hidden ring-zinc-500 focus-visible:ring-3"
+        class="flex-none rounded-lg text-xl font-bold outline-none ring-zinc-500 focus-visible:ring-2 focus-visible:ring-primary"
         href={homeUrl}
         aria-label="Brand"
       >
@@ -36,13 +37,13 @@ const homeUrl = "/"; // Defaulting to root
       <div class="ml-auto mr-5 md:hidden">
         <button
           type="button"
-          class="hs-collapse-toggle flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-neutral-600 transition duration-300 hover:bg-neutral-200 disabled:pointer-events-none disabled:opacity-50"
+          class="hs-collapse-toggle flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-neutral-600 transition duration-300 hover:bg-neutral-100 disabled:pointer-events-none disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-gray-400"
           data-hs-collapse="#navbar-collapse-with-animation"
           aria-controls="navbar-collapse-with-animation"
           aria-label="Toggle navigation"
         >
           <svg
-            class="h-[1.25rem] w-[1.25rem] shrink-0 hs-collapse-open:hidden"
+            class="size-4 shrink-0 hs-collapse-open:hidden"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -57,7 +58,7 @@ const homeUrl = "/"; // Defaulting to root
             <line x1="3" x2="21" y1="18" y2="18"></line>
           </svg>
           <svg
-            class="hidden h-[1.25rem] w-[1.25rem] shrink-0 hs-collapse-open:block"
+            class="hidden size-4 shrink-0 hs-collapse-open:block"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -80,7 +81,7 @@ const homeUrl = "/"; // Defaulting to root
     >
       <!-- Navigation links container -->
       <div
-        class="mt-5 flex flex-col gap-x-0 gap-y-4 md:mt-0 md:flex-row md:items-center md:justify-end md:gap-x-4 lg:gap-x-7 md:gap-y-0 md:ps-7"
+        class="mt-5 flex flex-col gap-x-0 gap-y-4 md:mt-0 md:flex-row md:items-center md:justify-end md:gap-x-2 lg:gap-x-4 md:gap-y-0 md:ps-7"
       >
         <!-- Generate Nav Links -->
         {
@@ -88,26 +89,32 @@ const homeUrl = "/"; // Defaulting to root
             if (link.subLinks && link.subLinks.length > 0) {
               // STRICTLY Replicate LanguagePicker's Dropdown Structure
               return (
-                <div class="hs-dropdown relative inline-flex">
+                <div class="hs-dropdown relative inline-flex py-1">
                   <button
                     id={`hs-dropdown-${link.name.toLowerCase()}`}
                     type="button"
                     aria-label={link.name}
-                    class="hs-dropdown-toggle inline-flex items-center gap-x-2 rounded-lg px-1.5 py-1.5 text-sm font-medium text-neutral-600 outline-none ring-zinc-500 transition duration-300 hover:bg-neutral-200 hover:text-primary focus:text-primary focus-visible:ring-3"
+                    class="hs-dropdown-toggle inline-flex items-center gap-x-2 rounded-lg px-2 py-2 text-sm font-medium text-neutral-600 outline-none ring-zinc-500 transition duration-300 hover:bg-neutral-100 hover:text-primary focus:text-primary focus-visible:ring-2 focus-visible:ring-primary"
                   >
                     {link.name}
                     {/* Chevron SVG */}
                     <svg
                       class="size-4 hs-dropdown-open:rotate-180"
-                      width="24" height="24" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
                     >
                       <path d="m6 9 6 6 6-6"></path>
                     </svg>
                   </button>
 
                   <div
-                    class="hs-dropdown-menu duration mt-2 hidden min-w-max! w-48 rounded-lg bg-white p-2 opacity-0 shadow-md transition-[opacity,margin] before:absolute before:-top-4 before:start-0 before:h-4 before:w-full after:absolute after:-bottom-4 after:start-0 after:h-4 after:w-full hs-dropdown-open:opacity-100"
+                    class="hs-dropdown-menu duration top-full z-10 mt-2 hidden w-48 min-w-max! rounded-lg bg-white p-2 opacity-0 shadow-md ring-1 ring-gray-200 transition-[opacity,margin] before:absolute before:-top-4 before:start-0 before:h-4 before:w-full after:absolute after:-bottom-4 after:start-0 after:h-4 after:w-full hs-dropdown-open:opacity-100"
                     aria-labelledby={`hs-dropdown-${link.name.toLowerCase()}`}
                   >
                     {link.subLinks.map((subLink) => (
@@ -133,13 +140,16 @@ const homeUrl = "/"; // Defaulting to root
           href="https://demo.okraorders.com"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-primary font-semibold hover:underline transition duration-300 px-1.5 py-1.5 inline-flex items-center text-sm"
+          class="px-2 py-2 text-sm font-semibold text-primary transition duration-300 hover:text-primary/80"
         >
           Try Live Demo
         </a>
 
         {/* Authentication */}
         <Authentication />
+
+        {/* ADDED: Signup Button */}
+        <PrimaryCTA title="Get Started Free" url="/signup" noArrow={true} />
       </div>
     </div>
   </nav>
