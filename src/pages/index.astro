@@ -104,10 +104,10 @@ const featureWhiteLabel: FeatureSectionData = {
 const feature3: FeatureSectionData = {
   tagline: "Automate & Unify",
   title: "Unify Operations & Automate Accounting", // Updated title
-  description: "Tired of juggling platforms and wasting hours on manual data entry? Okra acts as your central command center, unifying orders and automatically syncing sales data (from both Okra and **ezCater**!) with QuickBooks Online.", // Updated Description
+  description: "Tired of juggling platforms and wasting hours on manual data entry? Okra acts as your central command center, unifying orders and automatically syncing sales data (from both Okra and <strong>ezCater</strong>!) with QuickBooks Online.", // Updated Description with <strong>
   listItems: [
-    "See Okra & **ezCater** orders side-by-side.",
-    "**Automatically push ezCater sales receipts to QuickBooks.**",
+    "See Okra & <strong>ezCater</strong> orders side-by-side.", // Updated with <strong>
+    "<strong>Automatically push ezCater sales receipts to QuickBooks.</strong>", // Changed ** to <strong>
     "Deep admin order editing capabilities (incl. Open Food).", // Updated point
     "Optimize operations with Ghost Kitchens & order transfers.",
   ],
@@ -129,7 +129,7 @@ const howItWorks: { title: string; steps: HowItWorksStep[]; footerText: string }
 const supportSection: { title: string; items: SupportItem[] } = {
   title: "Stay Informed & Get Expert Support", // Content seems unchanged
   items: [
-    { title: "Actionable AI Insights", description: "Track key metrics and get proactive AI-powered insights to understand performance and spot trends across all your channels (including **ezCater**).", linkText: "Learn about analytics →", linkUrl: "/features/analytics-insights/", imgSrc: "https://picsum.photos/seed/okrasupport1/400/300", imgAlt: "Screenshot: AI Insight Example" }, // Updated Alt, arrow
+    { title: "Actionable AI Insights", description: "Track key metrics and get proactive AI-powered insights to understand performance and spot trends across all your channels (including <strong>ezCater</strong>).", linkText: "Learn about analytics →", linkUrl: "/features/analytics-insights/", imgSrc: "https://picsum.photos/seed/okrasupport1/400/300", imgAlt: "Screenshot: AI Insight Example" }, // Updated Alt, arrow
     { title: "Help Right Within the App", description: "Get started fast with integrated help guides, tours, and tooltips. Reduce training time and quickly understand new features.", linkText: "Explore help features →", linkUrl: "/support/", imgSrc: "https://picsum.photos/seed/okrasupport2/400/300", imgAlt: "Screenshot: In-App Help Tooltip" }, // Updated Alt, arrow
     { title: "Business-Focused Support", description: "Reach our expert team via chat or video call for personalized assistance focused on optimizing your catering operations using Okra.", linkText: "Contact support →", linkUrl: "/support#contact", imgSrc: "https://picsum.photos/seed/okrasupport3/400/300", imgAlt: "Support Graphic" }, // Updated Alt, arrow
   ]
@@ -260,35 +260,37 @@ const finalCTA = {
   <!-- 6. How it Works Section -->
   <section class="py-16 md:py-24 bg-white rounded-xl">
      <div class="container mx-auto px-6 text-center">
-       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">{howItWorks.title}</h2> {/* Removed set:html */}
+       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-12">{howItWorks.title}</h2>
        <div class="grid md:grid-cols-3 gap-8">
          {howItWorks.steps.map(step => (
-           <div class="bg-gray-50 p-6 rounded-lg shadow-md"> {/* Updated background class */}
-             <div class="text-4xl text-primary mb-4">{step.number}</div>
-             <h3 class="text-xl font-semibold text-gray-900 mb-2">{step.title}</h3>
-             <p class="text-gray-600">{step.description}</p>
+           // Use Preline Card structure + standard Tailwind border classes (border + border-secondary)
+           <div class="flex flex-col bg-white border border-secondary shadow-sm rounded-xl dark:bg-neutral-900 dark:border-secondary dark:shadow-neutral-700/70"> {/* Reverted to border border-secondary */}
+             <div class="p-4 md:p-6"> 
+               <div class="text-4xl text-primary mb-4">{step.number}</div>
+               <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{step.title}</h3>
+               <p class="text-gray-600 dark:text-neutral-400" set:html={step.description}></p>
+             </div>
            </div>
          ))}
        </div>
-       <p class="mt-10 text-gray-600 italic">{howItWorks.footerText}</p>
+       <p class="mt-10 text-gray-600 dark:text-neutral-400 italic">{howItWorks.footerText}</p>
      </div>
   </section>
 
   <!-- 7. Analytics / Support Snippet Section -->
-  <section id="support" class="py-16 md:py-24"> <!-- Removed bg-gray-100 -->
+  <section id="support" class="py-16 md:py-24">
      <div class="container mx-auto px-6 text-center">
-       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">{supportSection.title}</h2> {/* Removed set:html */}
+       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-12">{supportSection.title}</h2>
        <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8">
           {supportSection.items.map(item => (
-            <div class="text-left p-6 bg-white rounded-lg shadow-md"> {/* Updated background class */}
-              <div class="mb-4 rounded-lg">
-                 {/* Placeholder styling like HTML example */}
-                 <div class="bg-gray-200 h-40 rounded-lg flex items-center justify-center text-gray-500 text-sm">{item.imgAlt}</div>
-                 {/* <img src={item.imgSrc} alt={item.imgAlt} class="rounded-lg w-full h-auto" loading="lazy" /> */}
+            // Use Preline Card structure + standard Tailwind border classes (border + border-secondary)
+            <div class="flex flex-col bg-white border border-secondary shadow-sm rounded-xl dark:bg-neutral-900 dark:border-secondary dark:shadow-neutral-700/70"> {/* Reverted to border border-secondary */}
+              <div class="bg-gray-200 h-40 rounded-t-xl flex items-center justify-center text-gray-500 text-sm dark:bg-neutral-800 dark:text-neutral-500">{item.imgAlt}</div>
+              <div class="p-4 md:p-5 text-left"> 
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{item.title}</h3>
+                <p class="text-gray-600 dark:text-neutral-400 text-sm mb-4" set:html={item.description}></p> 
+                <a href={item.linkUrl} class="text-primary font-semibold hover:underline text-sm">{item.linkText}</a>
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
-              <p class="text-gray-600 text-sm mb-4" set:html={item.description}></p> {/* Kept set:html for potential markdown */}
-              <a href={item.linkUrl} class="text-primary font-semibold hover:underline text-sm">{item.linkText}</a>
             </div>
           ))}
        </div>
@@ -296,13 +298,11 @@ const finalCTA = {
   </section>
 
   <!-- 8. Pricing Teaser Section -->
-  <section id="pricing" class="py-16 md:py-24 bg-primary text-white rounded-xl"> <!-- Keep rounding -->
+  <section id="pricing" class="py-16 md:py-24 bg-primary text-white rounded-xl"> 
      <div class="container mx-auto px-6 text-center">
        <h2 class="text-3xl md:text-4xl font-bold mb-4">{pricingTeaser.title}</h2>
-       <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90">
-         {pricingTeaser.subTitle}
-       </p>
-       <!-- Use PrimaryCTA with inverted prop -->
+       {/* Added set:html to render potential markdown/html */}
+       <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90" set:html={pricingTeaser.subTitle}></p>
        <PrimaryCTA 
          title={pricingTeaser.buttonText} 
          url={pricingTeaser.buttonUrl} 
@@ -316,10 +316,8 @@ const finalCTA = {
    <section class="py-20 md:py-32 bg-white rounded-xl">
        <div class="container mx-auto px-6 text-center">
            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{finalCTA.title}</h2>
-           <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-               {finalCTA.subTitle}
-           </p>
-            {/* Use CTA components */} 
+           {/* Added set:html to render potential markdown/html */}
+           <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto" set:html={finalCTA.subTitle}></p>
             <div class="space-y-4 sm:space-y-0 sm:space-x-4">
                <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} noArrow={true}/>
                <SecondaryCTA title={finalCTA.secondaryBtn} url={finalCTA.secondaryBtnURL} />

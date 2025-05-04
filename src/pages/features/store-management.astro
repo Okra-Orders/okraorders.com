@@ -5,6 +5,7 @@ import HeroSection from "@components/sections/landing/HeroSection.astro";
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
 import FeaturesGeneral from "@components/sections/features/FeaturesGeneral.astro";
 import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
+import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro";
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
 import { Icon } from 'astro-icon/components';
@@ -31,7 +32,7 @@ const hero = {
 
 const featureOnboarding = {
   title: "Set Up Fast, Manage Multiple Locations with Ease",
-  subTitle: "Get started quickly with our guided setup wizard. Have multiple locations or brands? Okra's unified interface lets you manage them all efficiently. **Save hours** by duplicating individual items or entire menus from one store to many others instantly.",
+  subTitle: "Get started quickly with our guided setup wizard. Have multiple locations or brands? Okra's unified interface lets you manage them all efficiently. <strong>Save hours</strong> by duplicating individual items or entire menus from one store to many others instantly.",
   features: [
     {
       heading: "Guided Onboarding Wizard",
@@ -205,6 +206,21 @@ const storeManagementFaqs = {
         instanceId="onboarding"
      />
   </section>
+
+  <!-- Managing Multiple Locations Section -->
+  <QuoteFeatureSplit
+      quoteContent="Setting up our second location's menu took a fraction of the time thanks to the copy feature. Being able to duplicate items with all their complex options already configured was huge."
+      quoteAttribution="- Multi-Location Catering Owner"
+      featureIconName="heroicons:document-duplicate"
+      featureBadgeText="Easy Duplication"
+      featureTitle="Consistency Across Locations, Without the Headaches"
+      featureDescription="Running multiple stores often means duplicating effort. Okra tackles this head-on. Our duplication tools let you instantly copy proven menu items – including their photos and detailed options – from one store to several others. Manage core settings centrally, but retain the flexibility to tweak pricing, hours, or availability for each specific location easily."
+      layoutDirection="quote-left"
+  >
+      <Fragment slot="feature-graphic">
+          <!-- GIF showing the 'copy item to multiple stores' interface -->
+      </Fragment>
+  </QuoteFeatureSplit>
 
   <!-- Feature Detail 2: Menu & Item Mastery -->
   <section class="py-16 md:py-24 bg-white rounded-xl">

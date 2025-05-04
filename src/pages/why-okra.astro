@@ -1,0 +1,224 @@
+---
+// Layout and Base Components
+import MainLayout from "@/layouts/MainLayout.astro";
+import HeroSection from "@components/sections/landing/HeroSection.astro";
+import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // For CTA button
+import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For CTA button
+import { Icon } from 'astro-icon/components';
+
+// --- Page Data ---
+const pageTitle = "Why Okra Orders? Built for Catering Success | Okra Orders";
+const pageDescription = "Compare Okra Orders to generic POS and manual methods. See why Okra is the purpose-built catering software for online ordering, operations, and accounting automation.";
+
+const hero = {
+  tagline: "Purpose-Built for Caterers",
+  title: "Built for Catering, Not Just Point-of-Sale",
+  subTitle: "Running a catering business has unique challenges that generic restaurant POS systems or manual spreadsheets just don't solve well. Okra Orders is purpose-built for caterers, offering integrated tools for online ordering, multi-location management, operational efficiency, and critical accounting automation. See why caterers choose Okra.",
+  imgAlt: "Okra Orders contrasted with generic POS and spreadsheet icons",
+  // Placeholder - Replace with actual image/graphic later
+  imgSrc: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 300' width='800' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='24px' fill='%234B5563'%3EOkra vs Generic POS/Spreadsheets%3C/text%3E%3C/svg%3E`
+};
+
+const comparisonFeatures = [
+  { feature: "ezCater <> QuickBooks Automation", okra: true, generic: false, manual: false, genericNote: "Requires manual entry or separate, often limited, integrations", manualNote: "Requires entirely manual double/triple data entry" },
+  { feature: "Deep Menu Customization (Catering Specific)", okra: true, generic: 'limited', manual: false, genericNote: "Often basic modifiers, may struggle with complex catering packages", manualNote: "Relies entirely on accurate phone capture/notes" },
+  { feature: "Multi-Location Menu Management", okra: true, generic: 'limited', manual: false, genericNote: "Often requires separate setups or lacks easy sync/copy tools", manualNote: "Extremely time-consuming and error-prone" },
+  { feature: "Integrated Ghost Kitchen Support", okra: true, generic: false, manual: false, genericNote: "Not typically a standard feature", manualNote: "Requires complex manual coordination" },
+  { feature: "Flexible Order Editing (Admin)", okra: true, generic: 'limited', manual: true, genericNote: "Often restricted edits once order is placed/paid", manualNote: "Lacks system tracking and prone to communication errors" },
+  { feature: "Built-in Operational Rules (Lead Times, Hours, Blackouts)", okra: true, generic: 'limited', manual: false, genericNote: "May have basic hours, often lacks granular lead time/blackout rules", manualNote: "Relies entirely on staff knowledge and manual checks" },
+  { feature: "Unified Dashboard (Direct + ezCater)", okra: true, generic: false, manual: false, genericNote: "Only shows orders from its own system", manualNote: "Requires compiling data from multiple sources" },
+  { feature: "Scalable & Flexible Pricing", okra: true, generic: 'varies', manual: true, genericNote: "Often tiered based on features less relevant to pure catering", manualNote: "Free (But high hidden costs in time and errors)" },
+];
+
+const summaryPoints = [
+  "Unmatched ezCater & QuickBooks Automation",
+  "Deep Catering-Specific Menu Flexibility",
+  "Efficient Multi-Location & Ghost Kitchen Tools",
+  "Unified Operational View & Insights",
+];
+
+const finalCTA = {
+  title: "See the Difference for Yourself",
+  subTitle: "Ready to experience a platform actually built for your catering workflow?",
+  primaryBtn: "Start Free Trial",
+  primaryBtnURL: "/signup",
+  secondaryBtn: "Try Live Demo",
+  secondaryBtnURL: "https://demo.okraorders.com", // Assuming demo link
+  tertiaryBtn: "View Pricing",
+  tertiaryBtnURL: "/pricing", // Assuming pricing page link
+};
+
+// Adjusted type annotation to match possible values from comparisonFeatures
+const getNoteText = (status: boolean | 'limited' | 'varies' | string, note?: string) => {
+    if (note) return note;
+    if (status === true) return "Fully Supported";
+    if (status === false) return "Not Available";
+    if (status === 'limited') return "Limited Functionality";
+    if (status === 'varies') return "Varies by System";
+    if (typeof status === 'string' && status !== 'limited' && status !== 'varies') return status;
+    return "";
+}
+
+---
+
+<MainLayout title={pageTitle} meta={pageDescription}>
+
+  <!-- 1. Hero Section -->
+  <div class="bg-gradient-to-b from-green-50 to-white pt-16 md:pt-24 pb-8 md:pb-12">
+    <HeroSection
+      title={hero.title}
+      subTitle={hero.subTitle}
+      primaryBtn={undefined}
+      primaryBtnURL={undefined}
+      secondaryBtn={undefined}
+      secondaryBtnURL={undefined}
+    >
+      <Fragment slot="image">
+        <div class="mt-8 px-6 flex justify-center">
+           <img src={hero.imgSrc} alt={hero.imgAlt} class="h-auto w-full max-w-xl mx-auto rounded-lg shadow-md object-contain"/>
+        </div>
+      </Fragment>
+    </HeroSection>
+  </div>
+
+  <!-- 2. Comparison Table Section - Preline UI Style -->
+  <section class="py-16 md:py-24 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center text-neutral-800 mb-12">How Okra Orders Stacks Up</h2>
+      
+      <!-- Preline Table -->
+      <div class="flex flex-col">
+        <div class="-m-1.5 overflow-x-auto">
+          <div class="p-1.5 min-w-full inline-block align-middle">
+            <div class="border rounded-lg shadow overflow-hidden">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase w-[40%]">Feature / Capability</th>
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase w-[20%]">Okra Orders</th>
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase w-[20%]">Generic POS / Ordering Systems</th>
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase w-[20%]">Manual Methods (Spreadsheets/Phone)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  {comparisonFeatures.map((item) => (
+                    <tr class="hover:bg-gray-50 align-top">
+                      <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-800">{item.feature}</td>
+                      
+                      <!-- Okra Cell -->
+                      <td class="px-6 py-4 whitespace-normal text-sm text-center">
+                        <div class="flex flex-col items-center justify-start">
+                           {item.okra === true && <Icon name="heroicons:check-circle-solid" class="w-6 h-6 text-primary mb-1" />}
+                           <!-- Note: Assuming 'false' for okra just means no icon/text needed here unless specified -->
+                           <span class="text-xs text-gray-500 mt-1 block">{getNoteText(item.okra)}</span>
+                        </div>
+                      </td>
+
+                      <!-- Generic Cell -->
+                      <td class="px-6 py-4 whitespace-normal text-sm text-center">
+                         <div class="flex flex-col items-center justify-start">
+                            {item.generic === true && <Icon name="heroicons:check-circle-solid" class="w-6 h-6 text-primary mb-1" />}
+                            {item.generic === false && <Icon name="heroicons:x-circle-solid" class="w-6 h-6 text-gray-400 mb-1" />}
+                            {item.generic === 'limited' && <Icon name="heroicons:exclamation-triangle-solid" class="w-6 h-6 text-gray-400 mb-1" />}
+                            {item.generic === 'varies' && <Icon name="heroicons:question-mark-circle-solid" class="w-6 h-6 text-gray-400 mb-1" />}
+                            <span class="text-xs text-gray-500 mt-1 block">{getNoteText(item.generic, item.genericNote)}</span>
+                         </div>
+                      </td>
+
+                      <!-- Manual Cell -->
+                      <td class="px-6 py-4 whitespace-normal text-sm text-center">
+                         <div class="flex flex-col items-center justify-start">
+                           {item.manual === true && <Icon name="heroicons:check-circle-solid" class="w-6 h-6 text-primary mb-1" />}
+                           {item.manual === false && <Icon name="heroicons:x-circle-solid" class="w-6 h-6 text-gray-400 mb-1" />}
+                           <!-- Note: Assuming 'limited' and 'varies' aren't applicable to manual, adjust if needed -->
+                           <span class="text-xs text-gray-500 mt-1 block">{getNoteText(item.manual, item.manualNote)}</span>
+                         </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Preline Table -->
+      
+    </div>
+  </section>
+
+  <!-- 3. Summary / Key Differentiators Section -->
+  <section class="py-16 md:py-24 bg-neutral-50">
+    <div class="container mx-auto px-6 text-center max-w-3xl">
+      <h2 class="text-3xl font-bold text-neutral-800 mb-4">Okra Orders: Purpose-Built for Your Catering Success</h2>
+      <p class="text-lg text-gray-600 mb-8">
+        Stop wrestling with generic tools or inefficient manual processes. Okra Orders provides the specific features catering businesses need to streamline operations, automate tedious tasks, improve customer experience, and gain clear insights – all in one integrated platform designed to scale with you.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+        {summaryPoints.map((point) => (
+          <div class="flex items-start space-x-3 p-4 bg-white rounded-lg shadow-sm">
+            <Icon name="heroicons:check-badge" class="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+            <p class="text-neutral-700 font-medium">{point}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Final CTA Section -->
+  <section class="bg-gradient-to-b from-white to-green-50 py-16 md:py-24">
+      <div class="container mx-auto px-6 text-center">
+          <h2 class="text-3xl font-bold text-neutral-800 mb-4">{finalCTA.title}</h2>
+          <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">{finalCTA.subTitle}</p>
+          <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} />
+              <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer" class="inline-block">
+                 <SecondaryCTA title={finalCTA.secondaryBtn} url={finalCTA.secondaryBtnURL} />
+              </a>
+               <a href={finalCTA.tertiaryBtnURL} class="text-primary hover:text-primary-dark font-medium transition-colors duration-200">
+                  {finalCTA.tertiaryBtn} &rarr;
+               </a>
+          </div>
+      </div>
+  </section>
+
+</MainLayout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Simple fade-in animations for sections
+    gsap.utils.toArray<HTMLElement>('section').forEach((section, i) => {
+      // Add a slight delay to the hero image if it's part of the hero section
+      const image = section.querySelector('img');
+      if (image && i === 0) { // Assuming first section is hero
+           gsap.from(image, {
+            opacity: 0,
+            y: 20,
+            delay: 0.2,
+            duration: 0.6,
+            ease: "power1.out",
+          });
+      }
+
+      gsap.from(section.children, { // Target children for staggered effect
+        scrollTrigger: {
+          trigger: section,
+          start: "top 85%", // Start animation when 85% of the section enters the viewport
+          end: "bottom 15%",
+          toggleActions: "play none none reverse", // Play on enter, reverse on leave
+          // markers: true, // Uncomment for debugging scroll trigger points
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.5,
+        ease: "power1.out",
+        stagger: 0.1 // Stagger animation of direct children
+      });
+    });
+  });
+</script> 

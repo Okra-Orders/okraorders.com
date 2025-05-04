@@ -3,6 +3,7 @@
 import MainLayout from "@/layouts/MainLayout.astro";
 import HeroSection from "@components/sections/landing/HeroSection.astro";
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro"; // Import for feature sections
+import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro"; // Import the reusable component
 import { Icon } from 'astro-icon/components'; // Added new import
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // For CTA button
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For CTA button
@@ -144,6 +145,21 @@ const onlineOrderingFaqs = {
         imagePosition={featureCustomization.imagePosition}
      />
   </section>
+
+  <!-- Stop Playing Telephone Tag Section -->
+  <QuoteFeatureSplit
+      quoteContent="The biggest time saver has been fewer errors on complex orders. What used to take a 10-minute phone call and potential mistakes is now handled perfectly online by the customer themselves."
+      quoteAttribution="- Catering Manager Using Okra Orders"
+      featureIconName="heroicons:clipboard-document-check"
+      featureBadgeText="Order Accuracy"
+      featureTitle="Capture Complex Orders Right the First Time"
+      featureDescription="Remember those long phone calls trying to nail down every detail of a custom buffet or build-your-own bar? Okra's structured online options guide your customers through the choices logically, capturing required selections and accurate pricing instantly. Reduce clarification calls and ensure the kitchen gets exactly what the customer intended."
+      layoutDirection="quote-left"
+  >
+      <Fragment slot="feature-graphic">
+          <!-- Simple graphic comparing a clean Okra order vs. a messy handwritten note -->
+      </Fragment>
+  </QuoteFeatureSplit>
 
   <!-- Feature Detail 2: Mobile & Intuitive Flow -->
   <section class="py-16 md:py-24">

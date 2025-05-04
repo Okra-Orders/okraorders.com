@@ -18,6 +18,7 @@ const navBarLinks: NavLinkItem[] = [
       { name: "Analytics & Insights", url: "/features/analytics-insights/" },
     ],
   },
+  { name: "Why Okra?", url: "/why-okra/" },
   { name: "Pricing", url: "/pricing/" },
   { name: "Support", url: "/support/" },
   // Removed: Products, Services, Blog, Contact

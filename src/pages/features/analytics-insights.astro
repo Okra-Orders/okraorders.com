@@ -4,6 +4,7 @@ import MainLayout from "@/layouts/MainLayout.astro";
 import HeroSection from "@components/sections/landing/HeroSection.astro";
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
 import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
+import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro"; // Import the reusable component
 import { Icon } from 'astro-icon/components'; // Added import for Iconify
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
@@ -167,6 +168,21 @@ const analyticsFaqs = {
         instanceId="ai-insights"
     />
   </section>
+
+  <!-- Go Beyond Reports Section -->
+  <QuoteFeatureSplit
+      quoteContent="The AI insights have actually flagged things we wouldn't have noticed until much later, like a sudden drop-off in lunch orders at one location, allowing us to investigate quicker."
+      quoteAttribution="- Data-Focused Catering Manager"
+      featureIconName="heroicons:sparkles"
+      featureBadgeText="Proactive Insights"
+      featureTitle="Don't Just Track Sales, Understand Them"
+      featureDescription="Standard sales reports show you what happened. Okra's AI Insights help you understand why and what might happen next. By automatically analyzing your daily sales data for significant shifts or anomalies (like a specific menu item suddenly surging or a location going quiet), Okra gives you early warnings and actionable insights that simple charts often miss."
+      layoutDirection="quote-left"
+  >
+      <Fragment slot="feature-graphic">
+          <!-- Mockup graphic showing an example AI Insight alert popping up -->
+      </Fragment>
+  </QuoteFeatureSplit>
 
   <!-- Feature Detail 3: Unified Reporting (Custom Section) -->
   <section class="py-16 md:py-24 bg-white rounded-xl">

@@ -26,6 +26,10 @@ module.exports = {
           950: 'var(--color-orange-950)',
         },
       },
+      borderColor: theme => ({
+        ...theme('colors'),
+         secondary: 'var(--color-secondary)',
+      })
     },
   },
   plugins: [require("@tailwindcss/forms"), require("preline/plugin")],

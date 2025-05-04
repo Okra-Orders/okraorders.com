@@ -54,9 +54,7 @@ const canRenderImage = imgSrc && imgWidth && imgHeight;
           </h2>
           {
             subTitle && (
-              <p class="text-pretty text-gray-600">
-                {subTitle}
-              </p>
+              <p class="text-pretty text-gray-600" set:html={subTitle}></p>
             )
           }
         </div>
@@ -66,9 +64,7 @@ const canRenderImage = imgSrc && imgWidth && imgHeight;
               {benefits.map((item) => (
                 <li class="flex space-x-3">
                   <Icon name="mdi:check-circle" class="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
-                  <span class="text-pretty text-base font-medium text-gray-700">
-                    <Fragment set:html={item} />
-                  </span>
+                  <span class="text-pretty text-base font-medium text-gray-700" set:html={item}></span>
                 </li>
               ))}
             </ul>

@@ -3,6 +3,7 @@
 import MainLayout from "@/layouts/MainLayout.astro";
 import HeroSection from "@components/sections/landing/HeroSection.astro";
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
+import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro"; // Import the new component
 // import { Icon } from "astro-iconify"; // Temporarily commented out
 import { Icon } from 'astro-icon/components'; // Use astro-icon component
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
@@ -44,10 +45,10 @@ const featureEzCater = {
 
 const featureQuickBooks = {
   title: "Automate Your Accounting with QuickBooks Sync",
-  subTitle: "**This is the game-changer.** Stop spending hours manually creating sales receipts in QuickBooks. Okra automatically pushes accurate receipt data for **every single order** – whether it came directly through Okra **or from ezCater** – straight into your QuickBooks Online account.",
+  subTitle: "<strong>This is the game-changer.</strong> Stop spending hours manually creating sales receipts in QuickBooks. Okra automatically pushes accurate receipt data for <strong>every single order</strong> – whether it came directly through Okra <strong>or from ezCater</strong> – straight into your QuickBooks Online account.",
   listItems: [
     "Automatic Sales Receipt creation in QuickBooks Online.",
-    "Handles both direct Okra orders AND **ezCater orders**.",
+    "Handles both direct Okra orders AND <strong>ezCater orders</strong>.",
     "Massively reduces manual data entry and potential errors.",
     "Streamlines financial reconciliation and reporting.",
     "Reliable data mapping ensures accuracy.",
@@ -102,7 +103,7 @@ const integrationsFaqs = {
 <MainLayout title={pageTitle}>
 
   <!-- Page Hero Section -->
-  <div class="hero-gradient-primary pb-8 md:pb-12"> <!-- Removed top padding -->
+  <div class="hero-gradient-transparent-to-light"> <!-- Removed bottom padding -->
       <HeroSection
         title={hero.title}
         subTitle={hero.subTitle}
@@ -133,7 +134,7 @@ const integrationsFaqs = {
   </div>
 
   <!-- Feature Detail 1: ezCater Integration -->
-  <section class="py-16 md:py-24 bg-white rounded-b-xl"> <!-- Changed rounding -->
+  <section class="gradient-light-to-transparent pb-16 md:pb-24 rounded-b-xl"> <!-- Added gradient, removed top padding & bg-white -->
     <FeaturesStatsAlt
         title={featureEzCater.title}
         subTitle={featureEzCater.subTitle}
@@ -169,8 +170,24 @@ const integrationsFaqs = {
     </FeaturesStatsAlt>
   </section>
 
+  <!-- Combined Section: Quote + End of Double Data Entry -->
+  <QuoteFeatureSplit
+      quoteContent="The automatic push of ezCater orders to QuickBooks is worth the price alone. It's saving my admin team so much time and reducing reconciliation headaches dramatically."
+      quoteAttribution="- Catering Business Owner"
+      featureIconName="heroicons:arrow-path"
+      featureBadgeText="Automation Power"
+      featureTitle="The End of Double Data Entry"
+      featureDescription="This is where Okra Orders truly transforms your back office. Forget manually keying ezCater order details into QuickBooks. Okra automatically takes the order data pulled from ezCater and creates accurate Sales Receipts in your QuickBooks Online account, just like it does for your direct orders. This single feature eliminates hours of tedious, error-prone work every week."
+      layoutDirection="quote-left"
+  >
+      <Fragment slot="feature-graphic">
+          <!-- Simple flow diagram -->
+          <!-- The logo flow graphic previously here is now removed -->
+      </Fragment>
+  </QuoteFeatureSplit>
+
   <!-- Feature Detail 3: Built for Connectivity (Custom Section) -->
-  <section class="py-16 md:py-24 bg-white rounded-xl">
+  <section class="py-16 md:py-24 bg-white dark:bg-neutral-900 rounded-xl">
       <div class="container mx-auto px-6 text-center">
         <h2 class="text-3xl font-bold text-neutral-800 mb-4">Designed to Connect Your Business</h2>
         <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
@@ -206,9 +223,10 @@ const integrationsFaqs = {
           <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">{finalCTA.subTitle}</p>
           <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
               <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} />
-              <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer" class="inline-block border border-white text-white px-6 py-2.5 rounded-md text-base font-semibold hover:bg-white hover:text-primary transition duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white">
+              <SecondaryCTA title={finalCTA.secondaryBtn} url={finalCTA.secondaryBtnURL} />
+              <!-- <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer" class="inline-block border border-white text-white px-6 py-2.5 rounded-md text-base font-semibold hover:bg-white hover:text-primary transition duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white">
                  {finalCTA.secondaryBtn}
-              </a>
+              </a> -->
           </div>
       </div>
   </section>

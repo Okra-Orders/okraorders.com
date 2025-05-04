@@ -4,6 +4,7 @@ import MainLayout from "@/layouts/MainLayout.astro";
 import HeroSection from "@components/sections/landing/HeroSection.astro";
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
 import FeaturesGeneral from "@components/sections/features/FeaturesGeneral.astro";
+import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro"; // Import the reusable component
 import { SITE } from "@/data_files/constants";
 import { Icon } from 'astro-icon/components';
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
@@ -29,7 +30,7 @@ const hero = {
 
 const featureUnifiedView = {
   title: "See Everything at a Glance",
-  subTitle: "Get a complete picture of your daily workload instantly. Okra's central dashboard displays all your orders – whether placed directly through your Okra storefront or synced from **ezCater**. Filter by date, status, store, or source to plan your prep efficiently.",
+  subTitle: "Get a complete picture of your daily workload instantly. Okra's central dashboard displays all your orders – whether placed directly through your Okra storefront or synced from <strong>ezCater</strong>. Filter by date, status, store, or source to plan your prep efficiently.",
   listItems: [
     "Single view for Okra and ezCater orders.",
     "Powerful filtering and search capabilities.",
@@ -146,6 +147,21 @@ const operationsFaqs = {
         imagePosition={featureUnifiedView.imagePosition}
      />
   </section>
+
+  <!-- Gain Operational Clarity Section -->
+  <QuoteFeatureSplit
+      quoteContent="Having ezCater orders appear automatically alongside our direct ones in Okra finally gives us a true picture of the day's workload in one spot. It's simplified our morning prep routine significantly."
+      quoteAttribution="- Catering Operations Manager"
+      featureIconName="heroicons:clipboard-document-list"
+      featureBadgeText="Operational Clarity"
+      featureTitle="Know Exactly What Needs Doing, Without the Guesswork"
+      featureDescription="Start your day with confidence. Seeing all your direct and ezCater orders consolidated in one clear dashboard means no more switching tabs or worrying about missed requests. Plan your kitchen prep accurately, manage fulfillment smoothly, and track the status of every single order from pending to paid, all in real-time."
+      layoutDirection="quote-left"
+  >
+      <Fragment slot="feature-graphic">
+          <!-- Screenshot focusing on the Order Dashboard grid with clear status indicators -->
+      </Fragment>
+  </QuoteFeatureSplit>
 
   <!-- Feature Detail 2: Flexible Order Editing -->
   <section class="py-16 md:py-24">
