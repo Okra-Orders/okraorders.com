@@ -4,21 +4,26 @@ import { Image } from "astro:assets";
 import { Icon } from "astro-iconify"; // Added new import
 
 // Define props from Astro
-const { title, subTitle, benefits, imgSrc, imgAlt, imagePosition = 'left' } = Astro.props;
+const { title, subTitle, benefits, imgSrc, imgAlt, imgWidth, imgHeight, imagePosition = 'left' } = Astro.props;
 
 // Define TypeScript interface for props
 interface Props {
   title: string;
   subTitle?: string;
   benefits?: Array<string>;
-  imgSrc?: any;
+  imgSrc?: any; // Keep as any if it might be string or ImageMetadata
   imgAlt?: string;
+  imgWidth?: number; // Add image width prop
+  imgHeight?: number; // Add image height prop
   imagePosition?: 'left' | 'right';
 }
 
 // Determine order classes based on imagePosition
 const imageOrderClass = imagePosition === 'left' ? 'lg:order-1' : 'lg:order-2';
 const textOrderClass = imagePosition === 'left' ? 'lg:order-2' : 'lg:order-1';
+
+// Check if we have enough info to render the image and reserve space
+const canRenderImage = imgSrc && imgWidth && imgHeight;
 ---
 
 <section
@@ -27,11 +32,17 @@ const textOrderClass = imagePosition === 'left' ? 'lg:order-2' : 'lg:order-1';
   <!-- Grid -->
   <div class="lg:grid lg:grid-cols-12 lg:items-center lg:gap-16">
     <div class={`lg:col-span-7 ${imageOrderClass}`}>
-      {typeof imgSrc === 'string' ? (
-        <img class="rounded-xl w-full h-auto" src={imgSrc} alt={imgAlt ?? ''} loading="lazy" />
-      ) : imgSrc ? (
-        <Image class="rounded-xl w-full h-auto" src={imgSrc} alt={imgAlt ?? ''} loading="lazy" />
-      ) : null}
+      {/* Render only if src and dimensions are provided */}
+      {canRenderImage && (
+        <Image 
+          class="rounded-xl w-full h-auto" 
+          src={imgSrc} 
+          alt={imgAlt ?? ''} 
+          width={imgWidth} 
+          height={imgHeight}
+          loading="lazy" 
+        />
+      )}
     </div>
     <div class={`mt-5 sm:mt-10 lg:col-span-5 lg:mt-0 ${textOrderClass}`}>
       <div class="space-y-6 sm:space-y-8">

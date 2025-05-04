@@ -6,6 +6,7 @@ import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.ast
 import { Icon } from "astro-iconify";
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
+import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
 
 // --- Helper Functions ---
 // Simple SVG placeholder function (replicated for self-containment)
@@ -28,29 +29,89 @@ const hero = {
 const featureOnboarding = {
   title: "Set Up Fast, Manage Multiple Locations with Ease",
   subTitle: "Get started quickly with our guided setup wizard. Have multiple locations or brands? Okra's unified interface lets you manage them all efficiently. **Save hours** by duplicating individual items or entire menus from one store to many others instantly.",
-  listItems: [
-    "Step-by-step onboarding wizard clarifies every option.",
-    "Consistent interface simplifies managing multiple stores/brands.",
-    "Copy menus/items from one store to multiple others in clicks.",
-    "Maintain unique settings (hours, menus) per location where needed.",
+  features: [
+    {
+      heading: "Guided Onboarding Wizard",
+      content: "Step-by-step wizard clarifies every option for quick setup.",
+      svg: "heroicons:sparkles",
+      src: svgPlaceholder(500, 300, "Onboarding Step 1"),
+      alt: "Guided Onboarding Wizard Step Placeholder",
+      width: 500,
+      height: 300,
+      first: true,
+    },
+    {
+      heading: "Unified Multi-Store Management",
+      content: "Consistent interface simplifies managing multiple stores/brands.",
+      svg: "heroicons:building-storefront",
+      src: svgPlaceholder(500, 300, "Multi-Store View"),
+      alt: "Unified Multi-Store Dashboard Placeholder",
+      width: 500,
+      height: 300,
+    },
+    {
+      heading: "Instant Menu/Item Duplication",
+      content: "Copy menus/items from one store to multiple others in clicks.",
+      svg: "heroicons:document-duplicate",
+      src: svgPlaceholder(500, 300, "Menu Copy Action"),
+      alt: "Menu Item Duplication Action Placeholder",
+      width: 500,
+      height: 300,
+    },
+    {
+      heading: "Location-Specific Settings",
+      content: "Maintain unique settings like hours and menus per location.",
+      svg: "heroicons:map-pin",
+      src: svgPlaceholder(500, 300, "Location Settings"),
+      alt: "Location Specific Settings Placeholder",
+      width: 500,
+      height: 300,
+    },
   ],
-  imgSrc: svgPlaceholder(500, 600, "GIF: Multi-Store Menu Copying"),
-  imgAlt: "Multi-Store Menu Copying Placeholder",
-  imagePosition: "left" as const,
 };
 
 const featureMenuMastery = {
   title: "Craft Your Perfect Online Menu",
   subTitle: "Okra gives you granular control to accurately represent your offerings online. Configure detailed item options, manage categories, set pricing per unit (person, pint, etc.), and visually arrange how items appear to customers using simple drag-and-drop.",
-  listItems: [
-    "Deep item configuration: options, customizations, pricing units.",
-    "Define categories and control recommendations (e.g., suggest add-ons).",
-    "Easily reorder menu categories and items via drag-and-drop.",
-    "Reuse option sets across multiple menu items.",
+  features: [
+    {
+      heading: "Deep Item Configuration",
+      content: "Set options, customizations, pricing units (person, pint, etc.).",
+      svg: "heroicons:cog-6-tooth",
+      src: svgPlaceholder(500, 300, "Item Config Detail"),
+      alt: "Menu Item Configuration Detail Placeholder",
+      width: 500,
+      height: 300,
+      first: true,
+    },
+    {
+      heading: "Categories & Recommendations",
+      content: "Define categories and control recommendations (e.g., suggest add-ons).",
+      svg: "heroicons:tag",
+      src: svgPlaceholder(500, 300, "Category Setup"),
+      alt: "Category Setup Placeholder",
+      width: 500,
+      height: 300,
+    },
+    {
+      heading: "Easy Reordering",
+      content: "Visually reorder menu categories and items via drag-and-drop.",
+      svg: "heroicons:arrows-up-down",
+      src: svgPlaceholder(500, 300, "Drag & Drop UI"),
+      alt: "Drag and Drop Reordering UI Placeholder",
+      width: 500,
+      height: 300,
+    },
+    {
+      heading: "Reusable Option Sets",
+      content: "Define option sets once and reuse them across multiple menu items.",
+      svg: "heroicons:clipboard-document-list",
+      src: svgPlaceholder(500, 300, "Option Sets"),
+      alt: "Reusable Option Sets Placeholder",
+      width: 500,
+      height: 300,
+    },
   ],
-  imgSrc: svgPlaceholder(500, 600, "Visual: Menu Item Editor / Reordering"),
-  imgAlt: "Menu Item Editor / Reordering Placeholder",
-  imagePosition: "right" as const,
 };
 
 const featureBranding = {
@@ -102,25 +163,20 @@ const finalCTA = {
 
   <!-- Feature Detail 1: Onboarding & Multi-Location -->
   <section class="py-16 md:py-24 bg-white">
-    <FeaturesStatsAlt
+    <FeaturesNavs
         title={featureOnboarding.title}
-        subTitle={featureOnboarding.subTitle}
-        benefits={featureOnboarding.listItems}
-        imgSrc={featureOnboarding.imgSrc}
-        imgAlt={featureOnboarding.imgAlt}
-        imagePosition={featureOnboarding.imagePosition}
+        tabs={featureOnboarding.features}
+        instanceId="onboarding"
      />
   </section>
 
   <!-- Feature Detail 2: Menu & Item Mastery -->
-  <section class="py-16 md:py-24 bg-gray-100">
-    <FeaturesStatsAlt
+  <section class="py-16 md:py-24 bg-white">
+    <FeaturesNavs
         title={featureMenuMastery.title}
-        subTitle={featureMenuMastery.subTitle}
-        benefits={featureMenuMastery.listItems}
-        imgSrc={featureMenuMastery.imgSrc}
-        imgAlt={featureMenuMastery.imgAlt}
-        imagePosition={featureMenuMastery.imagePosition}
+        tabs={featureMenuMastery.features}
+        instanceId="menu-mastery"
+        reverseLayout={true}
     />
   </section>
 
@@ -132,6 +188,8 @@ const finalCTA = {
         benefits={featureBranding.listItems}
         imgSrc={featureBranding.imgSrc}
         imgAlt={featureBranding.imgAlt}
+        imgWidth={500}
+        imgHeight={600}
         imagePosition={featureBranding.imagePosition}
     >
         {/* Add disclaimer below the list */}

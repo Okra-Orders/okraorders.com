@@ -75,7 +75,7 @@ const aiInsightsNav = {
     {
       heading: "Focused Attention",
       content: "The AI highlights where your attention is needed most, saving you time and effort.",
-      svg: "mdi:target-focus",
+      svg: "heroicons:sparkles",
       src: svgPlaceholder(500, 450, "Visual: Focused Insight"),
       alt: "AI Focused Insight Placeholder",
       width: 500,
@@ -123,6 +123,8 @@ const finalCTA = {
         benefits={featureDashboard.listItems}
         imgSrc={featureDashboard.imgSrc}
         imgAlt={featureDashboard.imgAlt}
+        imgWidth={500}
+        imgHeight={600}
         imagePosition={featureDashboard.imagePosition}
      />
   </section>
@@ -132,6 +134,7 @@ const finalCTA = {
     <FeaturesNavs
         title={aiInsightsNav.title}
         tabs={aiInsightsNav.tabs}
+        instanceId="ai-insights"
     />
   </section>
 
