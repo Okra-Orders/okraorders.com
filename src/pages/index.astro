@@ -359,24 +359,32 @@ const finalCTA = {
         tl.from(heroImage, { duration: 1, y: 0 }, "-=0.7"); // Overlap more, longer duration
     }
 
-    // Example using ScrollTrigger (optional - uncomment to activate)
-    // Animates elements as they enter the viewport when scrolling down
-    /*
-    gsap.utils.toArray('section').forEach(section => {
+    // --- Section Animations on Scroll ---
+    gsap.utils.toArray<HTMLElement>('section').forEach(section => {
+      // Skip the hero section if it's manually animated above
+      // or apply a default animation if needed.
+      // For simplicity, let's animate all sections including hero container if desired,
+      // but we'll use different properties for hero elements vs general sections.
+
+      // Check if the section is NOT the hero section's direct parent container
+      // (assuming hero is not wrapped in its own <section> in this page structure)
+      // A better approach might be to add a specific class to sections we WANT to animate.
+      // For now, let's animate all sections found.
+
       gsap.from(section, {
         scrollTrigger: {
           trigger: section,
-          start: "top 80%", // Start animation when top of section hits 80% of viewport height
-          toggleActions: "play none none none", // Play animation once on enter
-          // markers: true, // Uncomment to see trigger points
+          start: "top 85%", // Start animation when top of section is 85% from viewport top
+          end: "bottom 15%", // End defines scrub area if scrub is enabled
+          toggleActions: "play none none reverse", // Play on enter, reverse on leave
+          // markers: true, // Uncomment during development to see triggers
         },
         opacity: 0,
-        y: 50,
-        duration: 1,
-        ease: "power2.out",
+        y: 30,       // Subtle slide up
+        duration: 0.6, // Slightly faster
+        ease: "power1.out",
       });
     });
-    */
 
   });
 </script>

@@ -162,7 +162,7 @@ const finalCTA = {
   </div>
 
   <!-- Feature Detail 1: Onboarding & Multi-Location -->
-  <section class="py-16 md:py-24 bg-white">
+  <section class="py-16 md:py-24 bg-white rounded-xl">
     <FeaturesNavs
         title={featureOnboarding.title}
         tabs={featureOnboarding.features}
@@ -171,7 +171,7 @@ const finalCTA = {
   </section>
 
   <!-- Feature Detail 2: Menu & Item Mastery -->
-  <section class="py-16 md:py-24 bg-white">
+  <section class="py-16 md:py-24 bg-white rounded-xl">
     <FeaturesNavs
         title={featureMenuMastery.title}
         tabs={featureMenuMastery.features}
@@ -181,7 +181,7 @@ const finalCTA = {
   </section>
 
   <!-- Feature Detail 3: Branding & Visuals -->
-  <section class="py-16 md:py-24 bg-white">
+  <section class="py-16 md:py-24 bg-white rounded-xl">
      <FeaturesStatsAlt
         title={featureBranding.title}
         subTitle={featureBranding.subTitle}
@@ -200,7 +200,7 @@ const finalCTA = {
   </section>
 
   <!-- Feature Detail 4: Operational Rules (Custom Section) -->
-  <section class="py-16 md:py-24 bg-gray-100">
+  <section class="py-16 md:py-24">
       <div class="container mx-auto px-6 text-center">
         <h2 class="text-3xl font-bold text-neutral-800 mb-4">Define Your Rules, Prevent Bad Orders</h2>
         <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
@@ -227,7 +227,7 @@ const finalCTA = {
   </section>
 
   <!-- CTA Section (Custom Section) -->
-  <section class="bg-gradient-to-r from-primary to-green-700 text-white py-16"> <!-- Using primary gradient -->
+  <section class="bg-gradient-to-r from-primary to-green-700 text-white py-16 rounded-xl">
       <div class="container mx-auto px-6 text-center">
           <h2 class="text-3xl font-bold mb-4">{finalCTA.title}</h2>
           <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">{finalCTA.subTitle}</p>
@@ -240,4 +240,30 @@ const finalCTA = {
       </div>
   </section>
 
-</MainLayout> 
+</MainLayout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // --- Section Animations on Scroll ---
+    gsap.utils.toArray<HTMLElement>('section').forEach(section => {
+      gsap.from(section, {
+        scrollTrigger: {
+          trigger: section,
+          start: "top 85%",
+          end: "bottom 15%", 
+          toggleActions: "play none none reverse",
+          // markers: true, 
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.6,
+        ease: "power1.out",
+      });
+    });
+  });
+</script> 
