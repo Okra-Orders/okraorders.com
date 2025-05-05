@@ -1,12 +1,12 @@
 ---
-// Import the necessary dependencies
-import FooterSocialLink from "@components/ui/links/FooterSocialLink.astro";
-// REMOVED: import EmailFooterInput from "@components/ui/forms/input/EmailFooterInput.astro";
+// Import necessary utilities and components
+// import FooterSocialLink from "@components/ui/links/FooterSocialLink.astro"; // Removed unused import
+import BrandLogo from "@components/BrandLogo.astro";
+// import { Icon } from 'astro-icon/components'; // Removed unused import
+// import navigation from "@utils/navigation"; // Removed unused import
+// import { SITE } from "@/data_files/constants"; // Removed unused import
 import enStrings from "@utils/navigation.ts";
 // REMOVED: import frStrings from "@utils/fr/navigation.ts"; // No longer needed
-import { Icon } from 'astro-icon/components';
-import BrandLogo from "@components/BrandLogo.astro";
-import { SITE } from "@/data_files/constants"; // Keep SITE for title
 
 const strings = enStrings; // Default to English
 

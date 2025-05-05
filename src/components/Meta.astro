@@ -3,6 +3,7 @@ import { getImage } from "astro:assets";
 import { OG, SEO, SITE } from "@data/constants";
 import faviconSvgSrc from "@images/icon.svg";
 import faviconSrc from "@images/icon.png";
+// import type { StructuredData } from "@/types/structuredData.interface"; // Removed potentially problematic import
 
 // Default properties for the Meta component. These values are used if props are not provided.
 // 'meta' sets a default description meta tag to describe the page content.
@@ -24,7 +25,6 @@ const {
 const URL = `${Astro.site}`; // Set the website URL in astro.config.mjs
 const author = SITE.author;
 const canonical = Astro.url.href;
-const basePath = Astro.url.pathname;
 const ogTitle = OG.title;
 const ogDescription = OG.description;
 const socialImageRes = await getImage({
@@ -39,12 +39,10 @@ const languages: { [key: string]: string } = {
   fr: "fr",
 };
 
-function createHref(lang: string, prefix: string, path: string): string {
-  const hasPrefix = path.startsWith(`/${prefix}/`);
-
-  const basePath = hasPrefix ? path : `/${prefix}${path}`;
-  const normalizedBasePath = basePath.replace(/\/\/+/g, "/");
-  return `${URL.slice(0, -1)}${normalizedBasePath}`;
+function createHref(prefix: string, path: string): string {
+  const siteUrl = SITE.url.replace(/\/$/, "");
+  const pagePath = path.replace(/^\/|\/$/g, "");
+  return `${siteUrl}/${prefix}/${pagePath}`;
 }
 
 const fullPath: string = Astro.url.pathname;
@@ -54,7 +52,7 @@ const alternateLanguageLinks: string = Object.entries(languages)
     const basePath: string =
       lang === "en" ? fullPath.replace(/^\/fr\//, "/") : fullPath;
 
-    const href: string = createHref(lang, prefix, basePath);
+    const href: string = createHref(prefix, basePath);
 
     return `<link rel="alternate" hreflang="${lang}" href="${href}" />`;
   })
@@ -75,14 +73,14 @@ const appleTouchIcon = await getImage({
 ---
 
 <!-- Inject structured data into the page if provided. This data is formatted as JSON-LD, a method recommended by Google for structured data pass:
-     https://developers.google.com/search/docs/advanced/structured-data/intro-structured-data -->{
-  structuredData && (
-    <script
-      type="application/ld+json"
-      set:html={JSON.stringify(structuredData)}
-    />
-  )
-}
+     https://developers.google.com/search/docs/advanced/structured-data/intro-structured-data -->
+<script define:vars={{ structuredData }} is:inline>
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(structuredData);
+  document.head.appendChild(script);
+</script>
+
 <!-- Define the character set, description, author, and viewport settings -->
 <meta charset="utf-8" />
 <meta content={meta} name="description" />

@@ -1,7 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { SITE } from "@/data_files/constants";
-import ClipboardJS from "clipboard";
+// import { SITE } from "@/data_files/constants"; // Removed unused import
+// import ClipboardJS from "clipboard"; // Removed unused/problematic import
 // Destructure the properties from Astro.props
 const {
   pageTitle,
@@ -120,37 +120,32 @@ const socialPlatforms: SocialPlatform[] = [
 <!-- https://clipboardjs.com/ -->
 
 <script>
-  // Initialization of Clipboard
-  (function () {
-    var clipboard = new ClipboardJS(".copy-link-button");
+  // document.addEventListener('astro:page-load', () => { // Use astro:page-load
+  //   var clipboard = new ClipboardJS(".copy-link-button");
 
-    clipboard.on("success", function (e) {
-      // Update button text to indicate success
-      const originalText = e.trigger.innerHTML;
-      e.trigger.innerHTML = "Copied!";
-      e.trigger.disabled = true; // Optionally disable button after copying
+  //   clipboard.on("success", function (e) {
+  //     console.info("Action:", e.action);
+  //     console.info("Text:", e.text);
+  //     console.info("Trigger:", e.trigger);
 
-      // Reset button text after 2 seconds
-      setTimeout(() => {
-        e.trigger.innerHTML = originalText;
-        e.trigger.disabled = false; // Re-enable button
-      }, 2000);
+  //     // Provide user feedback
+  //     const originalText = e.trigger.innerHTML;
+  //     e.trigger.innerHTML = "Copied!";
+  //     (e.trigger as HTMLButtonElement).disabled = true; // Optionally disable button after copying
 
-      e.clearSelection();
-    });
+  //     // Reset button state after a delay
+  //     setTimeout(() => {
+  //       e.trigger.innerHTML = originalText;
+  //       (e.trigger as HTMLButtonElement).disabled = false; // Re-enable button
+  //     }, 2000);
 
-    clipboard.on("error", function (e) {
-      // Handle error (e.g., show an error message)
-      console.error("Action:", e.action);
-      console.error("Trigger:", e.trigger);
-      // Optionally update button text to indicate error
-      const originalText = e.trigger.innerHTML;
-      e.trigger.innerHTML = "Copy failed!";
+  //     e.clearSelection();
+  //   });
 
-      // Reset button text after 2 seconds
-      setTimeout(() => {
-        e.trigger.innerHTML = originalText;
-      }, 2000);
-    });
-  })();
+  //   clipboard.on("error", function (e) {
+  //     console.error("Action:", e.action);
+  //     console.error("Trigger:", e.trigger);
+  //     // Optionally inform the user about the error
+  //   });
+  // });
 </script>

@@ -1,39 +1,15 @@
 ---
-// Import SecondaryCTA component for use in this module
-import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
-// import Icon from "@components/ui/icons/Icon.astro"; // Removed old import
-import { Icon } from 'astro-icon/components'; // Added new import
+// Import necessary components
+import { Icon } from 'astro-icon/components';
+// import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // Removed unused import
+// import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // Removed unused import
 
 // Define props from Astro
 const { pricing } = Astro.props;
 
-// Define TypeScript type for products.
-// Renamed to Plan for clarity
-type Plan = {
-  name: string;
-  description: string;
-  price: string;
-  cents: string;
-  billingFrequency: string;
-  features: Array<string>;
-  purchaseBtnTitle: string;
-  purchaseLink: string;
-};
-
-// Adjusted interface slightly based on JSON structure
-interface PricingSectionProps {
-  pricing: {
-    title: string;
-    subTitle: string;
-    badge: string; // Badge for the highlighted plan
-    thirdOption: string; // Text for the bottom CTA
-    btnText: string; // Button text for the bottom CTA
-    plan1: Plan;
-    plan2: Plan;
-    plan3: Plan;
-    // Can add plan4?: Plan; if needed later
-  };
-}
+// Removed unused interfaces/types:
+// type Plan = { ... };
+// interface PricingFeature { ... };
 
 // Extract plans into an array for easier iteration
 const plans = [pricing.plan1, pricing.plan2, pricing.plan3];

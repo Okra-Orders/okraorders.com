@@ -4,6 +4,8 @@ import { Image } from "astro:assets";
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
 import ReviewComponent from "@components/ui/blocks/ReviewComponent.astro";
+// Remove default image import - image must be passed via props
+// import defaultHeroImage from "@/images/okra-hero-homepage.png"; 
 
 // Define props from Astro
 const {
@@ -18,8 +20,12 @@ const {
   starCount,
   rating,
   reviews,
-  src,
-  alt
+  src, 
+  alt,
+  videoSrc, // Added video prop
+  videoAlt, // Added video prop
+  imgWidth = 800, // Default width if not provided
+  imgHeight = 600 // Default height if not provided
 } = Astro.props;
 
 // Define TypeScript interface for props
@@ -35,9 +41,17 @@ interface Props {
   starCount?: number;
   rating?: string;
   reviews?: string;
-  src?: any;
-  alt?: string;
+  src?: ImageMetadata; // Made image source optional
+  alt?: string; // Made alt optional (will use videoAlt if src not present)
+  videoSrc?: string; // Added optional video source prop
+  videoAlt?: string; // Added optional video alt prop
+  imgWidth?: number; // Optional width prop
+  imgHeight?: number; // Optional height prop
 }
+
+// Determine image source and alt text
+// const imageSrc = src; // Use the required src prop - No longer required here
+// const imageAlt = alt; // Use the required alt prop - No longer required here
 ---
 
 <!-- Defining a grid container that holds all the content -->
@@ -78,21 +92,38 @@ interface Props {
     ) : "" }
 
   </div>
-  <!-- Hero Image Section -->
-  <div class="flex w-full" id="hero-image-container">
-      <div class="top-12 overflow-hidden">
-	{src && alt &&
-	<Image
-        src={src}
-        alt={alt}
-        width={800}
-        height={600}
-        class="h-full w-full scale-110 object-cover object-center"
-        draggable={"false"}
-        loading={"eager"}
-        format={"avif"}
-	 />
-	}
+  <!-- Hero Media Section (Image or Video) -->
+  <div class="flex w-full items-center justify-center" id="hero-image-container">
+      <div class="overflow-hidden rounded-lg">
+        {/* Conditionally render Image or Video */}
+        {src && alt && (
+          <Image
+              src={src} 
+              alt={alt} 
+              width={imgWidth}
+              height={imgHeight}
+              widths={[400, imgWidth ?? 800]}
+              sizes={`(max-width: 768px) 100vw, 50vw`}
+              class="h-auto w-full object-cover object-center"
+              draggable={false}
+              loading="eager"
+          />
+        )}
+        {videoSrc && (
+          <video
+              src={videoSrc}
+              aria-label={videoAlt ?? 'Hero section video'}
+              width={imgWidth ?? 800}
+              class="h-auto w-full object-cover object-center rounded-lg"
+              autoplay
+              loop
+              muted
+              playsinline
+              preload="auto"
+          >
+              Your browser does not support the video tag.
+          </video>
+        )}
     </div>
   </div>
 </section>

@@ -1,20 +1,31 @@
 ---
 import { Image } from "astro:assets";
-// import Icon from "@components/ui/icons/Icon.astro"; // Removed old import
+import type { ImageMetadata } from 'astro'; // Correct type import
 import { Icon } from 'astro-icon/components'; // Added new import
 
 // Define props from Astro
-const { title, subTitle, benefits, imgSrc, imgAlt, imgWidth, imgHeight, imagePosition = 'left' } = Astro.props;
+const { 
+    title, 
+    subTitle, 
+    benefits, 
+    imgSrc, // String path (for external or video)
+    imgObject, // Imported image object
+    imgAlt, 
+    imgWidth, 
+    imgHeight, 
+    imagePosition = 'left' 
+} = Astro.props;
 
 // Define TypeScript interface for props
 interface Props {
   title: string;
   subTitle?: string;
   benefits?: Array<string>;
-  imgSrc?: any; // Keep as any if it might be string or ImageMetadata
-  imgAlt?: string;
-  imgWidth?: number; // Add image width prop
-  imgHeight?: number; // Add image height prop
+  imgSrc?: string; // Optional string path
+  imgObject?: ImageMetadata; // Optional imported image
+  imgAlt?: string; // Alt text is important
+  imgWidth?: number; 
+  imgHeight?: number; 
   imagePosition?: 'left' | 'right';
 }
 
@@ -22,8 +33,13 @@ interface Props {
 const imageOrderClass = imagePosition === 'left' ? 'lg:order-1' : 'lg:order-2';
 const textOrderClass = imagePosition === 'left' ? 'lg:order-2' : 'lg:order-1';
 
-// Check if we have enough info to render the image and reserve space
-const canRenderImage = imgSrc && imgWidth && imgHeight;
+// Check if we should render an image (prioritize imgObject)
+const imageToRender = imgObject || imgSrc;
+const effectiveAlt = imgAlt ?? ''; // Ensure alt is always a string
+const canRenderImage = imageToRender && imgWidth && imgHeight;
+
+// Check if the media slot is used
+const hasMediaSlot = Astro.slots.has('media');
 ---
 
 <section
@@ -32,16 +48,29 @@ const canRenderImage = imgSrc && imgWidth && imgHeight;
   <!-- Grid -->
   <div class="lg:grid lg:grid-cols-12 lg:items-center lg:gap-16">
     <div class={`lg:col-span-7 ${imageOrderClass}`}>
-      {/* Render only if src and dimensions are provided */}
-      {canRenderImage && (
-        <Image 
-          class="rounded-xl w-full h-auto" 
-          src={imgSrc} 
-          alt={imgAlt ?? ''} 
-          width={imgWidth} 
-          height={imgHeight}
-          loading="lazy" 
-        />
+      {/* Render media slot > image object > image src */}
+      {hasMediaSlot ? (
+        <slot name="media" />
+      ) : (
+        (imgObject && canRenderImage) ? (
+          <Image 
+            class="rounded-xl w-full h-auto" 
+            src={imgObject}
+            alt={effectiveAlt} 
+            width={imgWidth!} 
+            height={imgHeight!}
+            loading="lazy" 
+          />
+        ) : (imgSrc && canRenderImage) ? (
+          <img
+            class="rounded-xl w-full h-auto" 
+            src={imgSrc} 
+            alt={effectiveAlt} 
+            width={imgWidth!} 
+            height={imgHeight!}
+            loading="lazy" 
+          />
+        ) : null
       )}
     </div>
     <div class={`mt-5 sm:mt-10 lg:col-span-5 lg:mt-0 ${textOrderClass}`}>
@@ -71,6 +100,8 @@ const canRenderImage = imgSrc && imgWidth && imgHeight;
           )
         }
         <slot name="link" />
+        {/* NEW: Also add the note slot here if it needs to be inside the text column */}
+        <slot name="note" />
       </div>
     </div>
   </div>

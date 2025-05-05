@@ -10,18 +10,31 @@ import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // Added i
 // Removed unused old imports: HeroSectionAlt, ClientsSection, FeaturesGeneral, FeaturesNavs, TestimonialsSection, PricingSection, FAQ, AnnouncementBanner
 // Removed unused old data/image imports: heroImage, faqs, features, pricing, featureImage, construction, tools, dashboard, partnersData, avatarSrcs
 
+// --- Import Actual Images --- 
+// import heroImage from "@/images/okra-hero-homepage.png";
+// import feature1Video from "/videos/pay-with-stored-cc.mp4";
+import feature1Image from "@/images/place-order.png"; // Added import for the new image
+import feature2Video from "/videos/store-ready.mp4"; // Keep video path as string
+import featureWhiteLabelImage from "@/images/custom-url.png";
+import feature3Image from "@/images/ezcater-order-inside-okra.png";
+// Removed unused placeholder image imports
+// Removed placeholder image imports for support section (using alt text for now)
+
 // --- Define Interfaces for Data (Keep these) ---
 interface FeatureSectionData {
-  tagline?: string; // Made tagline optional as FeaturesStatsAlt doesn't use it directly
+  tagline?: string;
   title: string;
-  description: string; // Renamed to subTitle for FeaturesStatsAlt
-  listItems: string[]; // Renamed to benefits for FeaturesStatsAlt
+  description: string;
+  listItems: string[];
   linkText: string;
   linkUrl: string;
-  imgSrc: string;
+  imgSrc?: string; // Made imgSrc optional
+  imgObject?: ImageMetadata; // Add optional prop for imported image objects
   imgAlt: string;
+  imgWidth?: number; 
+  imgHeight?: number; 
   imagePosition: 'left' | 'right';
-  note?: string; // Added optional note field
+  note?: string;
 }
 
 interface HowItWorksStep {
@@ -39,7 +52,7 @@ interface SupportItem {
   imgAlt: string;
 }
 
-// --- Data for Okra Sections (UPDATED) ---
+// --- Data for Okra Sections (UPDATED with ImageMetadata and dimensions) ---
 const pageTitle = "Okra Orders - Automate Your Catering Operations";
 const hero = {
   title: `Automate the Hassle,<br class="hidden md:inline"> Focus on the <span class="text-primary">Food</span>.`,
@@ -48,8 +61,8 @@ const hero = {
   primaryBtnURL: "/signup",
   secondaryBtn: "Try Live Demo",
   secondaryBtnURL: "https://demo.okraorders.com",
-  imgSrc: "https://picsum.photos/seed/okrahero/800/600", // Keep placeholder
-  imgAlt: "Hero Image/App Screenshot Placeholder", // Updated Alt Text
+  videoSrc: "/videos/enable-store.mp4", // Added video source (public path)
+  videoAlt: "Video showing how to enable a store in Okra Orders", // Added video alt text
 };
 const feature1: FeatureSectionData = {
   tagline: "Your Brand, Seamless Experience",
@@ -63,8 +76,10 @@ const feature1: FeatureSectionData = {
   ], // Content seems unchanged
   linkText: "Learn more about the customer experience →", // Updated arrow
   linkUrl: "/features/online-ordering/",
-  imgSrc: "https://picsum.photos/seed/okrafeature1/500/500", // Keep placeholder
-  imgAlt: "GIF: Customer Ordering Flow", // Updated Alt Text
+  imgObject: feature1Image, // Added image object
+  imgAlt: "Screenshot of Okra Orders customer placing an order", // Updated alt text
+  imgWidth: 500, // Added estimated width
+  imgHeight: 450, // Added estimated height
   imagePosition: "left",
 };
 const feature2: FeatureSectionData = {
@@ -74,14 +89,14 @@ const feature2: FeatureSectionData = {
   listItems: [
     "Quickly onboard with our guided setup wizard.",
     "Save hours duplicating items/menus across locations.",
-    "Use AI image generation for quick, consistent visuals*.", // Added asterisk
+    "Use AI image generation for quick, consistent visuals.", // Added asterisk
     // Removed White-Labeling Point
   ],
-  note: "*Ensure AI images accurately represent final food presentation.", // Added note
+  note: "", // Added note
   linkText: "Explore management features →", // Updated arrow
   linkUrl: "/features/store-management/",
-  imgSrc: "https://picsum.photos/seed/okrafeature2/500/500", // Keep placeholder
-  imgAlt: "GIF: Admin Menu Duplication", // Updated Alt Text
+  imgSrc: feature2Video, // Keep video path string
+  imgAlt: "Video: Admin duplicating menu items across locations", 
   imagePosition: "right",
 };
 // NEW White Label Feature Data
@@ -90,32 +105,38 @@ const featureWhiteLabel: FeatureSectionData = {
   title: "Make Okra Orders Truly Yours",
   description: "Reinforce your brand identity and provide a seamless experience for your customers. Okra Orders allows you to use your own custom domain or subdomain and display your logo prominently on your online storefront.",
   listItems: [
-    "Use your own domain (e.g., `catering.yourwebsite.com`).",
+    "Use your own domain (e.g., `order.yourwebsite.com`).",
     "Feature your business logo throughout the ordering process.",
     "Maintain consistent branding for customer trust.",
-    "(Higher tiers) Customize colors to perfectly match your brand identity.",
+    "",
   ],
-  linkText: "Learn more about branding options →", // Updated arrow
+  linkText: "Learn more about branding options →",
   linkUrl: "/features/store-management/#whitelabel",
-  imgSrc: "https://picsum.photos/seed/okrawhitelabel/500/400", // Placeholder Image
-  imgAlt: "Visual: Custom Domain & Logo Example", // Updated Alt Text
-  imagePosition: "left", // Image on the left as per HTML structure
+  imgSrc: "", // No string path needed if using imgObject
+  imgObject: featureWhiteLabelImage, // Use imported image object
+  imgAlt: "Visual showing custom domain and logo placement on Okra storefront",
+  imgWidth: 500, 
+  imgHeight: 313, 
+  imagePosition: "left", 
 };
 const feature3: FeatureSectionData = {
   tagline: "Automate & Unify",
-  title: "Unify Operations & Automate Accounting", // Updated title
-  description: "Tired of juggling platforms and wasting hours on manual data entry? Okra acts as your central command center, unifying orders and automatically syncing sales data (from both Okra and <strong>ezCater</strong>!) with QuickBooks Online.", // Updated Description with <strong>
+  title: "Unify Operations & Automate Accounting",
+  description: "Tired of juggling platforms and wasting hours on manual data entry? Okra acts as your central command center, unifying orders and automatically syncing sales data (from both Okra and <strong>ezCater</strong>!) with QuickBooks Online.",
   listItems: [
-    "See Okra & <strong>ezCater</strong> orders side-by-side.", // Updated with <strong>
-    "<strong>Automatically push ezCater sales receipts to QuickBooks.</strong>", // Changed ** to <strong>
-    "Deep admin order editing capabilities (incl. Open Food).", // Updated point
+    "See Okra & <strong>ezCater</strong> orders side-by-side.",
+    "<strong>Automatically push ezCater sales receipts to QuickBooks.</strong>",
+    "Deep admin order editing capabilities (incl. Open Food).",
     "Optimize operations with Ghost Kitchens & order transfers.",
   ],
-  linkText: "See how Okra connects your workflow →", // Updated arrow
+  linkText: "See how Okra connects your workflow →",
   linkUrl: "/features/integrations/",
-  imgSrc: "https://picsum.photos/seed/okrafeature3/500/500", // Keep placeholder
-  imgAlt: "Screenshot: Unified Order Dashboard (Okra + ezCater)", // Updated Alt Text
-  imagePosition: "right", // Reversed image position as per HTML
+  imgSrc: "", // No string path needed if using imgObject
+  imgObject: feature3Image, // Use imported image object
+  imgAlt: "Screenshot: Unified Order Dashboard showing Okra and ezCater orders",
+  imgWidth: 500, 
+  imgHeight: 425, 
+  imagePosition: "right", 
 };
 const howItWorks: { title: string; steps: HowItWorksStep[]; footerText: string } = {
   title: "Get Up and Running Fast", // Content seems unchanged
@@ -127,11 +148,12 @@ const howItWorks: { title: string; steps: HowItWorksStep[]; footerText: string }
   footerText: "Start setting up your software right away while we handle the payment onboarding process for you.", // Content seems unchanged
 };
 const supportSection: { title: string; items: SupportItem[] } = {
-  title: "Stay Informed & Get Expert Support", // Content seems unchanged
+  title: "Stay Informed & Get Expert Support", 
   items: [
-    { title: "Actionable AI Insights", description: "Track key metrics and get proactive AI-powered insights to understand performance and spot trends across all your channels (including <strong>ezCater</strong>).", linkText: "Learn about analytics →", linkUrl: "/features/analytics-insights/", imgSrc: "https://picsum.photos/seed/okrasupport1/400/300", imgAlt: "Screenshot: AI Insight Example" }, // Updated Alt, arrow
-    { title: "Help Right Within the App", description: "Get started fast with integrated help guides, tours, and tooltips. Reduce training time and quickly understand new features.", linkText: "Explore help features →", linkUrl: "/support/", imgSrc: "https://picsum.photos/seed/okrasupport2/400/300", imgAlt: "Screenshot: In-App Help Tooltip" }, // Updated Alt, arrow
-    { title: "Business-Focused Support", description: "Reach our expert team via chat or video call for personalized assistance focused on optimizing your catering operations using Okra.", linkText: "Contact support →", linkUrl: "/support#contact", imgSrc: "https://picsum.photos/seed/okrasupport3/400/300", imgAlt: "Support Graphic" }, // Updated Alt, arrow
+    // For now, using alt text in placeholder divs, not importing images here
+    { title: "Actionable AI Insights", description: "Track key metrics and get proactive AI-powered insights...", linkText: "Learn about analytics →", linkUrl: "/features/analytics-insights/", imgSrc: "placeholder", imgAlt: "Screenshot: AI Insight Example" },
+    { title: "Help Right Within the App", description: "Get started fast with integrated help guides...", linkText: "Explore help features →", linkUrl: "/support/", imgSrc: "placeholder", imgAlt: "Screenshot: In-App Help Tooltip" }, 
+    { title: "Business-Focused Support", description: "Reach our expert team via chat or video call...", linkText: "Contact support →", linkUrl: "/support#contact", imgSrc: "placeholder", imgAlt: "Support Graphic" }, 
   ]
 }
 const pricingTeaser = {
@@ -161,14 +183,9 @@ const finalCTA = {
     secondaryBtn={hero.secondaryBtn}
     secondaryBtnURL={hero.secondaryBtnURL}
     withReview={false}
-  >
-     <Fragment slot="image">
-        <!-- Use a placeholder div like the HTML or keep the image -->
-        <img src={hero.imgSrc} alt={hero.imgAlt} class="rounded-lg shadow-xl mx-auto" loading="eager"/>
-        <!-- Example Placeholder Div: -->
-        <!-- <div class="bg-gray-200 h-64 md:h-96 w-full max-w-4xl mx-auto rounded-lg shadow-xl flex items-center justify-center text-gray-500">{hero.imgAlt}</div> -->
-     </Fragment>
-  </HeroSection>
+    videoSrc={hero.videoSrc} 
+    videoAlt={hero.videoAlt} 
+  /> {/* Pass video source & alt text */}
 
   <!-- 2. Feature Section 1 -->
   <section id="features" class="py-16 md:py-24 bg-white rounded-xl">
@@ -176,13 +193,12 @@ const finalCTA = {
         title={feature1.title}
         subTitle={feature1.description}
         benefits={feature1.listItems}
-        imgSrc={feature1.imgSrc}
-        imgAlt={feature1.imgAlt}
-        imgWidth={500}
-        imgHeight={500}
         imagePosition={feature1.imagePosition}
-     >
-        {/* Use the slot for the link */}
+        imgObject={feature1.imgObject}  
+        imgAlt={feature1.imgAlt}        
+        imgWidth={feature1.imgWidth}    
+        imgHeight={feature1.imgHeight}  
+     > {/* Pass imgObject, imgAlt, imgWidth, imgHeight */} 
         <Fragment slot="link">
             <div class="mt-6">
                <a href={feature1.linkUrl} class="text-primary font-semibold hover:underline">{feature1.linkText}</a>
@@ -191,70 +207,81 @@ const finalCTA = {
      </FeaturesStatsAlt>
   </section>
 
-  <!-- 3. Feature Section 2 -->
-  <section class="py-16 md:py-24"> <!-- Removed bg-gray-100 -->
+  <!-- 3. Feature Section 2 (Uses Video Slot) -->
+  <section class="py-16 md:py-24">
     <FeaturesStatsAlt
         title={feature2.title}
         subTitle={feature2.description}
         benefits={feature2.listItems}
-        imgSrc={feature2.imgSrc}
-        imgAlt={feature2.imgAlt}
-        imgWidth={500}
-        imgHeight={500}
         imagePosition={feature2.imagePosition}
      >
-        {/* Slot for the note */}
+        <Fragment slot="media">
+            <video
+                class="rounded-lg shadow-xl mx-auto"
+                width="100%" 
+                height="auto"
+                autoplay
+                loop
+                muted
+                playsinline
+                preload="auto"
+                src={feature2.imgSrc} 
+                aria-label={feature2.imgAlt}
+            > {/* Use path from data */} 
+                Your browser does not support the video tag.
+            </video>
+        </Fragment>
         {feature2.note && (
              <Fragment slot="note">
                  <p class="text-xs text-gray-500 italic mt-4">{feature2.note}</p>
             </Fragment>
         )}
         <Fragment slot="link">
-             <div class="mt-6"> {/* Adjusted spacing from HTML */}
+             <div class="mt-6">
                 <a href={feature2.linkUrl} class="text-primary font-semibold hover:underline">{feature2.linkText}</a>
              </div>
         </Fragment>
      </FeaturesStatsAlt>
   </section>
 
-  <!-- NEW: 4. White-Labeling Feature Section -->
+  <!-- NEW: 4. White-Labeling Feature Section (Uses Image Props) -->
   <section class="py-16 md:py-24 bg-white rounded-xl">
       <FeaturesStatsAlt
           title={featureWhiteLabel.title}
           subTitle={featureWhiteLabel.description}
           benefits={featureWhiteLabel.listItems}
-          imgSrc={featureWhiteLabel.imgSrc}
-          imgAlt={featureWhiteLabel.imgAlt}
-          imgWidth={500}
-          imgHeight={400}
           imagePosition={featureWhiteLabel.imagePosition}
-       >
+          imgObject={featureWhiteLabel.imgObject} 
+          imgAlt={featureWhiteLabel.imgAlt}
+          imgWidth={featureWhiteLabel.imgWidth}
+          imgHeight={featureWhiteLabel.imgHeight}
+       > {/* Pass imported image object */} 
           <Fragment slot="link">
                <div class="mt-6">
                   <a href={featureWhiteLabel.linkUrl} class="text-primary font-semibold hover:underline">{featureWhiteLabel.linkText}</a>
                </div>
           </Fragment>
-       </FeaturesStatsAlt>
+       </FeaturesStatsAlt> 
   </section>
 
-  <!-- 5. Feature Section 3 (Integrations) -->
-  <section id="integrations" class="py-16 md:py-24"> <!-- Removed bg-gray-100 -->
+  <!-- 5. Feature Section 3 (Integrations - Uses Image Props) -->
+  <section id="integrations" class="py-16 md:py-24">
       <FeaturesStatsAlt
         title={feature3.title}
         subTitle={feature3.description}
         benefits={feature3.listItems}
-        imgSrc={feature3.imgSrc}
-        imgAlt={feature3.imgAlt}
-        imgWidth={500}
-        imgHeight={500}
         imagePosition={feature3.imagePosition}
-     >
+        imgObject={feature3.imgObject} 
+        imgAlt={feature3.imgAlt}
+        imgWidth={feature3.imgWidth}
+        imgHeight={feature3.imgHeight}
+     > {/* Pass imported image object */} 
         <Fragment slot="link">
-             <div class="mt-6"> {/* Adjusted spacing from HTML */}
+             <div class="mt-6">
                 <a href={feature3.linkUrl} class="text-primary font-semibold hover:underline">{feature3.linkText}</a>
              </div>
         </Fragment>
-     </FeaturesStatsAlt>
+     </FeaturesStatsAlt> 
   </section>
 
   <!-- 6. How it Works Section -->
@@ -285,6 +312,7 @@ const finalCTA = {
           {supportSection.items.map(item => (
             // Use Preline Card structure + standard Tailwind border classes (border + border-secondary)
             <div class="flex flex-col bg-white border border-secondary shadow-sm rounded-xl dark:bg-neutral-900 dark:border-secondary dark:shadow-neutral-700/70"> {/* Reverted to border border-secondary */}
+              {/* Keep placeholder div for now */}
               <div class="bg-gray-200 h-40 rounded-t-xl flex items-center justify-center text-gray-500 text-sm dark:bg-neutral-800 dark:text-neutral-500">{item.imgAlt}</div>
               <div class="p-4 md:p-5 text-left"> 
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{item.title}</h3>
@@ -335,10 +363,10 @@ const finalCTA = {
 
   document.addEventListener("DOMContentLoaded", () => {
     // Ensure elements exist before animating
-    const heroTitle = document.getElementById("hero-title");
-    const heroSubtitle = document.getElementById("hero-subtitle");
-    const heroButtons = document.getElementById("hero-buttons");
-    const heroImage = document.getElementById("hero-image-container"); // Target the container
+    const heroTitle = document.querySelector("#hero-title"); // Use querySelector for IDs
+    const heroSubtitle = document.querySelector("#hero-subtitle"); // Use querySelector for IDs
+    const heroButtons = document.querySelector("#hero-buttons"); // Use querySelector for IDs
+    const heroImage = document.querySelector("#hero-image-container"); // Target the container
 
     // Simple fade-in and slide-up animation
     // Stagger the animations slightly for a nicer effect
@@ -363,8 +391,7 @@ const finalCTA = {
     gsap.utils.toArray<HTMLElement>('section').forEach(section => {
       // Skip the hero section if it's manually animated above
       // or apply a default animation if needed.
-      // For simplicity, let's animate all sections including hero container if desired,
-      // but we'll use different properties for hero elements vs general sections.
+      // For simplicity, let's animate all sections found.
 
       // Check if the section is NOT the hero section's direct parent container
       // (assuming hero is not wrapped in its own <section> in this page structure)

@@ -41,7 +41,6 @@ const footerLinks = [
     section: "Company",
     links: [
       // { name: "About us", url: "#" }, // Removed from HTML
-      { name: "Blog", url: "/blog" },
       { name: "Contact Us", url: "/contact" },
       // { name: "Careers", url: "#" }, // Removed from HTML
       // { name: "Customers", url: "#" }, // Removed from HTML

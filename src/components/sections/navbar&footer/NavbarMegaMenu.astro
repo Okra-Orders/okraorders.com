@@ -5,9 +5,12 @@ import type { NavLinkItem } from "@utils/navigation";
 // import enStrings from "@utils/en/navigation.ts"; // Removed unused i18n strings
 // import frStrings from "@utils/fr/navigation.ts"; // Removed unused i18n strings
 import BrandLogo from "@components/BrandLogo.astro";
-import Authentication from "@components/ui/buttons/Authentication.astro";
-import IconSet from "@components/ui/icons/IconSet.astro";
+// import { Icon } from 'astro-icon/components'; // Removed unused Icon
+// import NavLink from "@components/ui/links/NavLink.astro"; // Removed unused NavLink
+// import Authentication from '@components/ui/buttons/Authentication.astro'; // Remove potentially missing component
+// import LanguagePicker from "@components/ui/buttons/LanguagePicker.astro"; // Removed missing component
 import ThemeIcon from "@components/ThemeIcon.astro";
+// import IconSet from "@components/ui/icons/IconSet.astro"; // Remove incorrect icon import
 // import LanguagePicker from "@components/ui/LanguagePicker.astro"; // Removed LanguagePicker import
 import navigation from "@utils/navigation";
 
@@ -86,12 +89,12 @@ interface Props {
       >
         <!-- Navigation Links -->
         {navBarLinks.map((link) => <a href={link.url}>{link.name}</a>)}
-        <Authentication />
+        {/* <Authentication /> */}
         <!-- Theme and Language Pickers -->
         <div class="flex flex-row items-center justify-end gap-x-1">
           <ThemeIcon />
-          <!-- Language Picker Dropdown -->
-          <!-- <LanguagePicker /> --> <!-- Removed LanguagePicker usage -->
+          {/* Language Picker Dropdown - Component Removed */}
+          {/* <LanguagePicker /> */}
         </div>
         <!-- Hamburger Menu -->
       </div>

@@ -1,8 +1,8 @@
 ---
-// Import the Image component from astro:assets
-import { Image } from "astro:assets";
-// Import the logo image
-import logo from "@/images/okra-logo.png";
+// Removed Astro Image component import
+// import { Image } from "astro:assets";
+// Removed internal logo import
+// import logo from "@/images/okra-logo.png";
 
 // Define props, including potential width, height, and class overrides
 interface Props {
@@ -11,16 +11,21 @@ interface Props {
   class?: string;
 }
 
-// Set default values if needed, or infer from image dimensions
-// Adjusted default width to 140px and height proportionally to 32px
-const { width = 110, class: className } = Astro.props;
+// Set default values if needed
+// Using width = 110 for consistency with previous code
+const { width = 110, height, class: className } = Astro.props;
+
+// Calculate height proportionally if not provided (assuming original aspect ratio)
+// We need the original image dimensions for this, let's assume 45px height for 110px width based on previous HTML.
+const calculatedHeight = height ?? 45; 
 ---
 
-<!-- Eager load logo as it's likely LCP -->
-<Image
-  src={logo}
+<!-- Use standard img tag pointing to public directory -->
+<img
+  src="/okra-logo.png" 
   alt="Okra Orders Logo"
   width={width}
+  height={calculatedHeight}
   loading="eager"
   decoding="async"
   class:list={[className]}
