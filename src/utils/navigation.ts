@@ -56,12 +56,12 @@ const footerLinks = [
   },
 ];
 // An object of links for social icons
-const socialLinks = {
-  facebook: "https://www.facebook.com/",
-  x: "https://twitter.com/",
-  github: "https://github.com/mearashadowfax/ScrewFast",
-  google: "https://www.google.com/",
-  slack: "https://slack.com/",
+export const socialLinks = {
+  facebook: "#", // Replace with your Facebook URL
+  twitter: "#", // Replace with your Twitter URL
+  github: "#", // Replace with your GitHub URL or remove
+  linkedin: "#", // Replace with your LinkedIn URL
+  instagram: "#", // Replace with your Instagram URL
 };
 
 export default {

@@ -9,9 +9,10 @@ import TextAreaInput from "@components/ui/forms/input/TextAreaInput.astro";
 // import ContactForm from "@components/ui/forms/ContactForm.astro"; // Removed unused import
 // import SocialIcons from "@components/ui/icons/SocialIcons.astro"; // Removed unused import
 import { Icon } from 'astro-icon/components';
+// import ContactItem from "@components/ui/blocks/ContactItem.astro"; // Remove this incorrect import
 
 // Define the variables that will be used in this component
-const title: string = "Contact us";
+const title: string = "Let's Connect";
 const subTitle: string =
   "Have questions or want to discuss a project? Reach out, and let's craft the perfect solution with our tools and services.";
 const formTitle: string = "Fill in the form below";
@@ -98,22 +99,32 @@ const formSubTitle: string = "We'll get back to you in 1-2 business days.";
           ><Icon name="mdi:message-text-outline" />
         </ContactIconBlock>
 
-        <ContactIconBlock
-          heading="Visit our office"
-          content="UK ScrewFast"
-          isAddressVisible={true}
-          addressContent="72 Union Terrace, E10 4PE London"
-          ><Icon name="mdi:map-marker" />
-        </ContactIconBlock>
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
+          <ContactIconBlock
+            heading="Give us a call"
+            content="Speak directly with our team M-F, 9-5 EST at"
+            isLinkVisible={true}
+            linkTitle="+1 (555) 123-4567"
+            linkURL="tel:+15551234567"
+            ><Icon name="mdi:phone-outline" />
+          </ContactIconBlock>
 
-        <ContactIconBlock
-          heading="Contact us by email"
-          content="Prefer the written word? Drop us an email at"
-          isLinkVisible={true}
-          linkTitle="support@screwfast.uk"
-          linkURL="#"
-          ><Icon name="mdi:email-open-outline" />
-        </ContactIconBlock>
+          <ContactIconBlock
+            heading="Our Location"
+            content="123 Catering Way, Foodville, CA 94043"
+            isLinkVisible={false}
+            ><Icon name="mdi:map-marker-outline" />
+          </ContactIconBlock>
+
+          <ContactIconBlock
+            heading="Contact us by email"
+            content="Prefer the written word? Drop us an email at"
+            isLinkVisible={true}
+            linkTitle="support@okraorders.com"
+            linkURL="mailto:support@okraorders.com"
+            ><Icon name="mdi:email-open-outline" />
+          </ContactIconBlock>
+        </div>
       </div>
     </div>
   </div>
