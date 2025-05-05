@@ -2,7 +2,7 @@
 // import Icon from "@components/ui/icons/Icon.astro"; // Removed old import
 import { Icon } from 'astro-icon/components'; // Corrected import path
 // Destructure the properties from Astro.props
-const { title, url, noArrow, inverted = false } = Astro.props;
+const { title, url, noArrow, inverted = false } = Astro.props; // Keep inverted prop for now, but won't use it
 // Define TypeScript interface for the properties
 interface Props {
   title?: string;
@@ -10,30 +10,49 @@ interface Props {
   noArrow?: boolean;
   inverted?: boolean;
 }
-// Define CSS classes for styling the button
-const baseClasses =
-  "group inline-flex items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-sm font-bold text-neutral-50 ring-offset-white transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
-const borderClasses = "border border-transparent";
-// Use the variable-linked Tailwind classes
-// Assuming hover/active states are defined in tailwind.config.cjs referencing CSS vars
-const bgColorClasses =
-  "bg-primary hover:bg-primary-hover active:bg-primary-active"; // Or use hover:bg-primary/90 if hover vars aren't defined
-const disableClasses = "disabled:pointer-events-none disabled:opacity-50";
-const fontSizeClasses = "2xl:text-base";
+// Revert to Tailwind classes (Preline plugin is disabled)
+const baseClasses = [
+  "inline-flex", "items-center", "justify-center", "gap-2", 
+  "whitespace-nowrap", 
+  "rounded-full", 
+  "px-6", "py-3",
+  "text-center", "text-sm", "font-medium", 
+  "shadow-sm", 
+  "ring-offset-white", 
+  "transition", "duration-300", "ease-in-out", 
+  "focus:outline-none", "focus:ring-2", "focus:ring-primary", "focus:ring-offset-2", 
+  "disabled:pointer-events-none", "disabled:opacity-50", 
+  "dark:focus:ring-offset-neutral-800", 
+  "lg:text-base"
+];
 
-// Define standard classes
-const standardClasses = "bg-primary text-white hover:bg-primary-hover active:bg-primary-active"; // Assuming primary-hover/active use CSS vars
-// Define inverted classes
-const invertedClasses = "bg-white text-primary hover:bg-gray-100 active:bg-gray-200"; // Example hover/active
+// Standard variant using Tailwind classes (manual .bg-primary)
+const standardVariantClasses = [
+  "bg-primary",
+  "text-white",
+  "hover:bg-green-700", // Using standard green shade for hover - CHECK THIS
+  "active:bg-green-800" // Using standard green shade for active - CHECK THIS
+];
 
-// Base classes shared by both variants
-const base = "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-3 text-center text-sm font-medium shadow-sm ring-offset-white transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:focus:ring-offset-neutral-800 lg:text-base";
+// Inverted variant classes (manual .border-primary, .text-primary)
+const invertedVariantClasses = [
+  "border-2", 
+  "border-primary", 
+  "text-primary", 
+  "bg-white", // Explicit white background
+  "hover:bg-primary/10" // Need to check if this works, might need manual class
+];
+
 ---
 
 <!-- Link styled as a button, with dynamic title, URL, and optional arrow -->
 <a
   href={url}
-  class:list={[base, inverted ? invertedClasses : standardClasses]}
+  class:list={[
+    baseClasses,
+    // Restore conditional logic
+    inverted ? invertedVariantClasses : standardVariantClasses
+  ]}
 >
   {title}
   <!-- Display the arrow based on the 'noArrow' property -->

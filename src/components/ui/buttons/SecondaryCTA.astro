@@ -7,19 +7,32 @@ interface Props {
   title?: string;
   url?: string;
 }
-// Define CSS classes for the hyperlink button
-const baseClasses =
-  "inline-flex items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-center text-sm font-medium text-neutral-600 shadow-xs outline-hidden ring-zinc-500 focus-visible:ring-3 transition duration-300";
-const borderClasses = "border border-neutral-200";
-const bgColorClasses = "bg-neutral-300";
-const hoverClasses =
-  "hover:bg-neutral-400/50 hover:text-neutral-600 active:text-neutral-700";
-const disableClasses = "disabled:pointer-events-none disabled:opacity-50";
-const fontSizeClasses = "2xl:text-base";
-const ringClasses = "ring-zinc-500";
+// Define CSS classes using theme colors
+const baseClasses = [
+  "inline-flex", "items-center", "justify-center", "gap-x-2",
+  "rounded-full", 
+  "px-4", "py-3",
+  "text-sm", "font-medium", 
+  "shadow-sm", 
+  "transition", "duration-300", "ease-in-out", 
+  "focus:outline-none", "focus:ring-2", "focus:ring-secondary", "focus:ring-offset-2",
+  "disabled:pointer-events-none", "disabled:opacity-50", 
+  "lg:text-base",
+];
 
-const darkClasses =
-  "dark:border-neutral-700 dark:bg-zinc-700 dark:text-neutral-300 dark:ring-zinc-200 dark:hover:bg-zinc-600 dark:focus:outline-hidden";
+const lightModeClasses = [
+  "bg-secondary", 
+  "text-white", 
+  "hover:bg-gray-600", // Use a slightly darker gray hover
+  "active:bg-gray-700",
+];
+
+const darkModeClasses = [
+  "dark:bg-neutral-700", // Keep existing dark mode style for now
+  "dark:text-neutral-300", 
+  "dark:hover:bg-neutral-600",
+  "dark:focus:ring-offset-neutral-800",
+];
 ---
 
 <!-- Styled hyperlink -->
@@ -27,7 +40,11 @@ const darkClasses =
   href={url}
   target="_blank" 
   rel="noopener noreferrer"
-  class="inline-flex items-center justify-center gap-x-2 rounded-full border-2 border-neutral-200 bg-white px-4 py-3 text-sm font-medium text-neutral-700 shadow-sm transition duration-300 ease-in-out hover:bg-neutral-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-neutral-600 lg:text-base"
+  class:list={[
+    baseClasses,
+    lightModeClasses,
+    darkModeClasses
+  ]}
 >
   {title}
 </a>
