@@ -78,7 +78,7 @@ const currentPagePath = Astro.url.pathname; // Get current page path
     <!-- Contains navigation links -->
     <div
       id="navbar-collapse-with-animation"
-      class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 md:block"
+      class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 md:block md:overflow-visible"
     >
       <!-- Navigation links container -->
       <div
@@ -90,17 +90,18 @@ const currentPagePath = Astro.url.pathname; // Get current page path
             if (link.subLinks && link.subLinks.length > 0) {
               // STRICTLY Replicate LanguagePicker's Dropdown Structure
               return (
-                <div class="hs-dropdown [--trigger:hover] relative inline-flex py-1">
+                <div class="relative group inline-flex py-1">
+                  <!-- 2. Button - Keep styling, add aria attributes, add cursor -->
                   <button
-                    id={`hs-dropdown-${link.name.toLowerCase()}`}
                     type="button"
-                    aria-label={link.name}
-                    class="hs-dropdown-toggle inline-flex items-center gap-x-2 rounded-lg px-2 py-2 text-base font-medium text-neutral-600 outline-none ring-zinc-500 transition duration-300 hover:bg-neutral-100 hover:text-primary focus:text-primary focus-visible:ring-2 focus-visible:ring-primary"
+                    aria-haspopup="true" 
+                    aria-expanded="false" 
+                    class="inline-flex items-center gap-x-2 rounded-lg px-2 py-2 text-base font-medium text-neutral-600 outline-none ring-zinc-500 transition duration-300 hover:bg-neutral-100 hover:text-primary focus:text-primary focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
                   >
                     {link.name}
-                    {/* Chevron SVG */}
+                    <!-- Chevron SVG - Rotate on group hover -->
                     <svg
-                      class="size-4 hs-dropdown-open:rotate-180"
+                      class="size-4 transition-transform duration-200 group-hover:rotate-180" 
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -114,9 +115,11 @@ const currentPagePath = Astro.url.pathname; // Get current page path
                     </svg>
                   </button>
 
+                  <!-- 3. Submenu - Remove mt-2 to close gap -->
                   <div
-                    class="hs-dropdown-menu duration top-full z-10 mt-2 hidden w-48 min-w-max! rounded-lg bg-white p-2 opacity-0 shadow-md ring-1 ring-gray-200 transition-[opacity,margin] before:absolute before:-top-4 before:start-0 before:h-4 before:w-full after:absolute after:-bottom-4 after:start-0 after:h-4 after:w-full hs-dropdown-open:opacity-100"
-                    aria-labelledby={`hs-dropdown-${link.name.toLowerCase()}`}
+                    role="menu" 
+                    class="absolute left-0 top-full z-[51] hidden w-48 min-w-max origin-top-left rounded-lg bg-white p-2 opacity-0 shadow-md ring-1 ring-gray-200 transition-opacity duration-200 ease-out group-hover:block group-hover:opacity-100"
+                    aria-label={`${link.name} submenu`}
                   >
                     {link.subLinks.map((subLink) => {
                       // Determine if the current sublink is the active page
