@@ -9,42 +9,14 @@ Tailwind CSS: Enjoy rapid UI development with a utility-first CSS framework.
 Preline UI: Implement prebuilt UI components for added elegance.
 GSAP Integration: Impress with professional and polished animations.
 Markdown Content Collections: Organize and manage your content seamlessly.
-Starlight Documentation: A sleek, user-friendly, full-featured documentation theme.
-Internationalization (i18n): Integrates Astro’s internationalization features.
+Internationalization (i18n): Integrates Astro's internationalization features.
 SEO and Responsiveness: Ensure your site is discoverable and accessible on any device.
-What's New
- Social Share Component:
 
-Enables users to share blog posts on social media platforms.
-Provides easy sharing of a blog post's title and URL.
-Integrates Clipboard.js for easy link copying.
- Bookmark Button Component:
-
-Allows users to bookmark blog posts for later reference using localStorage.
-Provides a visual indication of whether a post is bookmarked.
-For SSR, replace localStorage with cookies to persist bookmarked posts.
-This setup opens up the possibility for the server to dynamically render content based on user-specific bookmarks, should you choose to implement this feature.
- Post Feedback Component:
-
-Collects user feedback at the end of blog posts.
-Serves as a UI demonstration (no back-end integration currently).
- Starlight Documentation Theme Integration:
-
-A sleek, user-friendly, full-featured documentation theme, which enhances the readability and usability of documentation.
-Enhances readability and usability of documentation with features like site navigation, search, dark mode, code highlighting, and internationalization support.
- Icon Set Component:
+Icon Set Component:
 
 Centralizes SVG icons for easy management and updates.
 Render any pre-defined icon SVG using <Icon name="iconName" /> in your Astro components.
-Note: Developers have the option to use other community integrations like astro-icons. However, the author decided to create a custom icon set component for managing custom icons.
- Internationalization (i18n) Features:
-
-Integrates Astro's i18n features and includes a custom LanguagePicker component.
-Developers can access the monolingual version directly from monolingual-site branch.
- Dynamic Table of Contents (ToC) with Scroll Progress Indicator:
-
-Highlights the relevant section in the ToC with a scroll progress indicator.
-Developers seeking alternatives might consider the remark-toc plugin.
+Note: Developers have the option to use other community integrations like astro-icons (`astro-icon` is currently used).
 
 Project Structure
 ScrewFast organizes modular components, content, and layouts to streamline development and content management.
@@ -58,32 +30,30 @@ src/
 │   ├── sections/         # Components for various sections of the website
 │   ├── ThemeIcon.astro   # Component for toggling light/dark themes
 │   └── ui/               # UI components categorized by functionality
-├── content/              # Markdown files for blog posts, insights, products, and site configuration
-│   ├── blog/
-│   ├── docs/           
+├── content/              # Markdown files for insights, products, and site configuration
 │   ├── insights/         
 │   └── products/         
 ├── data_files/           # Strings stored as JSON files
-├── images/               # Static image assets for use across the website
+├── images/               # Static image assets used by Astro's Image component
 ├── layouts/              # Components defining layout templates
 │   └── MainLayout.astro  # The main wrapping layout for all pages
 ├── pages/                # Astro files representing individual pages and website sections
 │   ├── 404.astro         # Custom 404 page
-│   ├── blog/   
-│   ├── fr/               # Localized content
 │   ├── contact.astro     
 │   ├── index.astro       # The landing/home page
 │   ├── insights/         
 │   ├── products/         
 │   ├── robots.txt.ts     # Dynamically generates robots.txt
-│   └── services.astro
+│   ├── services.astro    # Example - update as needed
+│   └── why-okra.astro    # Example - update as needed
 ├── utils/                # Shared utility functions and helpers
 └── content.config.ts     # Contains content collections configuration options
+
 Static Assets and Public Resources
 Static files served directly to the browser are within the public directory at the root of the project.
 
 public/
-└── banner-pattern.svg
+└── okra-logo.png # Example: Logo moved here
     
 Customization
 ScrewFast allows for easy customization to suit your specific needs. Here are a couple of ways you can configure components and content:
@@ -119,46 +89,76 @@ You can pass values to props directly in the page files for components used acro
 />
 Edit the props such as title, subTitle, primaryBtn, etc., to personalize these sections. Ensure that you maintain the structure and data types of the props.
 
+**Component Syntax Note:** Ensure comments (`{/* ... */}`) are placed *outside* component tags (e.g., after `>` or `/>`), not between attributes, to avoid build errors. Placing comments *inside* the opening tag (between `<Component` and `>`) can break the Astro/JSX parser and lead to errors like `Unterminated string literal` or type errors where the comment is misinterpreted as a prop.
+
+**Valid Comment Placement:**
+```astro
+{/* Comment before component */}
+<MyComponent prop1="value" />
+
+<MyComponent prop2={data} /> {/* Comment after component */}
+
+<MyComponent>
+  {/* Comment inside component body */}
+  <p>Some content</p>
+</MyComponent>
+
+<!-- Standard HTML comments are also usable outside components -->
+```
+
+**Invalid Comment Placement:**
+```astro
+{/* These examples will likely cause build errors */}
+<MyComponent {/* BAD */} prop1="value" /> 
+<MyComponent prop1="value" {/* BAD */} prop2={data} /> 
+<MyComponent prop1="value" {/* BAD */}>
+  <p>Content</p>
+</MyComponent> 
+```
+
+**General Commenting:** While comments can be helpful, avoid adding comments that merely state the obvious (e.g., commenting every prop being passed). Focus comments on explaining complex logic, potential pitfalls, or areas needing future attention.
+
 Customizing Navigation and Footer Links
-Edit the navigation.ts file within the utils directory to manage navigation bar and footer links:
+Edit the `navigation.ts` file within the `utils` directory to manage navigation bar and footer links:
 
 Navigation Bar Links
-Edit the navBarLinks array to adjust navigation bar links:
+Edit the `navBarLinks` array to adjust navigation bar links:
 
 // An array of links for the navigation bar
-export const navBarLinks: NavLink[] = [
-  { name: "Home", url: "/" },
-  { name: "Products", url: "/products" },
-  { name: "Services", url: "/services" },
-  { name: "Blog", url: "/blog" },
-  { name: "Contact", url: "/contact" },
+export const navBarLinks: NavLinkItem[] = [
+  {
+    name: "Features",
+    url: "#", 
+    subLinks: [ /* ... feature links ... */ ],
+  },
+  { name: "Why Okra?", url: "/why-okra/" },
+  { name: "Pricing", url: "/pricing/" },
+  { name: "Support", url: "/support/" },
 ];
 Replace name with the display text and url with the appropriate path to pages on your site.
 
 Footer Links
-Similarly, adjust the links displayed in the footer by editing the footerLinks array:
+Similarly, adjust the links displayed in the footer by editing the `footerLinks` array:
 
 // An array of links for the footer
-export const footerLinks: FooterLinkSection[] = [
+export const footerLinks = [
   {
     section: "Product",
-    links: [
-      { name: "Tools & Equipment", url: "/tools-equipment" },
-      { name: "Construction Services", url: "/construction-services" },
-      { name: "Pricing", url: "/pricing" },
-    ],
+    links: [ /* ... product links ... */ ],
   },
   {
     section: "Company",
     links: [
-      { name: "About us", url: "/about" },
-      { name: "Blog", url: "/blog" },
-      { name: "Careers", url: "/careers" },
-      { name: "Customers", url: "/customers" },
+      { name: "Contact Us", url: "/contact" },
+      // Removed Blog link
     ],
   },
+   {
+    section: "Support & Legal",
+    links: [ /* ... support links ... */ ],
+  },
 ];
-Each section within the footerLinks array represents a group of links. Update the section value for the group heading and modify each link's name and url as needed.
+Each section within the `footerLinks` array represents a group of links. Update the `section` value for the group heading and modify each link's `name` and `url` as needed.
 
 Social Media Links
 Replace the placeholder URLs in the socialLinks object with your social media profiles:
@@ -183,25 +183,6 @@ The Navbar.astro and NavbarMegaMenu.astro components can be configured within Ma
 ScrewFast MegaMenu
 
 Integrations and Enhancements
-Starlight Documentation
-ScrewFast is now equipped with Starlight, designed to elevate the user experience with documentation. This modern and elegant theme includes a suite of features to make content more accessible and enjoyable to navigate.
-
-Key Features:
-
-Site Navigation and Search: Navigate effortlessly using the intuitive sidebar and built-in search functionality.
-Internationalization: Reach a global audience with language-switching capabilities, making the documentation accessible worldwide.
-SEO Friendly: Optimized for search engines, helping users quickly find the information they need.
-Code Highlighting and Dark Mode: Improves code readability with syntax highlighting, and offers a dark mode to reduce eye strain.
-Mobile Responsive Design: Adapts to any screen size, whether you're on a phone, tablet, or desktop, for optimal readability.
-With Starlight, you gain access to powerful features and integrations, as well as extensive customization options to suit your needs.
-
-Note
-
-Dive into the Starlight's comprehensive feature list and learn how it can streamline your development process by visiting the theme's documentation site.
-
-Important
-
-If the sidebar in your Starlight site is not scrolling, and you have to manually drag the scrollbar, remove the script tag related to the Lenis smooth scroll library from src/components/ui/starlight/Head.astro.
 
 Lenis for Smooth Scrolling
 Experience buttery smooth scrolling with Lenis. We've integrated Lenis to provide an enhanced scrolling experience that's both fluid and responsive.
@@ -228,9 +209,7 @@ And then add it to MainLayout.astro:
 </script>
 Please note that smooth scrolling can affect accessibility and performance on some devices, so be sure to test it comprehensively across different environments.
 
-Note
-
-If you would like to remove Lenis and return to the browser's default scrolling behavior, simply comment out or delete these lines from the MainLayout.astro file and /starlight/Head.astro if you are using Docs.
+Note: Since Starlight was removed, you only need to worry about commenting out Lenis in `MainLayout.astro` if desired.
 
 GSAP Integration
 For individual product pages, GSAP has been integrated to add engaging animations that execute as soon as the product page loads. You can find and modify the GSAP configuration in the script sections of the product page file located at src/pages/products/[id].astro and the insights page at src/pages/insights/[id].astro:
@@ -364,37 +343,20 @@ export const GET: APIRoute = () => {
   });
 };
 Markdown/MDX
-Image Integration
-The addition of .vscode/settings.json file in the root directory facilitates image integration directly into content collections within Markdown editors. This feature enables effortless creation of Markdown links with media files and seamless copying into the workspace.
-
-Usage
-Paste/Drop Images: Activate by pressing Shift while dropping the file.
-Markdown Link: Image is linked using Markdown syntax (![alt text](../../images/content/<path>)).
-File Handling: Images are organized in src/images/content/<path>.
-Example
-Pasting getting-started.png into src/content/post-1.md results in:
-
-Adding ![alt text](../../images/content/post-1/getting-started.png) to post-1.md.
-Moving the image file to src/images/content/post-1/getting-started.png.
-Note
-
-Remember to press Shift while dropping images.
+Image Handling
+*   **Astro `<Image>` Component (within `src/images/`):** Astro's built-in component optimizes images placed in `src/images/`. It generates multiple formats (like WebP) and handles build processing.
+    *   **Troubleshooting:** If builds fail or specific formats (like WebP) don't generate correctly for an image using `<Image>`, you can try forcing a specific format (`<Image src={...} format="png" />`).
+*   **Static Images (within `public/`):** For simple images that don't need optimization or if Astro's `<Image>` component causes issues, place the image directly in the `public/` directory (e.g., `public/my-image.png`) and use a standard `<img>` tag: `<img src="/my-image.png" alt="...">`. This bypasses Astro's processing.
+*   **Markdown Image Integration:** The `.vscode/settings.json` setup for pasting images into Markdown might need review if `<Image>` component usage is reduced. Standard Markdown image syntax (`![alt](mdc:path/to/image.png)`) referencing images in `/public` is often simpler.
 
 Astro Integrations
 Maximize your website's efficiency with these built-in Astro integrations:
 
-Astro Compressor: Automatically compresses Astro-generated site using gzip or brotli, ensuring faster load times. Configure the compressor in astro.config.mjs file:
-   export default defineConfig({
-     // ...other Astro configurations
-    integrations: [...other Astro integrations, compressor({ gzip: false, brotli: true })],
-   });
-Astro Sitemap: Automatically generates a sitemap for a website, which is vital for SEO and helping search engine bots crawl pages effectively. To set up the Astro Sitemap, be sure to specify your site's base URL and any additional options in astro.config.mjs file:
-   export default defineConfig({
-  // ...
-  site: 'https://example.com',
-  integrations: [sitemap()],
-});
-Bag of Tricks for Astro's View Tran­si­tions: is a collection of extensions and support aimed at enhancing Astro's view transitions. Whether you're looking to add flair to your website or streamline user experience, this toolkit offers various techniques to elevate your projects. In the template, it was used to add View Transitions to a Starlight docs.
+*   **Astro Compressor:** Automatically compresses Astro-generated site using gzip or brotli, ensuring faster load times.
+*   **Astro Sitemap:** Automatically generates a sitemap.xml file.
+*   **astro-icon:** Used for rendering SVG icons (e.g., `<Icon name="heroicons:check-circle" />`). Configure included sets in `astro.config.mjs`.
+*   **MDX:** Enables using components within Markdown files.
+
 Flexibility with Integrations
 The great thing about Astro is its rich ecosystem of integrations, allowing you to tailor project functionalities to your exact needs. Feel free to explore Astro integrations page and add additional capabilities as you see fit.
 
@@ -443,65 +405,37 @@ await Promise.all(
   })
 );
 
------------------------------------
-Here's a summary of the steps that led to the working solution, framed as instructions for applying this manual CSS variable approach if standard Tailwind config fails for custom colors:
-Problem: Custom colors (e.g., primary, secondary) defined in tailwind.config.cjs are not resulting in generated CSS utility classes (e.g., .bg-primary, .text-primary) in the final build, even though standard Tailwind colors work and the config appears correct.
-Solution: Manual CSS Variable & Utility Class Workaround
-Minimize Tailwind Config: Remove the problematic custom color definitions (e.g., primary, secondary) from tailwind.config.cjs (both theme.colors and theme.extend.colors). Leave the config to handle only standard Tailwind features and other customizations.
-Apply to global.css
-    // Example: tailwind.config.cjs
-    module.exports = {
-      content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
-      theme: {
-        extend: {
-          // Do NOT define primary/secondary here
-        },
-      },
-      plugins: [
-        require("@tailwindcss/forms"), // Include other necessary plugins
-      ],
-    };
-Define CSS Variables: In your global stylesheet (e.g., src/assets/styles/global.css), define CSS custom properties (variables) for your custom colors within the :root selector.
-Apply to global.css
-    /* src/assets/styles/global.css */
-    @import 'tailwindcss';
+---
+**Troubleshooting Build Issues**
 
-    :root {
-      --color-primary: #8DC640; /* Your hex/rgb/etc value */
-      --color-secondary: #50555C; /* Your hex/rgb/etc value */
-      /* Define other custom colors as needed */
-    }
+Here's a summary of common issues encountered during development and how to address them:
 
-    /* ... other global styles like dark mode variants ... */
-Manually Create Utility Classes: In the same global stylesheet, create the specific utility classes you need that rely on these custom colors, referencing the CSS variables.
-Apply to global.css
-    /* src/assets/styles/global.css (continued) */
+*   **Silent Build Failures (e.g., Missing `index.html`):**
+    *   **Symptom:** `npm run build` finishes without apparent errors, but essential pages (like the homepage `index.html`) are missing from the `dist` directory, leading to 404s in preview/deployment.
+    *   **Cause:** Often due to a runtime error within a specific component or its data fetching/processing on the unbuilt page. Astro might not surface these errors clearly during the static build phase.
+    *   **Solution:** Systematically comment out sections or components within the problematic `.astro` page file (e.g., starting from the bottom), running `npm run build` after each change. When `dist/index.html` (or the relevant page) is successfully generated, the last commented-out section contains the issue. Debug that component or its data.
 
-    /* Backgrounds */
-    .bg-primary { background-color: var(--color-primary); }
-    .bg-secondary { background-color: var(--color-secondary); }
+*   **Component Syntax Errors (Comments):**
+    *   **Symptom:** Build errors like `Unterminated string literal`, `Expected corresponding JSX closing tag`, or type errors mentioning boolean props (`Pass`, `imported`) that don't exist.
+    *   **Cause:** Placing comments (`{/* ... */}`) *inside* component tags, between attributes, instead of outside the tag.
+    *   **Solution:** Ensure comments are placed outside the component's opening/closing tags (`<Component ... /> {/* Comment here */}` or `<Component> {/* Comment here */}</Component>`).
 
-    /* Text */
-    .text-primary { color: var(--color-primary); }
-    .text-secondary { color: var(--color-secondary); }
+*   **Astro `<Image>` Component Failures:**
+    *   **Symptom:** 404 errors for specific image formats (often `.webp`) even though the source image exists, or build failures related to image processing.
+    *   **Cause:** Issues with the underlying image library (Sharp/libvips) failing to process a specific image or format. Cache inconsistencies.
+    *   **Solutions:**
+        1.  **Force Format:** Try forcing a known-good format: `<Image src={importedImage} format="png" />`.
+        2.  **Use `/public`:** Move the image to the `public/` directory (e.g., `public/my-image.png`) and use a standard `<img>` tag: `<img src="/my-image.png" alt="...">`. This bypasses Astro's processing.
+        3.  **Clean Build:** Run `rm -rf dist node_modules && npm install && npm run build`.
 
-    /* Borders */
-    .border-primary { border-color: var(--color-primary); }
-    .border-secondary { border-color: var(--color-secondary); }
+*   **Integration / Virtual Module Errors:**
+    *   **Symptom:** Build errors mentioning failure to resolve `virtual:` modules (e.g., `virtual:astro-expressive-code/config`).
+    *   **Cause:** An Astro integration is either missing, misconfigured in `astro.config.mjs`, or conflicting with another part of the build.
+    *   **Solution:** Verify the integration is installed. Ensure it's correctly added and configured within the `integrations` array in `astro.config.mjs`. If the integration was removed (like Starlight), ensure all references (imports, config usage) are also removed, including in `content.config.ts`. A clean build can also help.
 
-    /* Add hover, focus, active states as needed */
-    /* Example hover for primary background (might need adjustment) */
-    .hover\\:bg-primary:hover { 
-       /* Option 1: Use a slightly modified variable if defined */
-       /* background-color: var(--color-primary-hover); */
-       /* Option 2: Use filters or fixed darker color */
-       filter: brightness(0.9); 
-     } 
-     /* Example focus ring */
-    .focus\\:ring-primary:focus {
-        --tw-ring-color: var(--color-primary);
-        /* Ensure ring utilities are applied if not default */
-    } 
-Note: Hover/focus/active states might require more complex manual definitions depending on the desired effect.
-Use Classes in Components: Apply these manually created classes (e.g., bg-primary, text-secondary) directly in your Astro/HTML components as you normally would.
-This approach bypasses the problematic step where Tailwind's build process fails to generate the classes from the configuration, ensuring the styles are available through standard CSS.
+*   **Content Collection Type Errors:**
+    *   **Symptom:** TypeScript errors like `Property 'data' does not exist on type 'never'` or `Type '"blog"' does not satisfy the constraint 'keyof DataEntryMap'` after modifying `content.config.ts`.
+    *   **Cause:** A content collection (e.g., `blog`) was removed or commented out in `content.config.ts`, but components or pages still try to import or query data using that collection type (`CollectionEntry<"blog">`).
+    *   **Solution:** Delete or comment out all pages (`src/pages/...`) and components (`src/components/...`) that reference the removed collection type.
+
+-----
