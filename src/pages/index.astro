@@ -3,6 +3,7 @@
 import MainLayout from "@/layouts/MainLayout.astro";
 import HeroSection from "@components/sections/landing/HeroSection.astro";
 // import Icon from "@components/ui/icons/Icon.astro"; // Removed unused import
+import { Icon } from "astro-icon/components"; // Import astro-icon component
 // import { Image } from "astro:assets"; // Not needed for placeholders
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro"; // Import the adapted component
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // Added import
@@ -50,6 +51,7 @@ interface SupportItem {
   linkUrl: string;
   imgSrc: string;
   imgAlt: string;
+  iconName?: string; // Add optional iconName property
 }
 
 // --- Data for Okra Sections (UPDATED with ImageMetadata and dimensions) ---
@@ -148,12 +150,12 @@ const howItWorks: { title: string; steps: HowItWorksStep[]; footerText: string }
   footerText: "Start setting up your software right away while we handle the payment onboarding process for you.", // Content seems unchanged
 };
 const supportSection: { title: string; items: SupportItem[] } = {
-  title: "Stay Informed & Get Expert Support", 
+  title: "Stay Informed & Get Expert Support",
   items: [
-    // For now, using alt text in placeholder divs, not importing images here
-    { title: "Actionable AI Insights", description: "Track key metrics and get proactive AI-powered insights...", linkText: "Learn about analytics →", linkUrl: "/features/analytics-insights/", imgSrc: "placeholder", imgAlt: "Screenshot: AI Insight Example" },
-    { title: "Help Right Within the App", description: "Get started fast with integrated help guides...", linkText: "Explore help features →", linkUrl: "/support/", imgSrc: "placeholder", imgAlt: "Screenshot: In-App Help Tooltip" }, 
-    { title: "Business-Focused Support", description: "Reach our expert team via chat or video call...", linkText: "Contact support →", linkUrl: "/support#contact", imgSrc: "placeholder", imgAlt: "Support Graphic" }, 
+    // Updated items with iconName, removed imgSrc/imgAlt placeholders
+    { title: "Actionable AI Insights", description: "Track key metrics and get proactive AI-powered insights...", linkText: "Learn about analytics →", linkUrl: "/features/analytics-insights/", iconName: "heroicons:chart-pie", imgSrc: "", imgAlt: "" }, // Use chart-pie icon
+    { title: "Help Right Within the App", description: "Get started fast with integrated help guides...", linkText: "Explore help features →", linkUrl: "/support/", iconName: "heroicons:question-mark-circle", imgSrc: "", imgAlt: "" }, // Use question-mark-circle icon
+    { title: "Business-Focused Support", description: "Reach our expert team via chat or video call...", linkText: "Contact support →", linkUrl: "/support#contact", iconName: "heroicons:chat-bubble-left-right", imgSrc: "", imgAlt: "" }, // Use chat-bubble-left-right icon
   ]
 }
 const pricingTeaser = {
@@ -312,8 +314,12 @@ const finalCTA = {
           {supportSection.items.map(item => (
             // Use Preline Card structure + standard Tailwind border classes (border + border-secondary)
             <div class="flex flex-col bg-white border border-secondary shadow-sm rounded-xl dark:bg-neutral-900 dark:border-secondary dark:shadow-neutral-700/70"> {/* Reverted to border border-secondary */}
-              {/* Keep placeholder div for now */}
-              <div class="bg-gray-200 h-40 rounded-t-xl flex items-center justify-center text-gray-500 text-sm dark:bg-neutral-800 dark:text-neutral-500">{item.imgAlt}</div>
+              {/* Replace placeholder div with Icon component */}
+              <div class="flex justify-center items-center h-32 rounded-t-xl bg-gray-50 dark:bg-neutral-800"> {/* Adjusted height, added bg */}
+                {item.iconName && (
+                  <Icon name={item.iconName} class="h-16 w-16 text-primary" /> // Use Icon component with primary color and size
+                )}
+              </div>
               <div class="p-4 md:p-5 text-left"> 
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{item.title}</h3>
                 <p class="text-gray-600 dark:text-neutral-400 text-sm mb-4" set:html={item.description}></p> 
