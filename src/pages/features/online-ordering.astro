@@ -1,13 +1,16 @@
 ---
 // Layout and Base Components
 import MainLayout from "@/layouts/MainLayout.astro";
-import HeroSection from "@components/sections/landing/HeroSection.astro";
+// import HeroSection from "@components/sections/landing/HeroSection.astro"; // Replaced with HeroImage
+import HeroImage from "@components/sections/landing/HeroImage.astro"; // Use the new image-specific hero
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro"; // Import for feature sections
 import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro"; // Import the reusable component
 import { Icon } from 'astro-icon/components'; // Added new import
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // For CTA button
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For CTA button
 import FAQ from "@components/sections/misc/FAQ.astro"; // Import the FAQ component
+import { Image } from 'astro:assets'; // Import Astro Image component
+import heroImage from '@/images/okra-menu.png'; // Import the hero image
 
 
 // --- Page Data ---
@@ -22,8 +25,8 @@ const hero = {
   tagline: "Customer Experience",
   title: "Give Your Customers an Ordering Experience They'll Love",
   subTitle: "Your online presence is crucial. Okra Orders provides a professional, mobile-friendly storefront that makes browsing, customizing, and paying for catering orders simple and accurate for your customers.",
-  imgAlt: "Mobile Ordering Snippet Placeholder",
-  imgSrc: svgPlaceholder(800, 400), // Use SVG placeholder
+  imgAlt: "Okra Orders mobile menu screenshot",
+  imgSrc: heroImage,
 };
 
 const featureCustomization = {
@@ -115,20 +118,18 @@ const onlineOrderingFaqs = {
 
   <!-- Page Hero Section -->
   <div class="bg-gradient-to-b from-green-50 to-white pt-16 md:pt-24 pb-8 md:pb-12">
-      <HeroSection
+      <HeroImage 
         title={hero.title}
         subTitle={hero.subTitle}
         primaryBtn={undefined}
         primaryBtnURL={undefined}
         secondaryBtn={undefined}
         secondaryBtnURL={undefined}
-      >
-        <Fragment slot="image">
-          <div class="mt-8 px-6">
-             <img src={hero.imgSrc} alt={hero.imgAlt} class="h-64 w-full max-w-2xl mx-auto rounded-lg shadow-md object-cover"/>
-          </div>
-        </Fragment>
-      </HeroSection>
+        src={hero.imgSrc} 
+        alt={hero.imgAlt} 
+        imgWidth={800}
+        withReview={false}
+      />
   </div>
 
   <!-- Feature Detail 1: Customization -->
