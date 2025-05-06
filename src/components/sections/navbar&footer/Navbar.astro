@@ -90,18 +90,18 @@ const currentPagePath = Astro.url.pathname; // Get current page path
             if (link.subLinks && link.subLinks.length > 0) {
               // STRICTLY Replicate LanguagePicker's Dropdown Structure
               return (
-                <div class="relative group inline-flex py-1">
-                  <!-- 2. Button - Keep styling, add aria attributes, add cursor -->
+                <div class="relative group flex w-full flex-col py-1 md:inline-flex md:w-auto">
+                  {/* 2. Button - Keep styling, add aria attributes, add cursor */}
                   <button
                     type="button"
                     aria-haspopup="true" 
                     aria-expanded="false" 
-                    class="inline-flex items-center gap-x-2 rounded-lg px-2 py-2 text-base font-medium text-neutral-600 outline-none ring-zinc-500 transition duration-300 hover:bg-neutral-100 hover:text-primary focus:text-primary focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
+                    class="flex w-full items-center justify-between gap-x-0 px-2 py-2 text-base font-medium text-neutral-700 md:w-auto md:justify-start md:gap-x-2 md:rounded-lg md:text-neutral-600 md:outline-none md:ring-zinc-500 md:transition md:duration-300 md:hover:bg-neutral-100 md:hover:text-primary md:focus:text-primary md:focus-visible:ring-2 md:focus-visible:ring-primary md:cursor-pointer"
                   >
                     {link.name}
-                    <!-- Chevron SVG - Rotate on group hover -->
+                    {/* Chevron SVG - Rotate on group hover, hidden on mobile */}
                     <svg
-                      class="size-4 transition-transform duration-200 group-hover:rotate-180" 
+                      class="hidden md:inline-block size-4 transition-transform duration-200 group-hover:rotate-180"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -115,10 +115,10 @@ const currentPagePath = Astro.url.pathname; // Get current page path
                     </svg>
                   </button>
 
-                  <!-- 3. Submenu - Remove mt-2 to close gap -->
+                  {/* 3. Submenu - Conditionally styled for mobile and desktop */}
                   <div
-                    role="menu" 
-                    class="absolute left-0 top-full z-[51] hidden w-48 min-w-max origin-top-left rounded-lg bg-white p-2 opacity-0 shadow-md ring-1 ring-gray-200 transition-opacity duration-200 ease-out group-hover:block group-hover:opacity-100"
+                    role="menu"
+                    class="w-full text-left pt-2 opacity-100 md:absolute md:left-0 md:top-full md:z-[51] md:w-48 md:min-w-max md:origin-top-left md:rounded-lg md:bg-white md:p-2 md:pt-0 md:opacity-0 md:shadow-md md:ring-1 md:ring-gray-200 transition-opacity duration-200 ease-out md:group-hover:block md:group-hover:opacity-100"
                     aria-label={`${link.name} submenu`}
                   >
                     {link.subLinks.map((subLink) => {
