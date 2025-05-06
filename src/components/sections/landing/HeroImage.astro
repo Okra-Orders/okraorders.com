@@ -70,10 +70,8 @@ interface Props {
 
 // Determine background styling
 let backgroundClasses: string[] = ["overflow-hidden", "rounded-b-2xl"];
-let backgroundStyle = "";
 
 if (backgroundImageURL) {
-    backgroundStyle = `background-image: url('${backgroundImageURL}');`;
     backgroundClasses.push("bg-cover", "bg-center");
 } else if (gradientFromColor && gradientToColor) {
     backgroundClasses.push("bg-gradient-to-t", gradientFromColor, gradientToColor);

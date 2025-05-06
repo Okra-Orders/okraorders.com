@@ -1,6 +1,4 @@
-import ogImageSrc from "@images/social.png";
-
-
+// import ogImageSrc from "@images/social.png"; // Removed unused import
 
 export const SITE = {
   title: "Okra Orders",

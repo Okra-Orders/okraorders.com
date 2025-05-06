@@ -4,10 +4,10 @@ import MainLayout from "@/layouts/MainLayout.astro";
 // import HeroSection from "@components/sections/landing/HeroSection.astro";
 import HeroImage from "@components/sections/landing/HeroImage.astro"; // Use HeroImage
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
-import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro"; // Restoring import, FeaturesNavs might be used elsewhere or this change might be reverted.
+// import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro"; // Removed unused import
 import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro"; // Import the reusable component
-import { Icon } from 'astro-icon/components'; // Added import for Iconify
-import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
+// import { Icon } from 'astro-icon/components'; // Removed unused import
+// import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // Removed unused import
 import FAQ from "@components/sections/misc/FAQ.astro"; // Import the FAQ component
 import CTASection from "@components/sections/misc/CTASection.astro"; // Added import
 import IconListSection from "@components/sections/features/IconListSection.astro"; // Import IconListSection
@@ -18,11 +18,11 @@ import heroBgImage from "@/images/stacked-waves-haikei.svg"; // Import a backgro
 import dashboardFullImage from "@/images/dashboard-full.png"; // Import the new dashboard-full.png image
 
 // --- Helper Functions ---
-// Uncommented: Simple SVG placeholder function
-const svgPlaceholder = (width: number, height: number, text: string = "Placeholder") => {
-  const escapedText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236B7280' font-family='sans-serif' font-size='16'%3E${escapedText}%3C/text%3E%3C/svg%3E`; // Tailwind gray-200 background, gray-500 text
-}
+// Removed unused svgPlaceholder function
+// const svgPlaceholder = (width: number, height: number, text: string = "Placeholder") => {
+//   const escapedText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+//   return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236B7280' font-family='sans-serif' font-size='16'%3E${escapedText}%3C/text%3E%3C/svg%3E`; // Tailwind gray-200 background, gray-500 text
+// }
 
 // --- Page Data ---
 const pageTitle = "Actionable Analytics & AI Insights for Caterers | Okra Orders";
@@ -45,7 +45,7 @@ const featureDashboard = {
     "Filter data by specific store or view brand-wide totals.",
     "Simple charts visualize daily and weekly sales trends.",
   ],
-  imgSrc: dashboardFullImage.src, // Updated to use dashboardFullImage.src
+  imgObject: dashboardFullImage, // Using imgObject with the imported image
   imgAlt: "Full view of the Okra Orders analytics dashboard", // Updated alt text
   imagePosition: "left" as const,
 };
@@ -163,7 +163,7 @@ const analyticsFaqs = {
         title={featureDashboard.title}
         subTitle={featureDashboard.subTitle}
         benefits={featureDashboard.listItems}
-        imgSrc={featureDashboard.imgSrc}
+        imgObject={featureDashboard.imgObject} 
         imgAlt={featureDashboard.imgAlt}
         imgWidth={500}
         imgHeight={600}
@@ -178,6 +178,7 @@ const analyticsFaqs = {
         subTitle={aiInsightsSection.subTitle}
         benefits={aiInsightsSection.listItems}
         imagePosition={aiInsightsSection.imagePosition}
+        imgAlt={aiInsightsSection.imgAlt}
     >
         <Fragment slot="media">
             <img 

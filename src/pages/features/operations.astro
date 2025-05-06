@@ -4,8 +4,8 @@ import MainLayout from "@/layouts/MainLayout.astro";
 // import HeroBackground from "@components/sections/landing/HeroBackground.astro"; // Removed old hero
 import HeroImage from "@components/sections/landing/HeroImage.astro"; // Added HeroImage
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
-import { Icon } from 'astro-icon/components';
-import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
+// import { Icon } from 'astro-icon/components'; // Removed unused import
+// import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // Removed unused import
 import FAQ from "@components/sections/misc/FAQ.astro";
 import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro";
 import IconListSection from "@components/sections/features/IconListSection.astro";
@@ -18,11 +18,11 @@ import ctaBgImage from "@/images/layered-waves-haikei.svg";
 import storeChangeImage from "@/images/store-change.png";
 
 // --- Helper Functions ---
-// Simple SVG placeholder function (replicated for self-containment)
-const svgPlaceholder = (width: number, height: number, text: string = "Placeholder") => {
-  const escapedText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236B7280' font-family='sans-serif' font-size='16'%3E${escapedText}%3C/text%3E%3C/svg%3E`; // Tailwind gray-200 background, gray-500 text
-}
+// Removed unused svgPlaceholder function
+// const svgPlaceholder = (width: number, height: number, text: string = "Placeholder") => {
+//   const escapedText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+//   return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236B7280' font-family='sans-serif' font-size='16'%3E${escapedText}%3C/text%3E%3C/svg%3E`; // Tailwind gray-200 background, gray-500 text
+// }
 
 // --- Page Data ---
 const pageTitle = "Streamlined Catering Operations & Order Management | Okra Orders";
@@ -44,7 +44,7 @@ const featureUnifiedView = {
     "Clear status indicators for each order.",
     "Simplifies daily kitchen planning and preparation.",
   ],
-  imgSrc: unifiedViewImg.src, // Use .src for Astro Image prop
+  imgObject: unifiedViewImg,
   imgAlt: "Screenshot of Okra dashboard showing an ezCater order listed alongside direct orders",
   imagePosition: "left" as const,
 };
@@ -175,7 +175,7 @@ const operationsFaqs = {
         title={featureUnifiedView.title}
         subTitle={featureUnifiedView.subTitle}
         benefits={featureUnifiedView.listItems}
-        imgSrc={featureUnifiedView.imgSrc}
+        imgObject={featureUnifiedView.imgObject}
         imgAlt={featureUnifiedView.imgAlt}
         imgWidth={500}
         imgHeight={600}
@@ -205,6 +205,7 @@ const operationsFaqs = {
         subTitle={featureOrderEditing.subTitle}
         benefits={featureOrderEditing.listItems}
         imagePosition={featureOrderEditing.imagePosition}
+        imgAlt={featureOrderEditing.imgAlt}
     >
         <video 
             slot="media" 

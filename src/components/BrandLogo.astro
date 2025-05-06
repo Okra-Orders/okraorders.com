@@ -1,8 +1,6 @@
 ---
-// Removed Astro Image component import
-// import { Image } from "astro:assets";
-// Removed internal logo import
-// import logo from "@/images/okra-logo.png";
+import { Image } from "astro:assets";
+import logoImage from "@/images/okra-logo.png";
 
 // Define props, including potential width, height, and class overrides
 interface Props {
@@ -20,9 +18,8 @@ const { width = 110, height, class: className } = Astro.props;
 const calculatedHeight = height ?? 45; 
 ---
 
-<!-- Use standard img tag pointing to public directory -->
-<img
-  src="/okra-logo.png" 
+<Image
+  src={logoImage} 
   alt="Okra Orders Logo"
   width={width}
   height={calculatedHeight}

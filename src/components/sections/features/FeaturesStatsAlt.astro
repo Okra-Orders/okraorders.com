@@ -23,7 +23,7 @@ interface Props {
   benefits?: Array<string>;
   imgSrc?: string; // Optional string path
   imgObject?: ImageMetadata; // Optional imported image
-  imgAlt?: string; // Alt text is important
+  imgAlt: string; // Alt text is REQUIRED
   imgWidth?: number; 
   imgHeight?: number; 
   imagePosition?: 'left' | 'right';
@@ -35,7 +35,7 @@ const textOrderClass = imagePosition === 'left' ? 'lg:order-2' : 'lg:order-1';
 
 // Check if we should render an image (prioritize imgObject)
 const imageToRender = imgObject || imgSrc;
-const effectiveAlt = imgAlt ?? ''; // Ensure alt is always a string
+// const effectiveAlt = imgAlt ?? ''; // No longer needed as imgAlt is required
 const canRenderImage = imageToRender && imgWidth && imgHeight;
 
 // Check if the media slot is used
@@ -56,7 +56,7 @@ const hasMediaSlot = Astro.slots.has('media');
           <Image 
             class="rounded-xl w-full h-auto" 
             src={imgObject}
-            alt={effectiveAlt} 
+            alt={imgAlt}
             width={imgWidth!} 
             height={imgHeight!}
             loading="lazy" 
@@ -65,7 +65,7 @@ const hasMediaSlot = Astro.slots.has('media');
           <img
             class="rounded-xl w-full h-auto" 
             src={imgSrc} 
-            alt={effectiveAlt} 
+            alt={imgAlt}
             width={imgWidth!} 
             height={imgHeight!}
             loading="lazy" 

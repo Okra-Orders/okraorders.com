@@ -5,9 +5,9 @@ import MainLayout from "@/layouts/MainLayout.astro";
 import HeroImage from "@components/sections/landing/HeroImage.astro"; // Import HeroImage
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
 import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro";
-import { Icon } from 'astro-icon/components';
-import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
-import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
+// import { Icon } from 'astro-icon/components'; // Removed unused import
+// import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // Removed unused import
+// import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // Removed unused import
 import FAQ from "@components/sections/misc/FAQ.astro";
 import IconListSection from "@components/sections/features/IconListSection.astro";
 import CTASection from "@components/sections/misc/CTASection.astro";
@@ -52,7 +52,7 @@ const featureEzCater = {
     "Unified operational view simplifies daily prep planning.",
     "ezCater data is mapped consistently for unified reporting.",
   ],
-  imgSrc: ezCaterOrderInsideOkraImage.src,
+  imgObject: ezCaterOrderInsideOkraImage,
   imgAlt: "Screenshot of an ezCater order displayed within the Okra Orders interface",
   imagePosition: "left" as const,
   logoSrc: svgPlaceholder(100, 40, "ezCater Logo"), // Keep placeholder for section if needed, or remove if not used by FeaturesStatsAlt
@@ -168,7 +168,7 @@ const integrationsFaqs = {
         title={featureEzCater.title}
         subTitle={featureEzCater.subTitle}
         benefits={featureEzCater.listItems}
-        imgSrc={featureEzCater.imgSrc}
+        imgObject={featureEzCater.imgObject}
         imgAlt={featureEzCater.imgAlt}
         imgWidth={500}
         imgHeight={600}

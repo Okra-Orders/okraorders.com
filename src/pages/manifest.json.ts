@@ -1,5 +1,6 @@
-import type { APIRoute, ImageMetadata } from "astro";
-import { getImage } from "astro:assets";
+import type { APIRoute } from "astro";
+// import { getImage } from "astro:assets"; // Removed unused import
+// import type { ImageMetadata } from "astro"; // Removed unused import
 
 export const GET: APIRoute = async () => {
   const manifest = {

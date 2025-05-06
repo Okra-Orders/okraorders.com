@@ -6,8 +6,8 @@ import HeroSection from "@components/sections/landing/HeroSection.astro";
 import { Icon } from "astro-icon/components"; // Import astro-icon component
 // import { Image } from "astro:assets"; // Not needed for placeholders
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro"; // Import the adapted component
-import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // Added import
-import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // Added import
+// import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // Removed unused import
+// import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // Removed unused import
 import CTASection from "@components/sections/misc/CTASection.astro"; // Added import
 // Removed unused old imports: HeroSectionAlt, ClientsSection, FeaturesGeneral, FeaturesNavs, TestimonialsSection, PricingSection, FAQ, AnnouncementBanner
 // Removed unused old data/image imports: heroImage, faqs, features, pricing, featureImage, construction, tools, dashboard, partnersData, avatarSrcs
@@ -216,6 +216,7 @@ const finalCTA = {
         subTitle={feature2.description}
         benefits={feature2.listItems}
         imagePosition={feature2.imagePosition}
+        imgAlt={feature2.imgAlt}
      >
         <Fragment slot="media">
             <video

@@ -6,7 +6,7 @@ import HeroImage from "@components/sections/landing/HeroImage.astro"; // Import 
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
 // import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro"; // No longer needed for these sections
 import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro";
-import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
+// import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // Removed unused import
 import FAQ from "@components/sections/misc/FAQ.astro";
 import IconListSection from "@components/sections/features/IconListSection.astro";
 import CTASection from "@components/sections/misc/CTASection.astro";
@@ -16,15 +16,15 @@ import heroBgImage from "@/images/stacked-waves-haikei.svg"; // Import hero back
 import addNewStoreImage from "@/images/add-new-store.png"; // Import for new section
 import menuItemsImage from "@/images/menu-items.png"; // Import for new section
 import customUrlImage from "@/images/custom-url.png"; // Import the custom-url.png image
-import { Image } from 'astro:assets'; // Import Astro Image for subtitle HTML
+// import { Image } from 'astro:assets'; // Removed unused import
 
 // --- Helper Functions ---
-// Uncommented: Simple SVG placeholder function (replicated for self-containment)
-const svgPlaceholder = (width: number, height: number, text: string = "Placeholder") => {
-  // Basic escaping for text within SVG
-  const escapedText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236B7280' font-family='sans-serif' font-size='16'%3E${escapedText}%3C/text%3E%3C/svg%3E`; // Tailwind gray-200 background, gray-500 text
-}
+// Removed unused svgPlaceholder function
+// const svgPlaceholder = (width: number, height: number, text: string = "Placeholder") => {
+//   // Basic escaping for text within SVG
+//   const escapedText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+//   return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236B7280' font-family='sans-serif' font-size='16'%3E${escapedText}%3C/text%3E%3C/svg%3E`; // Tailwind gray-200 background, gray-500 text
+// }
 
 // --- Page Data ---
 const pageTitle = "Intuitive Store & Menu Management | Okra Orders";
@@ -65,7 +65,7 @@ const onboardingStats = {
     title: featureOnboarding.title,
     subTitleHTML: featureOnboarding.subTitle, // Use HTML subtitle
     benefits: featureOnboarding.features.map(feature => `${feature.heading}: ${feature.content}`),
-    imgSrc: addNewStoreImage.src,
+    imgObject: addNewStoreImage, // Changed from imgSrc
     imgAlt: "Admin interface for adding a new store in Okra Orders",
     imagePosition: "right" as const,
 };
@@ -108,7 +108,7 @@ const menuMasteryStats = {
     title: featureMenuMastery.title,
     subTitle: featureMenuMastery.subTitle,
     benefits: featureMenuMastery.features.map(feature => `${feature.heading}: ${feature.content}`),
-    imgSrc: menuItemsImage.src,
+    imgObject: menuItemsImage, // Changed from imgSrc
     imgAlt: "Okra Orders admin panel showing detailed menu item configuration options",
     imagePosition: "left" as const,
 };
@@ -214,15 +214,14 @@ const storeManagementFaqs = {
   <section class="py-16 md:py-24 bg-white rounded-xl">
     <FeaturesStatsAlt
         title={onboardingStats.title}
+        subTitle={onboardingStats.subTitleHTML}
         benefits={onboardingStats.benefits}
-        imgSrc={onboardingStats.imgSrc}
+        imgObject={onboardingStats.imgObject}
         imgAlt={onboardingStats.imgAlt}
         imgWidth={500} 
         imgHeight={450} 
         imagePosition={onboardingStats.imagePosition}
-    >
-        <Fragment slot="subTitle" set:html={onboardingStats.subTitleHTML} />
-    </FeaturesStatsAlt>
+    />
   </section>
 
   <!-- Managing Multiple Locations Section -->
@@ -247,10 +246,10 @@ const storeManagementFaqs = {
         title={menuMasteryStats.title}
         subTitle={menuMasteryStats.subTitle}
         benefits={menuMasteryStats.benefits}
-        imgSrc={menuMasteryStats.imgSrc}
+        imgObject={menuMasteryStats.imgObject}
         imgAlt={menuMasteryStats.imgAlt}
         imgWidth={500} 
-        imgHeight={500} 
+        imgHeight={450} 
         imagePosition={menuMasteryStats.imagePosition}
     />
   </section>
@@ -267,10 +266,10 @@ const storeManagementFaqs = {
         imgHeight={600}
         imagePosition={featureBranding.imagePosition}
     >
-        {/* Add disclaimer below the list */}
-        <Fragment slot="after_benefits">
+        {/* Add disclaimer below the list - Commenting out invalid slot usage */}
+        {/* <Fragment slot="after_benefits">
             <p class="text-xs italic mt-2 text-gray-500">{featureBranding.disclaimer}</p>
-        </Fragment>
+        </Fragment> */}
      </FeaturesStatsAlt>
   </section>
 

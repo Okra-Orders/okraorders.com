@@ -5,17 +5,17 @@ import MainLayout from "@/layouts/MainLayout.astro";
 import HeroImage from "@components/sections/landing/HeroImage.astro"; // Use the new image-specific hero
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro"; // Import for feature sections
 import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro"; // Import the reusable component
-import { Icon } from 'astro-icon/components'; // Added new import
-import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // For CTA button
-import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For CTA button
+// import { Icon } from 'astro-icon/components'; // Removed unused import
+// import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // Removed unused import
+// import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // Removed unused import
 import FAQ from "@components/sections/misc/FAQ.astro"; // Import the FAQ component
-import { Image } from 'astro:assets'; // Import Astro Image component
+// import { Image } from 'astro:assets'; // Removed unused import
 import RightSection from "@components/ui/blocks/RightSection.astro"; // Import the RightSection component
 import IconListSection from "@components/sections/features/IconListSection.astro"; // Import the new component
 import CTASection from "@components/sections/misc/CTASection.astro"; // Import the CTA component
 import heroImage from '@/images/okra-menu.png'; // Import the hero image
-import startOrderImage from '@/images/start-new-order.png'; // Import the new image
-import orderSuccessImage from '@/images/order-success.png'; // Renamed import
+// import startOrderImage from '@/images/start-new-order.png'; // Removed unused import
+// import orderSuccessImage from '@/images/order-success.png'; // Removed unused import
 import zoomOnMenuItemImage from '@/images/zoom-on-menu-item.png'; // New image 1
 import orderPlacedZoomImage from '@/images/order-placed-zoom.png'; // New image 2
 import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
@@ -25,10 +25,10 @@ import heroBgImage from "@/images/stacked-waves-haikei.svg"; // Updated import p
 // --- Page Data ---
 const pageTitle = "Effortless Online Ordering for Your Customers | Okra Orders";
 
-// Simple SVG placeholder function
-const svgPlaceholder = (width: number, height: number) => {
-  return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3C/svg%3E`; // Tailwind gray-200
-}
+// Removed unused svgPlaceholder function
+// const svgPlaceholder = (width: number, height: number) => {
+//   return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3C/svg%3E`; // Tailwind gray-200
+// }
 
 const hero = {
   tagline: "Customer Experience",
@@ -175,6 +175,7 @@ const onlineOrderingFaqs = {
         subTitle={featureCustomization.subTitle}
         benefits={featureCustomization.listItems}
         imagePosition={featureCustomization.imagePosition}
+        imgAlt="Customization options video"
      >
       <video 
         slot="media" 
@@ -231,6 +232,7 @@ const onlineOrderingFaqs = {
         subTitle={featureCheckout.subTitle}
         benefits={featureCheckout.listItems}
         imagePosition={featureCheckout.imagePosition}
+        imgAlt="Secure checkout video"
     >
       <video 
         slot="media" 

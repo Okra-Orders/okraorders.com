@@ -79,20 +79,20 @@ const productsCollection = defineCollection({
 //   }),
 // });
 
-const insightsCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/insights" }),
-  schema: ({ image }) => z.object ({
-  title: z.string(),
-  description: z.string(),
-  // contents: z.array(z.string()),
-  cardImage: image(),
-  cardImageAlt: z.string(),
-  }),
-});
+// const insightsCollection = defineCollection({
+//   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/insights" }),
+//   schema: ({ image }) => z.object ({
+//   title: z.string(),
+//   description: z.string(),
+//   // contents: z.array(z.string()),
+//   cardImage: image(),
+//   cardImageAlt: z.string(),
+//   }),
+// });
 
 export const collections = {
   // docs: defineCollection({ schema: docsSchema() }), // Removed Starlight docs collection
   'products': productsCollection,
   // 'blog': blogCollection, // Commented out blog collection export
-  'insights': insightsCollection,
+  // 'insights': insightsCollection, // Removed insights collection export
 };
