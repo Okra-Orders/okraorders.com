@@ -1,0 +1,75 @@
+---
+import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
+import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
+
+interface Props {
+  title: string;
+  subTitle: string;
+  primaryBtn?: string;
+  primaryBtnURL?: string;
+  secondaryBtn?: string;
+  secondaryBtnURL?: string;
+  tertiaryBtn?: string;
+  tertiaryBtnURL?: string;
+  quaternaryBtn?: string;
+  quaternaryBtnURL?: string;
+  bgImageURL?: string;
+  textColor?: 'white' | 'dark';
+}
+
+const { 
+    title, 
+    subTitle, 
+    primaryBtn, 
+    primaryBtnURL, 
+    secondaryBtn, 
+    secondaryBtnURL, 
+    tertiaryBtn,
+    tertiaryBtnURL,
+    quaternaryBtn,
+    quaternaryBtnURL,
+    bgImageURL, 
+    textColor 
+} = Astro.props;
+
+// Define base section classes (always apply background color)
+const baseSectionClasses = "bg-primary dark:bg-neutral-800 py-16 rounded-xl";
+
+// Determine conditional image classes
+const imageClasses = bgImageURL ? "bg-cover bg-center" : "";
+
+// Determine inline style for background image
+const sectionStyle = bgImageURL ? `background-image: url('${bgImageURL}');` : "";
+
+let textContainerClasses = "text-white";
+if (bgImageURL && textColor === 'dark') {
+  textContainerClasses = "text-neutral-800 dark:text-neutral-100";
+}
+---
+
+<section class:list={[baseSectionClasses, imageClasses]} style={sectionStyle}>
+    <div class:list={["container mx-auto px-6 text-center", textContainerClasses]}>
+        <h2 class="text-3xl font-bold mb-4">{title}</h2>
+        <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">{subTitle}</p>
+        <div class="flex flex-wrap justify-center items-center gap-4">
+            {primaryBtn && primaryBtnURL && (
+                <PrimaryCTA title={primaryBtn} url={primaryBtnURL} />
+            )}
+            {secondaryBtn && secondaryBtnURL && (
+                <a href={secondaryBtnURL} target="_blank" rel="noopener noreferrer">
+                   <SecondaryCTA title={secondaryBtn} url={secondaryBtnURL} />
+                </a>
+            )}
+            {tertiaryBtn && tertiaryBtnURL && (
+                 <a href={tertiaryBtnURL} class="inline-block">
+                    <SecondaryCTA title={tertiaryBtn} url={tertiaryBtnURL} /> 
+                 </a>
+            )}
+            {quaternaryBtn && quaternaryBtnURL && (
+                 <a href={quaternaryBtnURL} class="inline-block">
+                    <SecondaryCTA title={quaternaryBtn} url={quaternaryBtnURL} />
+                 </a>
+            )}
+        </div>
+    </div>
+</section> 

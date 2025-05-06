@@ -10,7 +10,16 @@ import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // For CTA but
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For CTA button
 import FAQ from "@components/sections/misc/FAQ.astro"; // Import the FAQ component
 import { Image } from 'astro:assets'; // Import Astro Image component
+import RightSection from "@components/ui/blocks/RightSection.astro"; // Import the RightSection component
+import IconListSection from "@components/sections/features/IconListSection.astro"; // Import the new component
+import CTASection from "@components/sections/misc/CTASection.astro"; // Import the CTA component
 import heroImage from '@/images/okra-menu.png'; // Import the hero image
+import startOrderImage from '@/images/start-new-order.png'; // Import the new image
+import orderSuccessImage from '@/images/order-success.png'; // Renamed import
+import zoomOnMenuItemImage from '@/images/zoom-on-menu-item.png'; // New image 1
+import orderPlacedZoomImage from '@/images/order-placed-zoom.png'; // New image 2
+import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
+import heroBgImage from "@/images/stacked-waves-haikei.svg"; // Updated import path
 
 
 // --- Page Data ---
@@ -27,6 +36,7 @@ const hero = {
   subTitle: "Your online presence is crucial. Okra Orders provides a professional, mobile-friendly storefront that makes browsing, customizing, and paying for catering orders simple and accurate for your customers.",
   imgAlt: "Okra Orders mobile menu screenshot",
   imgSrc: heroImage,
+  backgroundImageURL: heroBgImage.src // Add the background image URL
 };
 
 const featureCustomization = {
@@ -38,8 +48,6 @@ const featureCustomization = {
     "Display clear pricing per option (e.g., \"$0.00 per person\", \"$2.00 per item\").",
     "Reduce errors by ensuring customers make necessary selections.",
   ],
-  imgSrc: svgPlaceholder(500, 600), // Use SVG placeholder
-  imgAlt: "Detailed Customization Example Placeholder",
   imagePosition: "left" as const,
 };
 
@@ -51,8 +59,10 @@ const featureMobile = {
     "Intuitive navigation and clear layouts.",
     "Large, tappable buttons and easy-to-read text.",
   ],
-  imgSrc: svgPlaceholder(500, 600), // Use SVG placeholder
-  imgAlt: "Responsive Menu View Placeholder",
+  imgObject: zoomOnMenuItemImage,
+  imgAlt: "Zoomed-in view of a menu item on a mobile device",
+  imgObjectTwo: orderPlacedZoomImage,
+  imgAltTwo: "Zoomed-in view of the order placed confirmation screen",
   imagePosition: "right" as const,
 };
 
@@ -65,9 +75,29 @@ const featureCheckout = {
     "Automatic fallback to secondary cards minimizes payment failures.",
     "Offer Net 30 terms selectively to trusted clients.",
   ],
-  imgSrc: svgPlaceholder(500, 600), // Use SVG placeholder
-  imgAlt: "Secure Checkout / Payment Options Placeholder",
   imagePosition: "left" as const,
+};
+
+// Config for the QuoteFeatureSplit
+const quoteFeature = {
+  quoteContent: "We spend a lot of time on the phone clarifying choices for complex packages like our Fajita Bar. Letting customers clearly select required options like tortilla type and salad online first will cut down on those clarification calls and potential errors significantly.",
+  quoteAttribution: "- Feedback from a Catering Manager during Okra Orders Development",
+  featureIconName: "heroicons:clipboard-document-check",
+  featureBadgeText: "Order Accuracy",
+  featureTitle: "Capture Complex Orders Right the First Time",
+  featureDescription: "Remember those long phone calls trying to nail down every detail of a custom buffet or build-your-own bar? Okra's structured online options guide your customers through the choices logically, capturing required selections and accurate pricing instantly. Reduce clarification calls and ensure the kitchen gets exactly what the customer intended.",
+  layoutDirection: "quote-left" as const,
+};
+
+// Config for the IconListSection
+const featureCommunication = {
+  title: "Keep Customers in the Loop, Automatically",
+  subTitle: "Reduce \"Where's my order?\" calls. Okra automatically sends email and SMS text notifications to confirm orders and update customers on payment status, providing peace of mind and a professional touch.",
+  items: [
+    { iconName: "heroicons:envelope", text: "Order Confirmations" },
+    { iconName: "heroicons:chat-bubble-left-ellipsis", text: "Payment Status Updates" },
+    { iconName: "heroicons:clock", text: "(More coming soon)", color: "gray" as const }, // Mark as gray
+  ],
 };
 
 const finalCTA = {
@@ -77,6 +107,8 @@ const finalCTA = {
   primaryBtnURL: "/signup",
   secondaryBtn: "Try Live Demo",
   secondaryBtnURL: "https://demo.okraorders.com",
+  bgImageURL: ctaBgImage.src, // Add background image
+  textColor: "white" as const // Keep text white
 };
 
 const onlineOrderingFaqs = {
@@ -117,8 +149,8 @@ const onlineOrderingFaqs = {
 <MainLayout title={pageTitle}>
 
   <!-- Page Hero Section -->
-  <div class="bg-gradient-to-b from-green-50 to-white pt-16 md:pt-24 pb-8 md:pb-12">
-      <HeroImage 
+  <div class="mb-12">
+  <HeroImage 
         title={hero.title}
         subTitle={hero.subTitle}
         primaryBtn={undefined}
@@ -129,49 +161,66 @@ const onlineOrderingFaqs = {
         alt={hero.imgAlt} 
         imgWidth={800}
         withReview={false}
+        imageScale="scale-90"      
+        rightOffset="right-[-5rem]" 
+        minSectionHeight="min-h-[800px]"
+        backgroundImageURL={hero.backgroundImageURL}
       />
-  </div>
+      </div>
 
   <!-- Feature Detail 1: Customization -->
-  <section class="py-16 md:py-24 bg-white rounded-xl">
+  <section class="py-16 md:py-24 mb-12 bg-white rounded-xl">
     <FeaturesStatsAlt
         title={featureCustomization.title}
         subTitle={featureCustomization.subTitle}
         benefits={featureCustomization.listItems}
-        imgSrc={featureCustomization.imgSrc}
-        imgAlt={featureCustomization.imgAlt}
-        imgWidth={500}
-        imgHeight={600}
         imagePosition={featureCustomization.imagePosition}
-     />
+     >
+      <video 
+        slot="media" 
+        class="rounded-xl w-full h-auto shadow-md"
+        src="/videos/setup-and-buying-configurable.mp4"
+        width="500"  
+        height="600" 
+        autoplay 
+        loop 
+        muted 
+        playsinline
+        preload="metadata"
+        controls
+        aria-label="Video showing customization options in Okra Orders"
+      >
+        Your browser does not support the video tag.
+      </video>
+    </FeaturesStatsAlt>
   </section>
 
   <!-- Stop Playing Telephone Tag Section -->
   <QuoteFeatureSplit
-      quoteContent="The biggest time saver has been fewer errors on complex orders. What used to take a 10-minute phone call and potential mistakes is now handled perfectly online by the customer themselves."
-      quoteAttribution="- Catering Manager Using Okra Orders"
-      featureIconName="heroicons:clipboard-document-check"
-      featureBadgeText="Order Accuracy"
-      featureTitle="Capture Complex Orders Right the First Time"
-      featureDescription="Remember those long phone calls trying to nail down every detail of a custom buffet or build-your-own bar? Okra's structured online options guide your customers through the choices logically, capturing required selections and accurate pricing instantly. Reduce clarification calls and ensure the kitchen gets exactly what the customer intended."
-      layoutDirection="quote-left"
+      quoteContent={quoteFeature.quoteContent}
+      quoteAttribution={quoteFeature.quoteAttribution}
+      featureIconName={quoteFeature.featureIconName}
+      featureBadgeText={quoteFeature.featureBadgeText}
+      featureTitle={quoteFeature.featureTitle}
+      featureDescription={quoteFeature.featureDescription}
+      layoutDirection={quoteFeature.layoutDirection}
   >
       <Fragment slot="feature-graphic">
           <!-- Simple graphic comparing a clean Okra order vs. a messy handwritten note -->
       </Fragment>
   </QuoteFeatureSplit>
 
-  <!-- Feature Detail 2: Mobile & Intuitive Flow -->
+  <!-- Feature Detail 2: Mobile & Intuitive Flow - Replaced with RightSection -->
   <section class="py-16 md:py-24">
-    <FeaturesStatsAlt
+    <RightSection
         title={featureMobile.title}
         subTitle={featureMobile.subTitle}
-        benefits={featureMobile.listItems}
-        imgSrc={featureMobile.imgSrc}
-        imgAlt={featureMobile.imgAlt}
-        imgWidth={500}
-        imgHeight={600}
-        imagePosition={featureMobile.imagePosition}
+        btnExists={false} 
+        single={false} 
+        imgOne={featureMobile.imgObject}
+        imgOneAlt={featureMobile.imgAlt}
+        imgTwo={featureMobile.imgObjectTwo}
+        imgTwoAlt={featureMobile.imgAltTwo}
     />
   </section>
 
@@ -181,51 +230,45 @@ const onlineOrderingFaqs = {
         title={featureCheckout.title}
         subTitle={featureCheckout.subTitle}
         benefits={featureCheckout.listItems}
-        imgSrc={featureCheckout.imgSrc}
-        imgAlt={featureCheckout.imgAlt}
-        imgWidth={500}
-        imgHeight={600}
         imagePosition={featureCheckout.imagePosition}
-    />
+    >
+      <video 
+        slot="media" 
+        class="rounded-xl w-full h-auto shadow-md"
+        src="/videos/pay-with-stored-cc.mp4"
+        width="500"  
+        height="600" 
+        autoplay 
+        loop 
+        muted 
+        playsinline
+        preload="metadata"
+        controls
+        aria-label="Video showing paying with a stored credit card in Okra Orders checkout"
+      >
+        Your browser does not support the video tag.
+      </video>
+    </FeaturesStatsAlt>
   </section>
 
-  <!-- Feature Detail 4: Automated Communication (Custom Section) -->
-  <section class="py-16 md:py-24">
-      <div class="container mx-auto px-6 text-center">
-        <h2 class="text-3xl font-bold text-neutral-800 mb-4">Keep Customers in the Loop, Automatically</h2>
-        <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Reduce "Where's my order?" calls. Okra automatically sends email and SMS text notifications to confirm orders and update customers on payment status, providing peace of mind and a professional touch.
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-y-6 sm:gap-x-12">
-            <div class="text-center">
-                <Icon name="heroicons:envelope" class="w-12 h-12 mx-auto text-primary mb-2" />
-                <p class="font-semibold text-neutral-700">Order Confirmations</p>
-            </div>
-            <div class="text-center">
-                <Icon name="heroicons:chat-bubble-left-ellipsis" class="w-12 h-12 mx-auto text-primary mb-2" />
-                <p class="font-semibold text-neutral-700">Payment Status Updates</p>
-            </div>
-            <div class="text-center">
-                <Icon name="heroicons:clock" class="w-12 h-12 mx-auto text-gray-400 mb-2" />
-                <p class="font-semibold text-gray-400">(More coming soon)</p>
-            </div>
-        </div>
-      </div>
-  </section>
+  <!-- Feature Detail 4: Automated Communication (Using IconListSection) -->
+  <IconListSection 
+      title={featureCommunication.title}
+      subTitle={featureCommunication.subTitle}
+      items={featureCommunication.items}
+  />
 
-  <!-- CTA Section (Custom Section) -->
-  <section class="bg-primary text-white py-16 rounded-xl">
-      <div class="container mx-auto px-6 text-center">
-          <h2 class="text-3xl font-bold mb-4">{finalCTA.title}</h2>
-          <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">{finalCTA.subTitle}</p>
-          <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-              <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} />
-              <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer">
-                 <SecondaryCTA title={finalCTA.secondaryBtn} url={finalCTA.secondaryBtnURL} />
-              </a>
-          </div>
-      </div>
-  </section>
+  <!-- CTA Section (Using CTASection Component) -->
+  <CTASection
+      title={finalCTA.title}
+      subTitle={finalCTA.subTitle}
+      primaryBtn={finalCTA.primaryBtn}
+      primaryBtnURL={finalCTA.primaryBtnURL}
+      secondaryBtn={finalCTA.secondaryBtn}
+      secondaryBtnURL={finalCTA.secondaryBtnURL}
+      bgImageURL={finalCTA.bgImageURL}
+      textColor={finalCTA.textColor}
+  />
 
   <!-- FAQ Section -->
   <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900">

@@ -24,7 +24,16 @@ const {
   src, 
   alt,
   imgWidth = 800, // Default width if not provided
-  imgHeight = 600 // Default height if not provided
+  imgHeight = 600, // Default height if not provided
+  // Styling props
+  imageScale = "scale-100", 
+  rightOffset = "right-0", 
+  minSectionHeight = "", // Optional min height for the whole section
+  // Background props
+  backgroundColor = "bg-green-50", // Default solid background color
+  gradientFromColor, 
+  gradientToColor,
+  backgroundImageURL,
 } = Astro.props;
 
 // Define TypeScript interface for props
@@ -44,19 +53,46 @@ interface Props {
   alt: string; // Alt text is REQUIRED
   imgWidth?: number; // Optional width prop
   imgHeight?: number; // Optional height prop
+  // Styling props
+  imageScale?: string; // e.g., "scale-100", "scale-125"
+  rightOffset?: string; // e.g., "right-0", "right-[-2rem]"
+  minSectionHeight?: string; // e.g., "min-h-[600px]"
+  // Background props
+  backgroundColor?: string; // Optional solid color class
+  gradientFromColor?: string; // Optional gradient start color class
+  gradientToColor?: string; // Optional gradient end color class
+  backgroundImageURL?: string; // Optional background image URL
 }
 
 // Determine image source and alt text
 // const imageSrc = src; // Use the required src prop - No longer required here
 // const imageAlt = alt; // Use the required alt prop - No longer required here
 
+// Determine background styling
+let backgroundClasses: string[] = ["overflow-hidden", "rounded-b-2xl"];
+let backgroundStyle = "";
+
+if (backgroundImageURL) {
+    backgroundStyle = `background-image: url('${backgroundImageURL}');`;
+    backgroundClasses.push("bg-cover", "bg-center");
+} else if (gradientFromColor && gradientToColor) {
+    backgroundClasses.push("bg-gradient-to-t", gradientFromColor, gradientToColor);
+} else {
+    backgroundClasses.push(backgroundColor); // Apply default or provided solid color
+}
+
 ---
-<!-- Defining a grid container that holds all the content -->
+<!-- Section container: Apply dynamic background and optional min height -->
 <section
-  class="mx-auto grid max-w-[85rem] gap-4 px-4 py-14 sm:px-6 md:grid-cols-2 md:items-center md:gap-8 lg:px-8 2xl:max-w-full"
+  class:list={[
+    "relative mx-auto grid max-w-[85rem] gap-4 px-4 pt-14 sm:px-6 md:grid-cols-2 md:gap-8 lg:px-8 2xl:max-w-full",
+    ...backgroundClasses, // Spread the determined background classes
+    minSectionHeight, 
+  ]}
+  style={backgroundImageURL ? `background-image: url('${backgroundImageURL}');` : undefined}
 >
-  <!-- Title and description -->
-  <div id="hero-content" class="pt-16 md:pt-24">
+  <!-- Title and description container: Determines natural height -->
+  <div id="hero-content" class="pt-16 md:pt-24 z-10 px-4 pb-14 sm:px-6 lg:px-8"> 
     <!-- Each h1 and p tag renders a portion of the title and subTitle defined above -->
     <h1
       id="hero-title"
@@ -89,10 +125,17 @@ interface Props {
     ) }
 
   </div>
-  <!-- Hero Media Section (Image ONLY) -->
-  <div class="flex w-full items-center justify-center" id="hero-image-container">
-      <div class="overflow-hidden rounded-lg">
-        {/* Render Image (src and alt are required) */}
+
+  <!-- Image container: No explicit height -->
+  <div 
+    id="hero-image-container"
+    class:list={[
+        "absolute top-0 md:w-1/2 lg:w-7/12 pointer-events-none",
+        rightOffset, // Apply right offset prop
+    ]}
+  >
+      {/* Simplified inner div */} 
+      <div> 
           <Image
               src={src} 
               alt={alt} 
@@ -100,11 +143,13 @@ interface Props {
               height={imgHeight}
               widths={[400, imgWidth ?? 800]}
               sizes={`(max-width: 768px) 100vw, 50vw`}
-              class="h-auto w-full object-cover object-center"
+              class:list={[
+                  "h-auto w-full block", 
+                  imageScale, // Apply scale prop
+              ]}
               draggable={false}
               loading="eager"
           />
     </div>
   </div>
 </section>
----

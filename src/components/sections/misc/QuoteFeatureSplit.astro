@@ -24,18 +24,18 @@ const {
 const isQuoteLeft = layoutDirection === 'quote-left';
 ---
 <section class="py-16 md:py-24 bg-gradient-to-b from-white via-neutral-50 to-neutral-100 dark:from-neutral-900 dark:via-neutral-850 dark:to-neutral-800 rounded-xl">
-  <div class="container mx-auto px-6">
+  <div class="container mx-auto px-16">
     <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
 
       <!-- Column 1: Strategic Quote (Order depends on layoutDirection) -->
       <div class:list={["mb-12 lg:mb-0", { "lg:order-last": !isQuoteLeft }]}>
-          <figure class="relative max-w-lg mx-auto lg:mx-0">
+          <figure class="relative max-w-lg mx-auto lg:mx-0 pl-8">
               <!-- Quote styling -->
-              <svg class="absolute top-0 start-0 transform -translate-x-8 -translate-y-8 h-16 w-16 text-primary opacity-30 dark:opacity-50" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <svg class="absolute top-0 start-0 transform -translate-x-4 -translate-y-8 h-16 w-16 text-primary opacity-30 dark:opacity-50" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M7.39762 10.3C7.39762 11.0733 7.14888 11.7 6.6514 12.18C6.15392 12.6333 5.52409 12.86 4.7619 12.86C3.8389 12.86 3.06027 12.5867 2.42599 12.04L2.80157 10.6867C3.21919 11.0267 3.67917 11.2333 4.18165 11.3067C4.68413 11.38 4.96057 11.2933 5.01097 11.0467C5.06137 10.8 5.01097 10.54 4.85977 10.2667L2.83298 6.87333C2.65603 6.56667 2.56755 6.23333 2.56755 5.87333C2.56755 5.22667 2.80874 4.70667 3.29113 4.31333C3.77352 3.92 4.37711 3.72667 5.10191 3.72667C6.00484 3.72667 6.74888 4.01333 7.33405 4.58667C7.91922 5.13333 8.2118 5.9 8.2118 6.88667C8.2118 7.86667 7.94931 8.8 7.42434 9.68667C7.47474 9.83333 7.49994 9.98667 7.49994 10.1467C7.49994 10.1933 7.49994 10.24 7.49994 10.2867C7.49994 10.3 7.49994 10.3 7.39762 10.3Z" fill="currentColor"/>
                 <path d="M13.3976 10.3C13.3976 11.0733 13.1489 11.7 12.6514 12.18C12.1539 12.6333 11.5241 12.86 10.7619 12.86C9.8389 12.86 9.06027 12.5867 8.42599 12.04L8.80157 10.6867C9.21919 11.0267 9.67917 11.2333 10.1817 11.3067C10.6841 11.38 10.9606 11.2933 11.011 11.0467C11.0614 10.8 11.011 10.54 10.8598 10.2667L8.83298 6.87333C8.65603 6.56667 8.56755 6.23333 8.56755 5.87333C8.56755 5.22667 8.80874 4.70667 9.29113 4.31333C9.77352 3.92 10.3771 3.72667 11.1019 3.72667C12.0048 3.72667 12.7489 4.01333 13.3341 4.58667C13.9192 5.13333 14.2118 5.9 14.2118 6.88667C14.2118 7.86667 13.9493 8.8 13.4243 9.68667C13.4747 9.83333 13.4999 9.98667 13.4999 10.1467C13.4999 10.1933 13.4999 10.24 13.4999 10.2867C13.4999 10.3 13.4999 10.3 13.3976 10.3Z" fill="currentColor"/>
               </svg>
-              <blockquote class="relative z-10">
+              <blockquote class="relative z-10 pl-4">
                   <p class="text-xl font-semibold text-neutral-800 dark:text-neutral-200 md:text-2xl md:leading-normal">
                       {quoteContent}
                   </p>

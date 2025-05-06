@@ -8,6 +8,7 @@ module.exports = {
       white: '#fff',
       primary: "#8DC640", 
       secondary: "#50555C",
+      primaryLight: "#EFF8E2",
     },
     extend: {
       // colors: {} // Keep extend empty

@@ -1,22 +1,28 @@
 ---
 // Layout and Base Components
 import MainLayout from "@/layouts/MainLayout.astro";
-import HeroSection from "@components/sections/landing/HeroSection.astro";
+// import HeroSection from "@components/sections/landing/HeroSection.astro"; // Remove old hero
+import HeroBackground from "@components/sections/landing/HeroBackground.astro"; // Add new hero
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // For CTA button
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For CTA button
 import { Icon } from 'astro-icon/components';
+import CTASection from "@components/sections/misc/CTASection.astro"; // Added import
+import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro"; // Added import
+import heroBgPrep from '@/images/hero-bg-prep.png'; // Import the background image
+import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
 
 // --- Page Data ---
 const pageTitle = "Why Okra Orders? Built for Catering Success | Okra Orders";
 const pageDescription = "Compare Okra Orders to generic POS and manual methods. See why Okra is the purpose-built catering software for online ordering, operations, and accounting automation.";
 
 const hero = {
-  tagline: "Purpose-Built for Caterers",
+  tagline: "Purpose-Built for Caterers", // Keep tagline if needed, though HeroBackground doesn't use it directly
   title: "Built for Catering, Not Just Point-of-Sale",
   subTitle: "Running a catering business has unique challenges that generic restaurant POS systems or manual spreadsheets just don't solve well. Okra Orders is purpose-built for caterers, offering integrated tools for online ordering, multi-location management, operational efficiency, and critical accounting automation. See why caterers choose Okra.",
-  imgAlt: "Okra Orders contrasted with generic POS and spreadsheet icons",
-  // Placeholder - Replace with actual image/graphic later
-  imgSrc: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 300' width='800' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='24px' fill='%234B5563'%3EOkra vs Generic POS/Spreadsheets%3C/text%3E%3C/svg%3E`
+  imgAlt: "Food preparation background", // Update alt text for the new image
+  imgSrc: heroBgPrep, // Use imported image
+  // Remove old imgSrc
+  // imgSrc: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 300' width='800' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='24px' fill='%234B5563'%3EOkra vs Generic POS/Spreadsheets%3C/text%3E%3C/svg%3E`
 };
 
 const comparisonFeatures = [
@@ -30,12 +36,28 @@ const comparisonFeatures = [
   { feature: "Scalable & Flexible Pricing", okra: true, generic: 'varies', manual: true, genericNote: "Often tiered based on features less relevant to pure catering", manualNote: "Free (But high hidden costs in time and errors)" },
 ];
 
-const summaryPoints = [
-  "Unmatched ezCater & QuickBooks Automation",
-  "Deep Catering-Specific Menu Flexibility",
-  "Efficient Multi-Location & Ghost Kitchen Tools",
-  "Unified Operational View & Insights",
-];
+// Config for the Summary Section
+const summarySection = {
+  title: "Okra Orders: Purpose-Built for Your Catering Success",
+  subTitle: "Stop wrestling with generic tools or inefficient manual processes. Okra Orders provides the specific features catering businesses need to streamline operations, automate tedious tasks, improve customer experience, and gain clear insights – all in one integrated platform designed to scale with you.",
+  points: [
+    "Unmatched ezCater & QuickBooks Automation",
+    "Deep Catering-Specific Menu Flexibility",
+    "Efficient Multi-Location & Ghost Kitchen Tools",
+    "Unified Operational View & Insights",
+  ],
+};
+
+// Config for the Concluding Quote Section
+const quoteConcluding = {
+  quoteContent: "We didn't just build another ordering system; we built a catering operations platform. From handling complex menus and ezCater integration to automating QuickBooks entries, every feature was designed based on solving the specific, often frustrating, challenges we heard directly from caterers.",
+  quoteAttribution: "- Maciej, Okra Orders CTO (Summarizing the Vision)",
+  featureIconName: "heroicons:puzzle-piece", // Suggested icon
+  featureBadgeText: "Purpose-Built", // Added badge text
+  featureTitle: "Purpose-Built for Catering Challenges",
+  featureDescription: "Okra Orders wasn't conceived in a vacuum. It's the direct result of listening to caterers describe their frustrations with generic tools and manual workarounds. Every core feature, especially the deep integrations and flexible menu management, was specifically designed to address the unique operational realities of the catering industry, providing a solution that truly fits.",
+  layoutDirection: "quote-left" as const, // Default layout direction
+};
 
 const finalCTA = {
   title: "See the Difference for Yourself",
@@ -43,9 +65,9 @@ const finalCTA = {
   primaryBtn: "Start Free Trial",
   primaryBtnURL: "/signup",
   secondaryBtn: "Try Live Demo",
-  secondaryBtnURL: "https://demo.okraorders.com", // Assuming demo link
-  tertiaryBtn: "View Pricing",
-  tertiaryBtnURL: "/pricing", // Assuming pricing page link
+  secondaryBtnURL: "https://demo.okraorders.com",
+  bgImageURL: ctaBgImage.src, // Add background image
+  textColor: "white" as const // Keep text white
 };
 
 // Adjusted type annotation to match possible values from comparisonFeatures
@@ -64,8 +86,8 @@ const getNoteText = (status: boolean | 'limited' | 'varies' | string, note?: str
 <MainLayout title={pageTitle} meta={pageDescription}>
 
   <!-- 1. Hero Section -->
-  <div class="bg-gradient-to-b from-primary-50 to-white pt-16 md:pt-24 pb-8 md:pb-12">
-    <HeroSection
+  {/* <div class="bg-gradient-to-b from-primary-50 to-white pt-16 md:pt-24 pb-8 md:pb-12"> */}
+    {/* <HeroSection
       title={hero.title}
       subTitle={hero.subTitle}
       primaryBtn={undefined}
@@ -78,11 +100,19 @@ const getNoteText = (status: boolean | 'limited' | 'varies' | string, note?: str
            <img src={hero.imgSrc} alt={hero.imgAlt} class="h-auto w-full max-w-xl mx-auto rounded-lg shadow-md object-contain"/>
         </div>
       </Fragment>
-    </HeroSection>
-  </div>
+    </HeroSection> */}
+    <HeroBackground
+      title={hero.title}
+      subTitle={hero.subTitle}
+      imgSrc={hero.imgSrc}
+      imgAlt={hero.imgAlt}
+      minHeight="min-h-[400px] md:min-h-[500px]"
+      textShadow="text-shadow-lg"
+    />
+  {/* </div> */}
 
   <!-- 2. Comparison Table Section - Preline UI Style -->
-  <section class="py-16 md:py-24 bg-white">
+  <section class="py-16 my-12 md:py-24 bg-white rounded-2xl">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl font-bold text-center text-neutral-800 mb-12">How Okra Orders Stacks Up</h2>
       
@@ -147,15 +177,26 @@ const getNoteText = (status: boolean | 'limited' | 'varies' | string, note?: str
     </div>
   </section>
 
+  <!-- NEW: Concluding Quote Section -->
+  <QuoteFeatureSplit
+      quoteContent={quoteConcluding.quoteContent}
+      quoteAttribution={quoteConcluding.quoteAttribution}
+      featureIconName={quoteConcluding.featureIconName}
+      featureBadgeText={quoteConcluding.featureBadgeText}
+      featureTitle={quoteConcluding.featureTitle}
+      featureDescription={quoteConcluding.featureDescription}
+      layoutDirection={quoteConcluding.layoutDirection}
+  />
+
   <!-- 3. Summary / Key Differentiators Section -->
-  <section class="py-16 md:py-24 bg-neutral-50">
+  <section class="py-16 md:py-24 bg-neutral-50 rounded-2xl my-12">
     <div class="container mx-auto px-6 text-center max-w-3xl">
-      <h2 class="text-3xl font-bold text-neutral-800 mb-4">Okra Orders: Purpose-Built for Your Catering Success</h2>
+      <h2 class="text-3xl font-bold text-neutral-800 mb-4">{summarySection.title}</h2>
       <p class="text-lg text-gray-600 mb-8">
-        Stop wrestling with generic tools or inefficient manual processes. Okra Orders provides the specific features catering businesses need to streamline operations, automate tedious tasks, improve customer experience, and gain clear insights – all in one integrated platform designed to scale with you.
+        {summarySection.subTitle}
       </p>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-        {summaryPoints.map((point) => (
+        {summarySection.points.map((point) => (
           <div class="flex items-start space-x-3 p-4 bg-white rounded-lg shadow-sm">
             <Icon name="heroicons:check-badge" class="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
             <p class="text-neutral-700 font-medium">{point}</p>
@@ -165,22 +206,17 @@ const getNoteText = (status: boolean | 'limited' | 'varies' | string, note?: str
     </div>
   </section>
 
-  <!-- 4. Final CTA Section -->
-  <section class="bg-gradient-to-b from-white to-primary-50 py-16 md:py-24">
-      <div class="container mx-auto px-6 text-center">
-          <h2 class="text-3xl font-bold text-neutral-800 mb-4">{finalCTA.title}</h2>
-          <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">{finalCTA.subTitle}</p>
-          <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-              <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} />
-              <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer" class="inline-block">
-                 <SecondaryCTA title={finalCTA.secondaryBtn} url={finalCTA.secondaryBtnURL} />
-              </a>
-               <a href={finalCTA.tertiaryBtnURL} class="text-primary hover:text-primary-dark font-medium transition-colors duration-200">
-                  {finalCTA.tertiaryBtn} &rarr;
-               </a>
-          </div>
-      </div>
-  </section>
+  <!-- 4. Final CTA Section (Using CTASection Component) -->
+  <CTASection
+      title={finalCTA.title}
+      subTitle={finalCTA.subTitle}
+      primaryBtn={finalCTA.primaryBtn}
+      primaryBtnURL={finalCTA.primaryBtnURL}
+      secondaryBtn={finalCTA.secondaryBtn}
+      secondaryBtnURL={finalCTA.secondaryBtnURL}
+      bgImageURL={finalCTA.bgImageURL}
+      textColor={finalCTA.textColor}
+  />
 
 </MainLayout>
 

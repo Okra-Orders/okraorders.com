@@ -3,19 +3,19 @@
 import MainLayout from "@/layouts/MainLayout.astro";
 import HeroSection from "@components/sections/landing/HeroSection.astro";
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
-import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro"; // Import the new component
-// import { Icon } from "astro-iconify"; // Temporarily commented out
-import { Icon } from 'astro-icon/components'; // Use astro-icon component
+import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro";
+import { Icon } from 'astro-icon/components';
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
-// SecondaryCTA is not explicitly used in the final HTML CTA, but keeping import for consistency
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
-import FAQ from "@components/sections/misc/FAQ.astro"; // Import the FAQ component
+import FAQ from "@components/sections/misc/FAQ.astro";
+import IconListSection from "@components/sections/features/IconListSection.astro";
+import CTASection from "@components/sections/misc/CTASection.astro";
+import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
 
 // --- Helper Functions ---
-// Simple SVG placeholder function
 const svgPlaceholder = (width: number, height: number, text: string = "Placeholder") => {
   const escapedText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236B7280' font-family='sans-serif' font-size='16'%3E${escapedText}%3C/text%3E%3C/svg%3E`; // Tailwind gray-200 background, gray-500 text
+  return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236B7280' font-family='sans-serif' font-size='16'%3E${escapedText}%3C/text%3E%3C/svg%3E`;
 }
 
 // --- Page Data ---
@@ -24,8 +24,15 @@ const pageTitle = "Seamless ezCater & QuickBooks Integrations | Okra Orders";
 const hero = {
   title: "Stop Typing, Start Thriving: Automate ezCater & QuickBooks",
   subTitle: "Eliminate hours of manual data entry and reconciliation. Okra Orders seamlessly connects your online storefront, ezCater, and QuickBooks Online, creating a truly unified operational hub.",
-  // Image slot will contain the logo flow graphic
+  // Image slot will be handled separately below
 };
+
+const heroLogos = {
+    ezCaterLogoSrc: svgPlaceholder(100, 40, "ezCater Logo"),
+    ezCaterLogoAlt: "ezCater Logo Placeholder",
+    quickbooksLogoSrc: svgPlaceholder(120, 40, "QuickBooks Logo"),
+    quickbooksLogoAlt: "QuickBooks Logo Placeholder",
+}
 
 const featureEzCater = {
   title: "Bring Your ezCater Orders Home",
@@ -36,11 +43,11 @@ const featureEzCater = {
     "Unified operational view simplifies daily prep planning.",
     "ezCater data is mapped consistently for unified reporting.",
   ],
-  imgSrc: svgPlaceholder(500, 600, "Screenshot: Unified Order List"), // Reusing placeholder text
+  imgSrc: svgPlaceholder(500, 600, "Screenshot: Unified Order List"),
   imgAlt: "Unified Order List Placeholder (Okra + ezCater)",
   imagePosition: "left" as const,
-  logoSrc: svgPlaceholder(100, 40, "ezCater Logo"), // Placeholder for ezCater logo
-  logoAlt: "ezCater Logo Placeholder",
+  logoSrc: heroLogos.ezCaterLogoSrc, // Reuse logo from hero config
+  logoAlt: heroLogos.ezCaterLogoAlt,
 };
 
 const featureQuickBooks = {
@@ -56,8 +63,29 @@ const featureQuickBooks = {
   imgSrc: svgPlaceholder(500, 600, "Visual: Okra to QB Sync"),
   imgAlt: "Okra Order Syncing to QuickBooks Sales Receipt Placeholder",
   imagePosition: "right" as const,
-  logoSrc: svgPlaceholder(150, 40, "QuickBooks Logo"), // Placeholder for QuickBooks logo
-  logoAlt: "QuickBooks Logo Placeholder",
+  logoSrc: heroLogos.quickbooksLogoSrc, // Reuse logo from hero config
+  logoAlt: heroLogos.quickbooksLogoAlt,
+};
+
+const quoteAutomation = {
+  quoteContent: "Honestly, the time we spend manually entering every single ezCater order into QuickBooks for reconciliation is painful. If Okra truly automates that, pushing both our direct orders and the ezCater ones across accurately, that alone is a massive win for us.",
+  quoteAttribution: "- Pain Point Highlighted by Catering Business Owners",
+  featureIconName: "heroicons:arrow-path",
+  featureBadgeText: "Automation Power",
+  featureTitle: "The End of Double Data Entry",
+  featureDescription: "This is where Okra Orders truly transforms your back office. Forget manually keying ezCater order details into QuickBooks. Okra automatically takes the order data pulled from ezCater and creates accurate Sales Receipts in your QuickBooks Online account, just like it does for your direct orders. This single feature eliminates hours of tedious, error-prone work every week.",
+  layoutDirection: "quote-left" as const,
+};
+
+// Config for Connectivity IconListSection
+const connectivity = {
+    title: "Designed to Connect Your Business",
+    subTitle: "Okra Orders is built with an API-first approach. While seamless ezCater and QuickBooks integrations are ready today, our platform is designed to connect with other essential tools your catering business relies on as we grow together.",
+    items: [
+        { iconName: "heroicons:bolt", text: "API-First" },
+        { iconName: "heroicons:arrows-right-left", text: "Central Hub" },
+        { iconName: "heroicons:chart-bar-square", text: "Future-Ready" },
+    ]
 };
 
 const finalCTA = {
@@ -67,9 +95,12 @@ const finalCTA = {
   primaryBtnURL: "/signup",
   secondaryBtn: "Try Live Demo",
   secondaryBtnURL: "https://demo.okraorders.com",
+  bgImageURL: ctaBgImage.src, // Add background image
+  textColor: "white" as const // Keep text white
 };
 
 const integrationsFaqs = {
+  title: "Your Integration Questions Answered",
   faqs: [
     {
       question: "We get a lot of orders through ezCater. Do I still need to manually enter those into QuickBooks?",
@@ -113,20 +144,18 @@ const integrationsFaqs = {
         secondaryBtnURL={undefined}
       >
         <Fragment slot="image">
-          <!-- Integration Flow Graphic Placeholder -->
+          <!-- Integration Flow Graphic -->
           <div class="mt-10 px-6 flex justify-center items-center space-x-4 md:space-x-6">
             <div class="p-2 rounded bg-white shadow-md">
-                <img src={svgPlaceholder(100, 40, "ezCater Logo")} alt="ezCater Logo Placeholder" class="h-8 md:h-10" />
+                <img src={heroLogos.ezCaterLogoSrc} alt={heroLogos.ezCaterLogoAlt} class="h-8 md:h-10" />
             </div>
-            <Icon name="heroicons:arrow-long-right" class="w-8 h-8 text-primary flex-shrink-0" /> <!-- Restored Icon -->
-            <!-- <span class="w-8 h-8 text-primary flex-shrink-0">➡️</span> --> <!-- Removed Placeholder -->
+            <Icon name="heroicons:arrow-long-right" class="w-8 h-8 text-primary flex-shrink-0" />
             <div class="p-2 rounded bg-white shadow-md text-center">
                 <span class="text-lg font-bold text-neutral-800">Okra<span class="text-primary">Orders</span></span>
             </div>
-             <Icon name="heroicons:arrow-long-right" class="w-8 h-8 text-primary flex-shrink-0" /> <!-- Restored Icon -->
-             <!-- <span class="w-8 h-8 text-primary flex-shrink-0">➡️</span> --> <!-- Removed Placeholder -->
+             <Icon name="heroicons:arrow-long-right" class="w-8 h-8 text-primary flex-shrink-0" />
             <div class="p-2 rounded bg-white shadow-md">
-                <img src={svgPlaceholder(120, 40, "QuickBooks Logo")} alt="QuickBooks Logo Placeholder" class="h-8 md:h-10" />
+                <img src={heroLogos.quickbooksLogoSrc} alt={heroLogos.quickbooksLogoAlt} class="h-8 md:h-10" />
             </div>
           </div>
         </Fragment>
@@ -145,7 +174,6 @@ const integrationsFaqs = {
         imgHeight={600}
         imagePosition={featureEzCater.imagePosition}
      >
-        {/* Add logo before title if needed, using a slot or custom structure */}
          <Fragment slot="before_title">
             <img src={featureEzCater.logoSrc} alt={featureEzCater.logoAlt} class="h-8 mb-3"/>
         </Fragment>
@@ -172,68 +200,41 @@ const integrationsFaqs = {
 
   <!-- Combined Section: Quote + End of Double Data Entry -->
   <QuoteFeatureSplit
-      quoteContent="The automatic push of ezCater orders to QuickBooks is worth the price alone. It's saving my admin team so much time and reducing reconciliation headaches dramatically."
-      quoteAttribution="- Catering Business Owner"
-      featureIconName="heroicons:arrow-path"
-      featureBadgeText="Automation Power"
-      featureTitle="The End of Double Data Entry"
-      featureDescription="This is where Okra Orders truly transforms your back office. Forget manually keying ezCater order details into QuickBooks. Okra automatically takes the order data pulled from ezCater and creates accurate Sales Receipts in your QuickBooks Online account, just like it does for your direct orders. This single feature eliminates hours of tedious, error-prone work every week."
-      layoutDirection="quote-left"
+      quoteContent={quoteAutomation.quoteContent}
+      quoteAttribution={quoteAutomation.quoteAttribution}
+      featureIconName={quoteAutomation.featureIconName}
+      featureBadgeText={quoteAutomation.featureBadgeText}
+      featureTitle={quoteAutomation.featureTitle}
+      featureDescription={quoteAutomation.featureDescription}
+      layoutDirection={quoteAutomation.layoutDirection}
   >
       <Fragment slot="feature-graphic">
-          <!-- Simple flow diagram -->
-          <!-- The logo flow graphic previously here is now removed -->
+          {/* Placeholder remains */}
       </Fragment>
   </QuoteFeatureSplit>
 
-  <!-- Feature Detail 3: Built for Connectivity (Custom Section) -->
-  <section class="py-16 md:py-24 bg-white dark:bg-neutral-900 rounded-xl">
-      <div class="container mx-auto px-6 text-center">
-        <h2 class="text-3xl font-bold text-neutral-800 mb-4">Designed to Connect Your Business</h2>
-        <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
-           Okra Orders is built with an API-first approach. While seamless ezCater and QuickBooks integrations are ready today, our platform is designed to connect with other essential tools your catering business relies on as we grow together.
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center items-start gap-y-8 sm:gap-x-12 md:gap-x-16 text-gray-700">
-            <div class="text-center max-w-xs mx-auto sm:mx-0">
-                <Icon name="heroicons:bolt" class="w-12 h-12 mx-auto text-primary mb-3" /> <!-- Restored Icon -->
-                <!-- <span class="text-4xl">⚡️</span> --> <!-- Removed Placeholder -->
-                <h3 class="font-semibold text-neutral-700 mb-1">API-First</h3>
-                <p class="text-sm text-gray-600">Foundation for future integrations.</p>
-            </div>
-            <div class="text-center max-w-xs mx-auto sm:mx-0">
-                 <Icon name="heroicons:arrows-right-left" class="w-12 h-12 mx-auto text-primary mb-3" /> <!-- Restored Icon -->
-                 <!-- <span class="text-4xl">↔️</span> --> <!-- Removed Placeholder -->
-                <h3 class="font-semibold text-neutral-700 mb-1">Central Hub</h3>
-                 <p class="text-sm text-gray-600">Connect your critical apps.</p>
-            </div>
-             <div class="text-center max-w-xs mx-auto sm:mx-0">
-                 <Icon name="heroicons:chart-bar-square" class="w-12 h-12 mx-auto text-primary mb-3" /> <!-- Restored Icon -->
-                 <!-- <span class="text-4xl">📊</span> --> <!-- Removed Placeholder -->
-                <h3 class="font-semibold text-neutral-700 mb-1">Future-Ready</h3>
-                 <p class="text-sm text-gray-600">Adapts as your needs evolve.</p>
-            </div>
-        </div>
-      </div>
-  </section>
+  <!-- Feature Detail 3: Built for Connectivity (Using IconListSection) -->
+   <IconListSection 
+      title={connectivity.title}
+      subTitle={connectivity.subTitle}
+      items={connectivity.items}
+  />
 
-  <!-- CTA Section (Custom Section) -->
-  <section class="bg-gradient-to-r from-primary to-green-700 text-white py-16 rounded-xl">
-      <div class="container mx-auto px-6 text-center">
-          <h2 class="text-3xl font-bold mb-4">{finalCTA.title}</h2>
-          <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">{finalCTA.subTitle}</p>
-          <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-              <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} />
-              <SecondaryCTA title={finalCTA.secondaryBtn} url={finalCTA.secondaryBtnURL} />
-              <!-- <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer" class="inline-block border border-white text-white px-6 py-2.5 rounded-md text-base font-semibold hover:bg-white hover:text-primary transition duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white">
-                 {finalCTA.secondaryBtn}
-              </a> -->
-          </div>
-      </div>
-  </section>
+  <!-- CTA Section (Using CTASection Component) -->
+  <CTASection
+      title={finalCTA.title}
+      subTitle={finalCTA.subTitle}
+      primaryBtn={finalCTA.primaryBtn}
+      primaryBtnURL={finalCTA.primaryBtnURL}
+      secondaryBtn={finalCTA.secondaryBtn}
+      secondaryBtnURL={finalCTA.secondaryBtnURL}
+      bgImageURL={finalCTA.bgImageURL}
+      textColor={finalCTA.textColor}
+  />
 
   <!-- FAQ Section -->
   <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900">
-    <FAQ title="Your Integration Questions Answered" faqs={integrationsFaqs} />
+    <FAQ title={integrationsFaqs.title} faqs={integrationsFaqs} />
   </section>
 
 </MainLayout>

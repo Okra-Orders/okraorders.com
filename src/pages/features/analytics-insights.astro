@@ -8,6 +8,8 @@ import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro
 import { Icon } from 'astro-icon/components'; // Added import for Iconify
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 import FAQ from "@components/sections/misc/FAQ.astro"; // Import the FAQ component
+import CTASection from "@components/sections/misc/CTASection.astro"; // Added import
+import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
 
 // --- Helper Functions ---
 // Simple SVG placeholder function
@@ -85,6 +87,32 @@ const aiInsightsNav = {
   ],
 };
 
+// Config for the QuoteFeatureSplit (Updated Content)
+const quoteProactive = {
+  quoteContent: "Standard sales reports are fine, but often lag. Getting an automated heads-up from the AI if, say, lunch orders suddenly tank at one location, or a specific item starts trending unexpectedly – that allows us to react faster instead of waiting for month-end analysis.", // Updated quote
+  quoteAttribution: "- Maciej, Okra Orders CTO (Explaining AI Insight Value)", // Updated attribution
+  featureIconName: "heroicons:sparkles",
+  featureBadgeText: "Proactive Insights",
+  featureTitle: "Don't Just Track Sales, Understand Them",
+  featureDescription: "Standard sales reports show you what happened. Okra's AI Insights help you understand why and what might happen next. By automatically analyzing your daily sales data for significant shifts or anomalies (like a specific menu item suddenly surging or a location going quiet), Okra gives you early warnings and actionable insights that simple charts often miss.",
+  layoutDirection: "quote-left" as const,
+};
+
+// Config for Unified Reporting section (remains custom)
+const unifiedReporting = {
+    title: "The Complete Picture: Okra + ezCater",
+    subTitle: "Because Okra integrates your ezCater orders, your dashboard metrics and insights reflect your *entire* catering operation. Finally get a true, unified view of your total sales performance across all your channels.",
+    // Logo data needed for graphic
+    ezCaterLogoSrc: svgPlaceholder(100, 40, "ezCater Logo"),
+    ezCaterLogoAlt: "ezCater Logo Placeholder",
+};
+
+// Config for Future Potential section (remains custom)
+const futurePotential = {
+    title: "Built for Deeper Insights",
+    subTitle: "Today's dashboard gives you essential visibility. Okra's platform is built on a solid data foundation, ready to deliver even more advanced reporting and analytics features in the future to help you grow your business strategically.",
+};
+
 const finalCTA = {
   title: "Ready to See Your Business Clearly?",
   subTitle: "Start using Okra Orders and gain valuable insights from day one.",
@@ -92,9 +120,12 @@ const finalCTA = {
   primaryBtnURL: "/signup",
   secondaryBtn: "Try Live Demo",
   secondaryBtnURL: "https://demo.okraorders.com",
+  bgImageURL: ctaBgImage.src, // Add background image
+  textColor: "white" as const // Keep text white
 };
 
 const analyticsFaqs = {
+  title: "Your Analytics Questions Answered", // Add title
   faqs: [
     {
       question: "What key numbers can I see immediately when I log into Okra?",
@@ -170,13 +201,13 @@ const analyticsFaqs = {
 
   <!-- Go Beyond Reports Section -->
   <QuoteFeatureSplit
-      quoteContent="The AI insights have actually flagged things we wouldn't have noticed until much later, like a sudden drop-off in lunch orders at one location, allowing us to investigate quicker."
-      quoteAttribution="- Data-Focused Catering Manager"
-      featureIconName="heroicons:sparkles"
-      featureBadgeText="Proactive Insights"
-      featureTitle="Don't Just Track Sales, Understand Them"
-      featureDescription="Standard sales reports show you what happened. Okra's AI Insights help you understand why and what might happen next. By automatically analyzing your daily sales data for significant shifts or anomalies (like a specific menu item suddenly surging or a location going quiet), Okra gives you early warnings and actionable insights that simple charts often miss."
-      layoutDirection="quote-left"
+      quoteContent={quoteProactive.quoteContent}
+      quoteAttribution={quoteProactive.quoteAttribution}
+      featureIconName={quoteProactive.featureIconName}
+      featureBadgeText={quoteProactive.featureBadgeText}
+      featureTitle={quoteProactive.featureTitle}
+      featureDescription={quoteProactive.featureDescription}
+      layoutDirection={quoteProactive.layoutDirection}
   >
       <Fragment slot="feature-graphic">
           <!-- Mockup graphic showing an example AI Insight alert popping up -->
@@ -186,9 +217,9 @@ const analyticsFaqs = {
   <!-- Feature Detail 3: Unified Reporting (Custom Section) -->
   <section class="py-16 md:py-24 bg-white rounded-xl">
       <div class="container mx-auto px-6 text-center">
-        <h2 class="text-3xl font-bold text-neutral-800 mb-4">The Complete Picture: Okra + ezCater</h2>
+        <h2 class="text-3xl font-bold text-neutral-800 mb-4">{unifiedReporting.title}</h2>
         <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
-           Because Okra integrates your ezCater orders, your dashboard metrics and insights reflect your *entire* catering operation. Finally get a true, unified view of your total sales performance across all your channels.
+           {unifiedReporting.subTitle}
         </p>
         <!-- Simple graphic: Okra Logo + ezCater Logo -> Graph Icon -->
          <div class="flex justify-center items-center space-x-4 md:space-x-6 opacity-80">
@@ -197,7 +228,7 @@ const analyticsFaqs = {
             </div>
             <span class="text-2xl font-bold text-gray-400">+</span>
             <div class="p-2 rounded bg-white shadow-md">
-                <img src={svgPlaceholder(100, 40, "ezCater Logo")} alt="ezCater Logo Placeholder" class="h-8 md:h-10" />
+                <img src={unifiedReporting.ezCaterLogoSrc} alt={unifiedReporting.ezCaterLogoAlt} class="h-8 md:h-10" />
             </div>
             <Icon name="heroicons:arrow-long-right" class="w-8 h-8 text-gray-400 flex-shrink-0" />
             <Icon name="heroicons:chart-pie" class="w-14 h-14 text-primary flex-shrink-0" />
@@ -208,30 +239,28 @@ const analyticsFaqs = {
   <!-- Future Potential Section (Custom Simple Section) -->
   <section class="py-16 md:py-24">
       <div class="container mx-auto px-6 text-center">
-           <h2 class="text-3xl font-bold text-neutral-800 mb-4">Built for Deeper Insights</h2>
+           <h2 class="text-3xl font-bold text-neutral-800 mb-4">{futurePotential.title}</h2>
           <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-             Today's dashboard gives you essential visibility. Okra's platform is built on a solid data foundation, ready to deliver even more advanced reporting and analytics features in the future to help you grow your business strategically.
+             {futurePotential.subTitle}
           </p>
       </div>
   </section>
 
-  <!-- CTA Section (Custom Section) -->
-  <section class="bg-gradient-to-r from-primary to-green-700 text-white py-16 rounded-xl">
-      <div class="container mx-auto px-6 text-center">
-          <h2 class="text-3xl font-bold mb-4">{finalCTA.title}</h2>
-          <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">{finalCTA.subTitle}</p>
-          <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-              <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} />
-              <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer" class="inline-block border border-white text-white px-6 py-2.5 rounded-md text-base font-semibold hover:bg-white hover:text-primary transition duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white">
-                 {finalCTA.secondaryBtn}
-              </a>
-          </div>
-      </div>
-  </section>
+  <!-- CTA Section (Using CTASection Component) -->
+  <CTASection
+      title={finalCTA.title}
+      subTitle={finalCTA.subTitle}
+      primaryBtn={finalCTA.primaryBtn}
+      primaryBtnURL={finalCTA.primaryBtnURL}
+      secondaryBtn={finalCTA.secondaryBtn}
+      secondaryBtnURL={finalCTA.secondaryBtnURL}
+      bgImageURL={finalCTA.bgImageURL}
+      textColor={finalCTA.textColor}
+  />
 
   <!-- FAQ Section -->
   <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900">
-    <FAQ title="Your Analytics Questions Answered" faqs={analyticsFaqs} />
+    <FAQ title={analyticsFaqs.title} faqs={analyticsFaqs} />
   </section>
 
 </MainLayout> 

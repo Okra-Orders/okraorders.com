@@ -1,12 +1,18 @@
 ---
 // Layout and Base Components
 import MainLayout from "@/layouts/MainLayout.astro";
-import HeroSection from "@components/sections/landing/HeroSection.astro";
+// import HeroSection from "@components/sections/landing/HeroSection.astro"; // Remove old hero
+import HeroBackground from "@components/sections/landing/HeroBackground.astro"; // Add new hero
 import ContactSection from "@components/sections/misc/ContactSection.astro"; // For contact form/details
 import FAQ from "@components/sections/misc/FAQ.astro"; // For FAQ section
 import { Icon } from 'astro-icon/components'; // For icons
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // For CTA button
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For CTA button
+import IconListSection from "@components/sections/features/IconListSection.astro"; // Added import
+import CTASection from "@components/sections/misc/CTASection.astro"; // Added import
+import supportHeroBg from '@/images/bg-support.png'; // Import the new background image
+import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro"; // Added import
+import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
 
 // --- Page Data ---
 const pageTitle = "Support & Contact Us | Okra Orders";
@@ -16,53 +22,42 @@ const hero = {
   tagline: "Help When You Need It",
   title: "Get the Support You Need to Succeed with Okra Orders",
   subTitle: "We believe great software deserves great support. Whether you're just getting started, have a quick question, or want to discuss optimizing your workflow, Okra Orders provides comprehensive help resources and accessible, business-focused assistance to ensure you get the most out of the platform. Find answers yourself, or connect with our team – we're here to help.",
-  // No image needed here for now, can add later if desired
+  imgAlt: "Abstract background representing connection and support", // Updated Alt text for new image
+  imgSrc: supportHeroBg, // Use imported image
 };
 
-// In-App Help Feature Data
+// In-App Help Feature Data - Adjusted for IconListSection
 const inAppHelp = {
   title: "Learn As You Go, Right Within the App",
   subTitle: "Don't get stuck trying to figure things out. Okra Orders features a built-in help system designed to provide answers and guidance exactly when and where you need them. Reduce training time for your team and master new features faster without ever leaving the application.",
-  features: [
-    {
-      icon: "heroicons:question-mark-circle",
-      title: "Contextual Tooltips",
-      description: "Not sure what a setting does? Helpful tooltips appear for many fields and options, providing clear explanations on the spot.",
-      imgPlaceholder: "<!-- Screenshot: Example of a tooltip appearing over an admin field -->" // Placeholder for visual
-    },
-    {
-      icon: "heroicons:cursor-arrow-rays", // Changed icon
-      title: "Guided Tours",
-      description: "Learn key workflows step-by-step. Interactive tours guide you through processes like setting up your first menu item or configuring store hours.",
-      imgPlaceholder: "<!-- GIF/Screenshot: Example of a Product Fruits guided tour step -->" // Placeholder for visual
-    },
-    {
-      icon: "heroicons:book-open", // Changed icon
-      title: "Searchable Knowledge Base",
-      description: "Need more detail? Access articles, guides, and answers to common questions directly from the help widget within the app.",
-      imgPlaceholder: "<!-- Screenshot: Showing the Product Fruits help widget with search results -->" // Placeholder for visual
-    }
+  items: [
+    { iconName: "heroicons:question-mark-circle", text: "Contextual Tooltips" }, // Description removed, handled by component
+    { iconName: "heroicons:cursor-arrow-rays", text: "Guided Tours" },
+    { iconName: "heroicons:book-open", text: "Searchable Knowledge Base" }
   ]
+  // Note: Descriptions were part of the original custom layout, not standard IconListSection
 };
 
-// Human Support Feature Data
+// Human Support Feature Data - Adjusted for IconListSection
 const humanSupport = {
   title: "Talk to Real People Focused on Your Business",
   subTitle: "Sometimes you just need to talk to someone. Our support team understands the nuances of the catering business and is ready to assist not just with technical troubleshooting, but with helping you leverage Okra Orders effectively to streamline your specific operations and achieve your goals.",
-  features: [
-    {
-      icon: "heroicons:chat-bubble-left-right", // Changed icon
-      title: "Live Chat Support",
-      description: "Have a quick question during business hours? Reach our support team directly via live chat for prompt assistance right from the admin panel.",
-      imgPlaceholder: "<!-- Simple graphic or stylized icon representing Live Chat -->" // Placeholder for visual
-    },
-    {
-      icon: "heroicons:video-camera",
-      title: "Personalized Video Calls",
-      description: "Need more in-depth guidance or want to discuss optimizing your setup? We offer personalized video call support to dive deeper into your specific needs and help you maximize Okra's potential for your business.",
-      imgPlaceholder: "<!-- Simple graphic or stylized icon representing Video Call Support -->" // Placeholder for visual
-    }
+  items: [
+    { iconName: "heroicons:chat-bubble-left-right", text: "Live Chat Support" },
+    { iconName: "heroicons:video-camera", text: "Personalized Video Calls" }
   ]
+  // Note: Descriptions were part of the original custom layout, not standard IconListSection
+};
+
+// Config for the new QuoteFeatureSplit section
+const quoteSupport = {
+  quoteContent: "We're caterers, not tech wizards. Having built-in guides and tooltips is helpful, but knowing we can actually talk to someone via chat or video who understands our business challenges and can help us apply the software effectively is really important.",
+  quoteAttribution: "- Common Sentiment from Caterers Evaluating Software Solutions",
+  featureIconName: "heroicons:chat-bubble-oval-left-ellipsis", // Replaced icon
+  featureBadgeText: "Business Focused",
+  featureTitle: "Expert Help That Understands Your Business",
+  featureDescription: "Technical glitches are only part of the story. True support means understanding your operational goals. Our team focuses on helping you configure Okra Orders optimally for your specific workflows, ensuring you're not just using the software, but truly benefiting from it to improve efficiency and customer satisfaction. We speak your language – the language of catering.",
+  layoutDirection: "quote-left" as const,
 };
 
 // Contact Section Data (Leveraging ContactSection component)
@@ -111,7 +106,9 @@ const finalCTA = {
   primaryBtn: "Start Free Trial",
   primaryBtnURL: "/signup",
   secondaryBtn: "Try Live Demo",
-  secondaryBtnURL: "https://demo.okraorders.com", // Assuming same demo link
+  secondaryBtnURL: "https://demo.okraorders.com",
+  bgImageURL: ctaBgImage.src,
+  textColor: "white" as const
 };
 
 ---
@@ -119,58 +116,29 @@ const finalCTA = {
 <MainLayout title={pageTitle} meta={pageDescription}>
 
   <!-- 1. Hero Section -->
-  <div class="bg-gradient-to-b from-green-50 to-white pt-16 md:pt-24 pb-8 md:pb-12">
-    <HeroSection
+  {/* <div class="bg-gradient-to-b from-green-50 to-white pt-16 md:pt-24 pb-8 md:pb-12"> */}
+    {/* <HeroSection
       title={hero.title}
       subTitle={hero.subTitle}
       primaryBtn={undefined}
       primaryBtnURL={undefined}
       secondaryBtn={undefined}
       secondaryBtnURL={undefined}
-    />
-    <!-- Optional: Add a visual placeholder/image here if desired later -->
-  </div>
+    /> */}
+    {/* Optional: Add a visual placeholder/image here if desired later */}
+  {/* </div> */}
+  
+  <HeroBackground
+    title={hero.title}
+    subTitle={hero.subTitle}
+    imgSrc={hero.imgSrc}
+    imgAlt={hero.imgAlt}
+    minHeight="min-h-[400px] md:min-h-[500px]"
+    textShadow="text-shadow-lg"
+  />
 
-  <!-- 2. Feature: Integrated In-App Help -->
-  <section class="py-16 md:py-24 bg-white rounded-xl">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-neutral-800 text-center mb-4">{inAppHelp.title}</h2>
-      <p class="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">{inAppHelp.subTitle}</p>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-        {inAppHelp.features.map(feature => (
-          <div class="p-6 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-            <Icon name={feature.icon} class="w-12 h-12 mx-auto text-primary mb-4" />
-            <h3 class="text-xl font-semibold text-neutral-800 mb-2">{feature.title}</h3>
-            <p class="text-neutral-600">{feature.description}</p>
-            <!-- Visual Placeholder (commented out) -->
-            <!-- <div class="mt-4 bg-gray-200 h-32 rounded flex items-center justify-center text-gray-500 text-sm">{feature.imgPlaceholder}</div> -->
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 3. Feature: Dedicated Human Support -->
-  <section class="py-16 md:py-24">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-neutral-800 text-center mb-4">{humanSupport.title}</h2>
-      <p class="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">{humanSupport.subTitle}</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center max-w-4xl mx-auto">
-        {humanSupport.features.map(feature => (
-          <div class="p-6 border border-gray-200 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-            <Icon name={feature.icon} class="w-12 h-12 mx-auto text-primary mb-4" />
-            <h3 class="text-xl font-semibold text-neutral-800 mb-2">{feature.title}</h3>
-            <p class="text-neutral-600">{feature.description}</p>
-             <!-- Visual Placeholder (commented out) -->
-             <!-- <div class="mt-4 bg-gray-200 h-32 rounded flex items-center justify-center text-gray-500 text-sm">{feature.imgPlaceholder}</div> -->
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. Contact Us Section - Integrated -->
-  <section id="contact" class="py-16 md:py-24 bg-white rounded-xl scroll-mt-16">
+    <!-- 4. Contact Us Section - Integrated -->
+  <section id="contact" class="py-16 md:py-24 bg-white rounded-xl scroll-mt-16 my-12">
       <ContactSection
           title={contact.title}
           subTitle={contact.subTitle}
@@ -178,27 +146,57 @@ const finalCTA = {
       />
       <!-- ContactSection should include the form. Adjust props if needed based on its implementation -->
   </section>
+  <!-- 2. Feature: Integrated In-App Help (Using IconListSection) -->
+  <section class="py-16 md:py-24 bg-white rounded-xl">
+    <IconListSection 
+        title={inAppHelp.title}
+        subTitle={inAppHelp.subTitle}
+        items={inAppHelp.items}
+    />
+    {/* Removed original custom grid layout */}
+  </section>
+
+  <!-- 3. Feature: Dedicated Human Support (Using IconListSection) -->
+  <section class="py-16 md:py-24">
+     <IconListSection 
+        title={humanSupport.title}
+        subTitle={humanSupport.subTitle}
+        items={humanSupport.items}
+    />
+    {/* Removed original custom grid layout */}
+  </section>
+
+  <!-- NEW: Quote Section -->
+  <QuoteFeatureSplit
+      quoteContent={quoteSupport.quoteContent}
+      quoteAttribution={quoteSupport.quoteAttribution}
+      featureIconName={quoteSupport.featureIconName}
+      featureBadgeText={quoteSupport.featureBadgeText}
+      featureTitle={quoteSupport.featureTitle}
+      featureDescription={quoteSupport.featureDescription}
+      layoutDirection={quoteSupport.layoutDirection}
+  />
+
+
 
   <!-- 5. FAQ Section -->
-  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900">
+  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900 rounded-xl my-12">
     <FAQ title={supportFaqs.title} faqs={supportFaqs} />
   </section>
 
-  <!-- 6. Final CTA Section -->
-  <section class="bg-primary text-white py-16 md:py-20 rounded-xl">
-      <div class="container mx-auto px-6 text-center">
-          <h2 class="text-3xl font-bold mb-4">{finalCTA.title}</h2>
-          <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">{finalCTA.subTitle}</p>
-          <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-              <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} />
-              <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer">
-                 <!-- Need to check if SecondaryCTA needs a URL prop or wraps an <a> -->
-                 <SecondaryCTA title={finalCTA.secondaryBtn} url={finalCTA.secondaryBtnURL}/>
-              </a>
-          </div>
-      </div>
+  <!-- 6. Final CTA Section (Using CTASection Component) -->
+  <section class="rounded-xl my-12">
+  <CTASection
+      title={finalCTA.title}
+      subTitle={finalCTA.subTitle}
+      primaryBtn={finalCTA.primaryBtn}
+      primaryBtnURL={finalCTA.primaryBtnURL}
+      secondaryBtn={finalCTA.secondaryBtn}
+      secondaryBtnURL={finalCTA.secondaryBtnURL}
+      bgImageURL={finalCTA.bgImageURL}
+      textColor={finalCTA.textColor}
+  />
   </section>
-
 </MainLayout>
 
 <script>

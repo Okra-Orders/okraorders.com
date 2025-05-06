@@ -8,6 +8,7 @@ import { Icon } from "astro-icon/components"; // Import astro-icon component
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro"; // Import the adapted component
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // Added import
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // Added import
+import CTASection from "@components/sections/misc/CTASection.astro"; // Added import
 // Removed unused old imports: HeroSectionAlt, ClientsSection, FeaturesGeneral, FeaturesNavs, TestimonialsSection, PricingSection, FAQ, AnnouncementBanner
 // Removed unused old data/image imports: heroImage, faqs, features, pricing, featureImage, construction, tools, dashboard, partnersData, avatarSrcs
 
@@ -18,6 +19,7 @@ import feature1Image from "@/images/place-order.png"; // Added import for the ne
 import feature2Video from "/videos/store-ready.mp4"; // Keep video path as string
 import featureWhiteLabelImage from "@/images/custom-url.png";
 import feature3Image from "@/images/ezcater-order-inside-okra.png";
+import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
 // Removed unused placeholder image imports
 // Removed placeholder image imports for support section (using alt text for now)
 
@@ -158,20 +160,18 @@ const supportSection: { title: string; items: SupportItem[] } = {
     { title: "Business-Focused Support", description: "Reach our expert team via chat or video call...", linkText: "Contact support →", linkUrl: "/support#contact", iconName: "heroicons:chat-bubble-left-right", imgSrc: "", imgAlt: "" }, // Use chat-bubble-left-right icon
   ]
 }
-const pricingTeaser = {
-  title: "Pricing That Grows With You", // Content seems unchanged
-  subTitle: "From single-location startups to multi-brand operations, Okra offers flexible plans. Choose between straightforward monthly fees or options tied to your order volume. We scale with your success.", // Content seems unchanged
-  buttonText: "View Plans & Pricing", // Content seems unchanged
-  buttonUrl: "/pricing/",
-};
 const finalCTA = {
-  title: "Ready to Automate Your Catering Business?", // Content seems unchanged
-  subTitle: "Explore Okra Orders risk-free with our live demo or start your free trial today. See how easy catering management can be.", // Content seems unchanged
-  primaryBtn: "Start Your Free Trial", // Renamed from "Start Your Free Trial" -> "Start Free Trial" -> back to "Start Your Free Trial"
+  title: "Ready to Automate Your Catering Business?",
+  subTitle: "Explore flexible plans, see Okra Orders in action with our live demo, or start your free trial today. Discover how easy catering management can be.",
+  primaryBtn: "Start Your Free Trial",
   primaryBtnURL: "/signup",
-  secondaryBtn: "Try Live Demo", // Content seems unchanged
+  secondaryBtn: "Try Live Demo",
   secondaryBtnURL: "https://demo.okraorders.com",
-}
+  tertiaryBtn: "View Plans & Pricing",
+  tertiaryBtnURL: "/pricing/",
+  bgImageURL: ctaBgImage.src,
+  textColor: "white" as const
+};
 ---
 
 <MainLayout title={pageTitle}>
@@ -331,33 +331,19 @@ const finalCTA = {
      </div>
   </section>
 
-  <!-- 8. Pricing Teaser Section -->
-  <section id="pricing" class="py-16 md:py-24 bg-primary text-white rounded-xl"> 
-     <div class="container mx-auto px-6 text-center">
-       <h2 class="text-3xl md:text-4xl font-bold mb-4">{pricingTeaser.title}</h2>
-       {/* Added set:html to render potential markdown/html */}
-       <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90" set:html={pricingTeaser.subTitle}></p>
-       <PrimaryCTA 
-         title={pricingTeaser.buttonText} 
-         url={pricingTeaser.buttonUrl} 
-         inverted={true} 
-         noArrow={true} 
-       /> 
-     </div>
-  </section>
-
-  <!-- 9. Final CTA Section -->
-   <section class="py-20 md:py-32 bg-white rounded-xl">
-       <div class="container mx-auto px-6 text-center">
-           <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{finalCTA.title}</h2>
-           {/* Added set:html to render potential markdown/html */}
-           <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto" set:html={finalCTA.subTitle}></p>
-            <div class="space-y-4 sm:space-y-0 sm:space-x-4">
-               <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} noArrow={true}/>
-               <SecondaryCTA title={finalCTA.secondaryBtn} url={finalCTA.secondaryBtnURL} />
-            </div>
-       </div>
-   </section>
+  <!-- 9. Final CTA Section (Using Combined Config) -->
+  <CTASection
+    title={finalCTA.title}
+    subTitle={finalCTA.subTitle}
+    primaryBtn={finalCTA.primaryBtn}
+    primaryBtnURL={finalCTA.primaryBtnURL}
+    secondaryBtn={finalCTA.secondaryBtn}
+    secondaryBtnURL={finalCTA.secondaryBtnURL}
+    tertiaryBtn={finalCTA.tertiaryBtn}
+    tertiaryBtnURL={finalCTA.tertiaryBtnURL}
+    bgImageURL={finalCTA.bgImageURL}
+    textColor={finalCTA.textColor}
+  />
 
 </MainLayout>
 

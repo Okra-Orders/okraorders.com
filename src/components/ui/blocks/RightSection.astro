@@ -31,9 +31,9 @@ interface Props {
 ---
 <!-- Root section of the component -->
 <section
-  class="mx-auto max-w-[85rem] items-center gap-16 px-4 py-10 sm:px-6 lg:grid lg:grid-cols-2 lg:px-8 lg:py-14 2xl:max-w-full"
+  class="mx-auto max-w-[85rem] items-center gap-8 px-4 py-10 sm:px-6 lg:grid lg:grid-cols-5 lg:px-8 lg:py-14 2xl:max-w-full"
 >
-  <div>
+  <div class="lg:col-span-2">
     <!-- Title of the section -->
     <h2
       class="mb-4 text-balance text-4xl font-extrabold tracking-tight text-neutral-800 dark:text-neutral-200"
@@ -49,37 +49,37 @@ interface Props {
     <!-- Conditional rendering of the Primary Call-To-Action button if 'btnExists' is true -->
     {btnExists ? <PrimaryCTA title={btnTitle} url={btnURL} /> : null}
   </div>
-  <!-- Conditionally render one or two images based on 'single' property -->
-  {
-    single ? (
-      <div class="mt-8">
-        <!-- Single image -->
-        <Image
-          class="w-full rounded-lg"
-          src={imgOne}
-          alt={imgOneAlt}
-          format={"avif"}
-        />
-      </div>
-    ) : (
-      <div class="mt-8 grid grid-cols-2 gap-4">
-        <!-- First image in a two-image layout -->
-        <Image
-          class="w-full rounded-xl"
-          src={imgOne}
-          alt={imgOneAlt}
-          draggable={"false"}
-          format={"avif"}
-        />
-        <!-- Second image in a two-image layout -->
-        <Image
-          class="mt-4 w-full rounded-xl lg:mt-10"
-          src={imgTwo}
-          alt={imgTwoAlt}
-          draggable={"false"}
-          format={"avif"}
-        />
-      </div>
-    )
-  }
+  <!-- Image container spans 3 columns on large screens -->
+  <div class="lg:col-span-3">
+    {/* Conditionally render one or two images based on 'single' property */}
+    {
+      single ? (
+        <div class="mt-8">
+          <!-- Single image -->
+          <Image
+            class="w-full rounded-lg"
+            src={imgOne}
+            alt={imgOneAlt}
+          />
+        </div>
+      ) : (
+        <div class="mt-8 grid grid-cols-2 gap-2">
+          <!-- First image in a two-image layout -->
+          <Image
+            class="w-full rounded-xl"
+            src={imgOne}
+            alt={imgOneAlt}
+            draggable={"false"}
+          />
+          <!-- Second image in a two-image layout -->
+          <Image
+            class="mt-4 w-full rounded-xl lg:mt-10"
+            src={imgTwo}
+            alt={imgTwoAlt}
+            draggable={"false"}
+          />
+        </div>
+      )
+    }
+  </div>
 </section>

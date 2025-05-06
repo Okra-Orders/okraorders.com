@@ -1,0 +1,42 @@
+---
+import { Icon } from 'astro-icon/components';
+
+// Define the type for a single item in the list
+interface Item {
+  iconName: string;
+  text: string;
+  color?: 'primary' | 'gray'; // Optional color property
+}
+
+// Define the props for the component
+interface Props {
+  title: string;
+  subTitle: string;
+  items: Item[];
+}
+
+// Destructure props
+const { title, subTitle, items } = Astro.props;
+---
+
+<section class="py-16 md:py-24">
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold text-neutral-800 dark:text-neutral-200 mb-4">{title}</h2>
+    <p class="text-lg text-neutral-600 dark:text-neutral-400 mb-8 max-w-2xl mx-auto">
+      {subTitle}
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-y-6 sm:gap-x-12">
+      {items.map((item: Item) => {
+        // Determine color classes based on the item's color property or default
+        const iconColorClass = item.color === 'gray' ? 'text-gray-400 dark:text-gray-500' : 'text-primary';
+        const textColorClass = item.color === 'gray' ? 'text-gray-400 dark:text-gray-500' : 'text-neutral-700 dark:text-neutral-300';
+        return (
+          <div class="text-center">
+            <Icon name={item.iconName} class={`w-12 h-12 mx-auto mb-2 ${iconColorClass}`} />
+            <p class={`font-semibold ${textColorClass}`}>{item.text}</p>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

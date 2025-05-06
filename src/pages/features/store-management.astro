@@ -6,8 +6,10 @@ import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.ast
 import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
 import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro";
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
-import { Icon } from 'astro-icon/components';
 import FAQ from "@components/sections/misc/FAQ.astro";
+import IconListSection from "@components/sections/features/IconListSection.astro";
+import CTASection from "@components/sections/misc/CTASection.astro";
+import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
 
 // --- Helper Functions ---
 // Simple SVG placeholder function (replicated for self-containment)
@@ -71,6 +73,16 @@ const featureOnboarding = {
   ],
 };
 
+const quoteMultiLocation = {
+  quoteContent: "Setting up a new location's menu used to be a multi-day task. The ability to duplicate items we've already perfected in another store, including all their photos and detailed options, will literally save us hours, maybe days, per launch.",
+  quoteAttribution: "- Feedback from a Multi-Location Caterer during Okra Orders Development",
+  featureIconName: "heroicons:document-duplicate",
+  featureBadgeText: "Easy Duplication",
+  featureTitle: "Consistency Across Locations, Without the Headaches",
+  featureDescription: "Running multiple stores often means duplicating effort. Okra tackles this head-on. Our duplication tools let you instantly copy proven menu items – including their photos and detailed options – from one store to several others. Manage core settings centrally, but retain the flexibility to tweak pricing, hours, or availability for each specific location easily.",
+  layoutDirection: "quote-left" as const,
+};
+
 const featureMenuMastery = {
   title: "Craft Your Perfect Online Menu",
   subTitle: "Okra gives you granular control to accurately represent your offerings online. Configure detailed item options, manage categories, set pricing per unit (person, pint, etc.), and visually arrange how items appear to customers using simple drag-and-drop.",
@@ -131,6 +143,19 @@ const featureBranding = {
   imagePosition: "left" as const,
 };
 
+// Config for Operational Rules IconListSection
+const operationalRules = {
+  title: "Define Your Rules, Prevent Bad Orders",
+  subTitle: "Set precise operating hours for pickup vs. delivery, define lead times, and block out dates in advance (single days or recurring). Okra enforces these rules automatically, ensuring customers can only order when you're actually available.",
+  items: [
+    { iconName: "heroicons:clock", text: "Operating Hours" },
+    { iconName: "heroicons:calendar-days", text: "Lead Times & Blackouts" },
+    { iconName: "heroicons:map-pin", text: "Delivery Zones" },
+  ],
+  // Custom structure for this component requires adjustments in the component itself or overriding here.
+  // For now, using standard IconListSection structure, description added to config but not rendered by default component.
+};
+
 const finalCTA = {
   title: "Ready to Take Control of Your Online Catering?",
   subTitle: "Explore the intuitive admin panel and see how easy store management can be.",
@@ -138,9 +163,12 @@ const finalCTA = {
   primaryBtnURL: "/signup",
   secondaryBtn: "Try Live Demo",
   secondaryBtnURL: "https://demo.okraorders.com",
+  bgImageURL: ctaBgImage.src, // Add background image
+  textColor: "white" as const // Keep text white
 };
 
 const storeManagementFaqs = {
+  title: "Your Store & Menu Setup Questions Answered",
   faqs: [
     {
       question: "Setting up a new online menu seems daunting. How does Okra help simplify the process?",
@@ -206,13 +234,13 @@ const storeManagementFaqs = {
 
   <!-- Managing Multiple Locations Section -->
   <QuoteFeatureSplit
-      quoteContent="Setting up our second location's menu took a fraction of the time thanks to the copy feature. Being able to duplicate items with all their complex options already configured was huge."
-      quoteAttribution="- Multi-Location Catering Owner"
-      featureIconName="heroicons:document-duplicate"
-      featureBadgeText="Easy Duplication"
-      featureTitle="Consistency Across Locations, Without the Headaches"
-      featureDescription="Running multiple stores often means duplicating effort. Okra tackles this head-on. Our duplication tools let you instantly copy proven menu items – including their photos and detailed options – from one store to several others. Manage core settings centrally, but retain the flexibility to tweak pricing, hours, or availability for each specific location easily."
-      layoutDirection="quote-left"
+      quoteContent={quoteMultiLocation.quoteContent}
+      quoteAttribution={quoteMultiLocation.quoteAttribution}
+      featureIconName={quoteMultiLocation.featureIconName}
+      featureBadgeText={quoteMultiLocation.featureBadgeText}
+      featureTitle={quoteMultiLocation.featureTitle}
+      featureDescription={quoteMultiLocation.featureDescription}
+      layoutDirection={quoteMultiLocation.layoutDirection}
   >
       <Fragment slot="feature-graphic">
           <!-- GIF showing the 'copy item to multiple stores' interface -->
@@ -248,50 +276,28 @@ const storeManagementFaqs = {
      </FeaturesStatsAlt>
   </section>
 
-  <!-- Feature Detail 4: Operational Rules (Custom Section) -->
-  <section class="py-16 md:py-24">
-      <div class="container mx-auto px-6 text-center">
-        <h2 class="text-3xl font-bold text-neutral-800 mb-4">Define Your Rules, Prevent Bad Orders</h2>
-        <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-           Set precise operating hours for pickup vs. delivery, define lead times, and block out dates in advance (single days or recurring). Okra enforces these rules automatically, ensuring customers can only order when you're actually available.
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center items-start gap-y-8 sm:gap-x-12 md:gap-x-16">
-            <div class="text-center max-w-xs mx-auto sm:mx-0">
-                <Icon name="heroicons:clock" class="w-12 h-12 mx-auto text-primary mb-3" />
-                <h3 class="font-semibold text-neutral-700 mb-1">Operating Hours</h3>
-                <p class="text-sm text-gray-600">Set distinct windows for pickup and delivery, varying by day.</p>
-            </div>
-            <div class="text-center max-w-xs mx-auto sm:mx-0">
-                <Icon name="heroicons:calendar-days" class="w-12 h-12 mx-auto text-primary mb-3" />
-                <h3 class="font-semibold text-neutral-700 mb-1">Lead Times & Blackouts</h3>
-                 <p class="text-sm text-gray-600">Define order cutoffs and easily block single days or recurring closures.</p>
-            </div>
-             <div class="text-center max-w-xs mx-auto sm:mx-0">
-                <Icon name="heroicons:map-pin" class="w-12 h-12 mx-auto text-primary mb-3" />
-                <h3 class="font-semibold text-neutral-700 mb-1">Delivery Zones</h3>
-                 <p class="text-sm text-gray-600">Set specific areas where you deliver, ensuring order accuracy.</p>
-            </div>
-        </div>
-      </div>
-  </section>
+  <!-- Feature Detail 4: Operational Rules (Using IconListSection) -->
+  <IconListSection 
+      title={operationalRules.title}
+      subTitle={operationalRules.subTitle}
+      items={operationalRules.items} 
+  />
 
-  <!-- CTA Section (Custom Section) -->
-  <section class="bg-gradient-to-r from-primary to-green-700 text-white py-16 rounded-xl">
-      <div class="container mx-auto px-6 text-center">
-          <h2 class="text-3xl font-bold mb-4">{finalCTA.title}</h2>
-          <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">{finalCTA.subTitle}</p>
-          <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-              <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} />
-              <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer" class="inline-block border border-white text-white px-6 py-2.5 rounded-md text-base font-semibold hover:bg-white hover:text-primary transition duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white">
-                 {finalCTA.secondaryBtn}
-              </a>
-          </div>
-      </div>
-  </section>
+  <!-- CTA Section (Using CTASection Component) -->
+  <CTASection
+      title={finalCTA.title}
+      subTitle={finalCTA.subTitle}
+      primaryBtn={finalCTA.primaryBtn}
+      primaryBtnURL={finalCTA.primaryBtnURL}
+      secondaryBtn={finalCTA.secondaryBtn}
+      secondaryBtnURL={finalCTA.secondaryBtnURL}
+      bgImageURL={finalCTA.bgImageURL}
+      textColor={finalCTA.textColor}
+  />
 
   <!-- FAQ Section -->
   <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900">
-    <FAQ title="Your Store & Menu Setup Questions Answered" faqs={storeManagementFaqs} />
+    <FAQ title={storeManagementFaqs.title} faqs={storeManagementFaqs} />
   </section>
 
 </MainLayout>

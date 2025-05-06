@@ -1,12 +1,17 @@
 ---
 // Layout and Base Components
 import MainLayout from "@/layouts/MainLayout.astro";
-import HeroSection from "@components/sections/landing/HeroSection.astro";
+// import HeroSection from "@components/sections/landing/HeroSection.astro"; // Remove old hero
+import HeroBackground from "@components/sections/landing/HeroBackground.astro"; // Add new hero
 import PricingSection from "@components/sections/pricing/PricingSection.astro"; // For pricing tiers
 import FAQ from "@components/sections/misc/FAQ.astro"; // For FAQ section
 import { Icon } from 'astro-icon/components'; // For icons
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // For CTA button
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For CTA button
+import IconListSection from "@components/sections/features/IconListSection.astro"; // Added import
+import CTASection from "@components/sections/misc/CTASection.astro"; // Added import
+import pricingHeroBg from '@/images/pricing-that-grows.png'; // Import the new background image
+import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
 
 // Import pricing data directly from JSON
 import pricingContent from "@/data_files/pricing.json";
@@ -18,18 +23,22 @@ const pageDescription = "Simple, flexible pricing for Okra Orders catering softw
 const hero = {
   title: "Simple, Flexible Pricing That Grows With Your Catering Business",
   subTitle: "Okra Orders offers straightforward pricing designed to fit caterers of all sizes – from single-location startups to thriving multi-brand operations. Choose the model that best aligns with your volume and operational needs. No hidden fees, just clear value.",
+  imgAlt: "Stylized graphic representing growth and flexibility in pricing", // Updated Alt text for new image
+  imgSrc: pricingHeroBg, // Use imported image
   // Add visual placeholder comment/asset later if needed
 };
 
+// Config for Core Value Prop IconListSection
 const coreValueProps = {
-  headline: "More Than Just Software: An Investment in Efficiency",
+  title: "More Than Just Software: An Investment in Efficiency", // Use title instead of headline for component
   subTitle: "Okra Orders isn't just another tool; it's your operational hub. Our pricing reflects the value we bring by automating manual tasks, unifying your platforms, enhancing your customer experience, and ultimately giving you back time to focus on great food and service.",
-  benefits: [
-    { icon: "heroicons:clock", title: "Save Hours Weekly", description: "Drastically reduce manual entry for orders & accounting." },
-    { icon: "heroicons:arrows-pointing-in", title: "Unified Platform", description: "Manage direct orders, ezCater, and QuickBooks sync in one place." }, // Changed icon
-    { icon: "heroicons:sparkles", title: "Elevated Customer Experience", description: "Professional online ordering your customers will love." }, // Changed icon
-    { icon: "heroicons:chart-bar-square", title: "Scales With You", description: "Tools and pricing designed to support your growth." } // Changed icon
+  items: [
+    { iconName: "heroicons:clock", text: "Save Hours Weekly" }, // Removed description
+    { iconName: "heroicons:arrows-pointing-in", text: "Unified Platform" },
+    { iconName: "heroicons:sparkles", text: "Elevated Customer Experience" },
+    { iconName: "heroicons:chart-bar-square", text: "Scales With You" }
   ]
+  // Note: Descriptions were part of the original custom layout
 };
 
 const pricingPhilosophy = {
@@ -61,14 +70,14 @@ const pricingFaqs = {
 
 // Final CTA Data
 const finalCTA = {
-  headline: "Ready to Find the Perfect Fit?",
+  title: "Ready to Find the Perfect Fit?", // Use title instead of headline
   subTitle: "Explore the platform risk-free with our live demo or start your 14-day trial. Have specific questions about pricing for your volume? Contact our team!",
   primaryBtn: "Start Free Trial",
   primaryBtnURL: "/signup",
   secondaryBtn: "Try Live Demo",
   secondaryBtnURL: "https://demo.okraorders.com",
-  tertiaryBtn: "Contact Sales", // Added third button
-  tertiaryBtnURL: "/support#contact", // Link to contact section on support page
+  bgImageURL: ctaBgImage.src, // Add background image
+  textColor: "white" as const // Keep text white
 };
 
 ---
@@ -76,35 +85,40 @@ const finalCTA = {
 <MainLayout title={pageTitle} meta={pageDescription}>
 
   <!-- 1. Hero Section -->
-  <div class="bg-gradient-to-b from-green-50 to-white pt-16 md:pt-24 pb-8 md:pb-12">
-    <HeroSection
+  {/* <div class="bg-gradient-to-b from-green-50 to-white pt-16 md:pt-24 pb-8 md:pb-12"> */}
+    {/* <HeroSection
       title={hero.title}
       subTitle={hero.subTitle}
       primaryBtn={undefined}
       primaryBtnURL={undefined}
       secondaryBtn={undefined}
       secondaryBtnURL={undefined}
-    />
-    <!-- Visual Placeholder -->
-    <!-- <div class="text-center mt-8"><div class="inline-block bg-gray-200 h-48 w-96 rounded-lg"></div></div> -->
-  </div>
+    /> */}
+    {/* Visual Placeholder */}
+    {/* <div class="text-center mt-8"><div class="inline-block bg-gray-200 h-48 w-96 rounded-lg"></div></div> */}
+  {/* </div> */}
+  <HeroBackground
+    title={hero.title}
+    subTitle={hero.subTitle}
+    imgSrc={hero.imgSrc}
+    imgAlt={hero.imgAlt}
+    minHeight="min-h-[400px] md:min-h-[500px]"
+    textShadow="text-shadow-lg"
+  />
 
-  <!-- 2. Core Value Proposition -->
+  <!-- 2. Core Value Proposition (Using IconListSection) -->
+  <IconListSection 
+      title={coreValueProps.title}
+      subTitle={coreValueProps.subTitle}
+      items={coreValueProps.items}
+  />
+  {/* 
   <section class="py-16 md:py-24">
-    <div class="container mx-auto px-6 text-center">
-      <h2 class="text-3xl font-bold text-neutral-800 mb-4">{coreValueProps.headline}</h2>
-      <p class="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">{coreValueProps.subTitle}</p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {coreValueProps.benefits.map(benefit => (
-          <div class="text-center">
-            <Icon name={benefit.icon} class="w-12 h-12 mx-auto text-primary mb-3" />
-            <h3 class="text-xl font-semibold text-neutral-800 mb-1">{benefit.title}</h3>
-            <p class="text-neutral-600">{benefit.description}</p>
-          </div>
-        ))}
+      <div class="container mx-auto px-6 text-center">
+          ...
       </div>
-    </div>
   </section>
+  */}
 
   <!-- 3. Pricing Model Philosophy / Flexibility Explanation -->
   <section class="py-16 md:py-24 bg-white rounded-xl">
@@ -116,7 +130,6 @@ const finalCTA = {
            <p><strong class="text-neutral-700">Option B Teaser:</strong> {pricingPhilosophy.optionB}</p>
         </div>
         <p class="text-lg text-gray-700 font-medium">{pricingPhilosophy.cta}</p>
-        <!-- Maybe add a subtle contact button here? -->
     </div>
   </section>
 
@@ -140,28 +153,26 @@ const finalCTA = {
     <FAQ title={pricingFaqs.title} faqs={pricingFaqs} />
   </section>
 
-  <!-- 7. Final CTA Section -->
+  <!-- 7. Final CTA Section (Using CTASection Component) -->
+   <CTASection
+      title={finalCTA.title}
+      subTitle={finalCTA.subTitle}
+      primaryBtn={finalCTA.primaryBtn}
+      primaryBtnURL={finalCTA.primaryBtnURL}
+      secondaryBtn={finalCTA.secondaryBtn}
+      secondaryBtnURL={finalCTA.secondaryBtnURL}
+      bgImageURL={finalCTA.bgImageURL}
+      textColor={finalCTA.textColor}
+  />
+
+  {/* Original custom section commented out properly */}
+  {/* 
   <section class="bg-primary text-white py-16 md:py-20 rounded-xl">
       <div class="container mx-auto px-6 text-center">
-          <h2 class="text-3xl font-bold mb-4">{finalCTA.headline}</h2>
-          <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">{finalCTA.subTitle}</p>
-          <div class="flex flex-col sm:flex-row justify-center items-center flex-wrap gap-4">
-              <PrimaryCTA title={finalCTA.primaryBtn} url={finalCTA.primaryBtnURL} />
-              <a href={finalCTA.secondaryBtnURL} target="_blank" rel="noopener noreferrer">
-                 <SecondaryCTA title={finalCTA.secondaryBtn} url={finalCTA.secondaryBtnURL}/>
-              </a>
-              {/* Removed Tertiary Button for Contact Sales */}
-              {/* 
-              <a 
-                href={finalCTA.tertiaryBtnURL} 
-                class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-center text-white border border-white rounded-lg hover:bg-white hover:text-primary focus:ring-4 focus:ring-gray-100 transition duration-150 ease-in-out"
-              >
-                 {finalCTA.tertiaryBtn}
-              </a> 
-              */}
-          </div>
+          ...
       </div>
   </section>
+  */}
 
 </MainLayout>
 
