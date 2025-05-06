@@ -18,6 +18,7 @@ const {
   minHeight = "min-h-[300px] md:min-h-[400px]", // Default minimum height
   textContrastColor = "text-white", // Default text color for contrast
   textShadow = "text-shadow-md", // Default subtle text shadow
+  backgroundPosition = "object-center", // Default background position
 } = Astro.props;
 
 // Define TypeScript interface for props
@@ -33,6 +34,7 @@ interface Props {
   minHeight?: string; // Optional min height for the section, e.g., "min-h-[500px]"
   textContrastColor?: string; // Optional class for text color, e.g., "text-neutral-800"
   textShadow?: string; // Optional class for text shadow, e.g., "text-shadow-none" or "text-shadow-lg"
+  backgroundPosition?: string; // Optional class for background image position, e.g., "object-top"
 }
 ---
 
@@ -60,7 +62,10 @@ interface Props {
   <Image
     src={imgSrc}
     alt={imgAlt}
-    class="absolute inset-0 h-full w-full object-cover -z-10 opacity-90"
+    class:list={[
+      "absolute inset-0 h-full w-full object-cover -z-10 opacity-90",
+      backgroundPosition // Apply background position
+    ]}
     loading="eager"
     widths={[640, 768, 1024, 1280, 1536]}
     sizes="100vw"

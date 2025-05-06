@@ -10,7 +10,8 @@ import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // For CTA but
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For CTA button
 import IconListSection from "@components/sections/features/IconListSection.astro"; // Added import
 import CTASection from "@components/sections/misc/CTASection.astro"; // Added import
-import pricingHeroBg from '@/images/pricing-that-grows.png'; // Import the new background image
+// import pricingHeroBg from '@/images/pricing-that-grows.png'; // Import the new background image
+import okraHeaderBg from '@/images/okra-header.png'; // Import the new hero background image
 import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
 
 // Import pricing data directly from JSON
@@ -24,7 +25,7 @@ const hero = {
   title: "Simple, Flexible Pricing That Grows With Your Catering Business",
   subTitle: "Okra Orders offers straightforward pricing designed to fit caterers of all sizes – from single-location startups to thriving multi-brand operations. Choose the model that best aligns with your volume and operational needs. No hidden fees, just clear value.",
   imgAlt: "Stylized graphic representing growth and flexibility in pricing", // Updated Alt text for new image
-  imgSrc: pricingHeroBg, // Use imported image
+  imgSrc: okraHeaderBg, // Use imported image
   // Add visual placeholder comment/asset later if needed
 };
 
@@ -104,6 +105,7 @@ const finalCTA = {
     imgAlt={hero.imgAlt}
     minHeight="min-h-[400px] md:min-h-[500px]"
     textShadow="text-shadow-lg"
+    backgroundPosition="object-[50%_100%]"
   />
 
   <!-- 2. Core Value Proposition (Using IconListSection) -->

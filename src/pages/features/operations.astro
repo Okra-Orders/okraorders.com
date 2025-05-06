@@ -13,6 +13,7 @@ import CTASection from "@components/sections/misc/CTASection.astro";
 import heroBgPrep from '@/images/hero-bg-prep.png'; // Import the background image
 import unifiedViewImg from '@/images/ezcater-order-inside-okra.png'; // Import the new image
 import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
+import storeChangeImage from "@/images/store-change.png"; // Import the new image
 
 // --- Helper Functions ---
 // Simple SVG placeholder function (replicated for self-containment)
@@ -64,8 +65,7 @@ const featureOrderEditing = {
     "Add custom \"Open Food\" items with unique pricing.",
     "Flexibility accommodates last-minute customer requests.",
   ],
-  imgSrc: svgPlaceholder(500, 600, "GIF: Admin Editing Order Details"),
-  imgAlt: "Admin Editing Order Details Placeholder",
+  imgAlt: "Video showing admin editing order details",
   imagePosition: "right" as const,
 };
 
@@ -78,8 +78,10 @@ const featureFulfillment = {
     "Manually transfer orders between any stores within your brand.",
     "Improve efficiency and manage kitchen load effectively.",
   ],
-  imgSrc: svgPlaceholder(500, 600, "Visual: Order Transfer / Ghost Kitchen Flow"),
-  imgAlt: "Order Transfer / Ghost Kitchen Flow Placeholder",
+  imgObject: storeChangeImage, // Use imported image object
+  imgAlt: "Admin changing the fulfilling store for a catering order", // Update alt text
+  imgWidth: 500, // Add estimated width
+  imgHeight: 450, // Add estimated height
   imagePosition: "left" as const,
 };
 
@@ -173,7 +175,7 @@ const operationsFaqs = {
   {/* </div> // Removed old wrapper */}
 
   <!-- Feature Detail 1: Unified Order View -->
-  <section class="py-16 md:py-24 bg-white rounded-xl mb-12">
+  <section class="py-16 md:py-24 bg-white rounded-xl my-12">
     <FeaturesStatsAlt
         title={featureUnifiedView.title}
         subTitle={featureUnifiedView.subTitle}
@@ -207,12 +209,23 @@ const operationsFaqs = {
         title={featureOrderEditing.title}
         subTitle={featureOrderEditing.subTitle}
         benefits={featureOrderEditing.listItems}
-        imgSrc={featureOrderEditing.imgSrc}
-        imgAlt={featureOrderEditing.imgAlt}
-        imgWidth={500}
-        imgHeight={600}
         imagePosition={featureOrderEditing.imagePosition}
-    />
+    >
+        <video 
+            slot="media" 
+            class="rounded-xl w-full h-auto shadow-md"
+            src="/videos/order-modifications.mp4" 
+            autoplay 
+            loop 
+            muted 
+            playsinline
+            preload="metadata"
+            controls 
+            aria-label={featureOrderEditing.imgAlt}
+        >
+            Your browser does not support the video tag.
+        </video>
+    </FeaturesStatsAlt>
   </section>
 
   <!-- Feature Detail 3: Fulfillment Optimization -->
@@ -221,11 +234,11 @@ const operationsFaqs = {
         title={featureFulfillment.title}
         subTitle={featureFulfillment.subTitle}
         benefits={featureFulfillment.listItems}
-        imgSrc={featureFulfillment.imgSrc}
-        imgAlt={featureFulfillment.imgAlt}
-        imgWidth={500}
-        imgHeight={600}
         imagePosition={featureFulfillment.imagePosition}
+        imgObject={featureFulfillment.imgObject}
+        imgAlt={featureFulfillment.imgAlt}
+        imgWidth={featureFulfillment.imgWidth}
+        imgHeight={featureFulfillment.imgHeight}
     />
   </section>
 
@@ -249,7 +262,7 @@ const operationsFaqs = {
   />
 
   <!-- FAQ Section -->
-  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900">
+  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900 my-12 rounded-xl">
     <FAQ title={operationsFaqs.title} faqs={operationsFaqs} />
   </section>
 
