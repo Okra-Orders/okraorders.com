@@ -59,6 +59,8 @@ const hasMediaSlot = Astro.slots.has('media');
             alt={imgAlt}
             width={imgWidth!} 
             height={imgHeight!}
+            widths={[320, 480, imgWidth ?? 500]}
+            sizes="(max-width: 768px) 90vw, 45vw"
             loading="lazy" 
           />
         ) : (imgSrc && canRenderImage) ? (
