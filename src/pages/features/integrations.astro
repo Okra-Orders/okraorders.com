@@ -1,7 +1,8 @@
 ---
 // Layout and Base Components
 import MainLayout from "@/layouts/MainLayout.astro";
-import HeroSection from "@components/sections/landing/HeroSection.astro";
+// import HeroSection from "@components/sections/landing/HeroSection.astro"; // Will be replaced
+import HeroImage from "@components/sections/landing/HeroImage.astro"; // Import HeroImage
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
 import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro";
 import { Icon } from 'astro-icon/components';
@@ -11,6 +12,10 @@ import FAQ from "@components/sections/misc/FAQ.astro";
 import IconListSection from "@components/sections/features/IconListSection.astro";
 import CTASection from "@components/sections/misc/CTASection.astro";
 import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
+import ezCaterOrderInsideOkraImage from '@/images/ezcater-order-inside-okra.png';
+import heroBgImage from "@/images/stacked-waves-haikei.svg"; // Import hero background image
+import transparentPixel from "@/images/1x1-transparent.png"; // Assuming this file exists
+// Removed import type { ImageMetadata } from 'astro'; as it's not strictly needed if we always provide ImageMetadata
 
 // --- Helper Functions ---
 const svgPlaceholder = (width: number, height: number, text: string = "Placeholder") => {
@@ -21,18 +26,22 @@ const svgPlaceholder = (width: number, height: number, text: string = "Placehold
 // --- Page Data ---
 const pageTitle = "Seamless ezCater & QuickBooks Integrations | Okra Orders";
 
-const hero = {
+// Hero object typed to ensure compatibility with HeroImage props
+const hero: {
+  title: string;
+  subTitle: string;
+  imgSrc: typeof transparentPixel; // Ensures it's ImageMetadata type from an import
+  imgAlt: string;
+  backgroundImageURL: string;
+} = {
   title: "Stop Typing, Start Thriving: Automate ezCater & QuickBooks",
   subTitle: "Eliminate hours of manual data entry and reconciliation. Okra Orders seamlessly connects your online storefront, ezCater, and QuickBooks Online, creating a truly unified operational hub.",
-  // Image slot will be handled separately below
+  imgSrc: transparentPixel, // Use imported transparent pixel
+  imgAlt: "", // Empty string is a valid alt for decorative/placeholder images
+  backgroundImageURL: heroBgImage.src
 };
 
-const heroLogos = {
-    ezCaterLogoSrc: svgPlaceholder(100, 40, "ezCater Logo"),
-    ezCaterLogoAlt: "ezCater Logo Placeholder",
-    quickbooksLogoSrc: svgPlaceholder(120, 40, "QuickBooks Logo"),
-    quickbooksLogoAlt: "QuickBooks Logo Placeholder",
-}
+// const heroLogos = { ... }; // No longer needed as HeroImage doesn't have this specific slot structure
 
 const featureEzCater = {
   title: "Bring Your ezCater Orders Home",
@@ -43,11 +52,11 @@ const featureEzCater = {
     "Unified operational view simplifies daily prep planning.",
     "ezCater data is mapped consistently for unified reporting.",
   ],
-  imgSrc: svgPlaceholder(500, 600, "Screenshot: Unified Order List"),
-  imgAlt: "Unified Order List Placeholder (Okra + ezCater)",
+  imgSrc: ezCaterOrderInsideOkraImage.src,
+  imgAlt: "Screenshot of an ezCater order displayed within the Okra Orders interface",
   imagePosition: "left" as const,
-  logoSrc: heroLogos.ezCaterLogoSrc, // Reuse logo from hero config
-  logoAlt: heroLogos.ezCaterLogoAlt,
+  logoSrc: svgPlaceholder(100, 40, "ezCater Logo"), // Keep placeholder for section if needed, or remove if not used by FeaturesStatsAlt
+  logoAlt: "ezCater Logo Placeholder",
 };
 
 const featureQuickBooks = {
@@ -63,8 +72,8 @@ const featureQuickBooks = {
   imgSrc: svgPlaceholder(500, 600, "Visual: Okra to QB Sync"),
   imgAlt: "Okra Order Syncing to QuickBooks Sales Receipt Placeholder",
   imagePosition: "right" as const,
-  logoSrc: heroLogos.quickbooksLogoSrc, // Reuse logo from hero config
-  logoAlt: heroLogos.quickbooksLogoAlt,
+  logoSrc: svgPlaceholder(120, 40, "QuickBooks Logo"), // Keep placeholder for section if needed
+  logoAlt: "QuickBooks Logo Placeholder",
 };
 
 const quoteAutomation = {
@@ -134,32 +143,23 @@ const integrationsFaqs = {
 <MainLayout title={pageTitle}>
 
   <!-- Page Hero Section -->
-  <div class="bg-gradient-to-b from-transparent to-primary-50">
-      <HeroSection
+  <div class="mb-12"> {/* Consistent wrapper class */}
+      <HeroImage
         title={hero.title}
         subTitle={hero.subTitle}
         primaryBtn={undefined}
         primaryBtnURL={undefined}
         secondaryBtn={undefined}
         secondaryBtnURL={undefined}
-      >
-        <Fragment slot="image">
-          <!-- Integration Flow Graphic -->
-          <div class="mt-10 px-6 flex justify-center items-center space-x-4 md:space-x-6">
-            <div class="p-2 rounded bg-white shadow-md">
-                <img src={heroLogos.ezCaterLogoSrc} alt={heroLogos.ezCaterLogoAlt} class="h-8 md:h-10" />
-            </div>
-            <Icon name="heroicons:arrow-long-right" class="w-8 h-8 text-primary flex-shrink-0" />
-            <div class="p-2 rounded bg-white shadow-md text-center">
-                <span class="text-lg font-bold text-neutral-800">Okra<span class="text-primary">Orders</span></span>
-            </div>
-             <Icon name="heroicons:arrow-long-right" class="w-8 h-8 text-primary flex-shrink-0" />
-            <div class="p-2 rounded bg-white shadow-md">
-                <img src={heroLogos.quickbooksLogoSrc} alt={heroLogos.quickbooksLogoAlt} class="h-8 md:h-10" />
-            </div>
-          </div>
-        </Fragment>
-      </HeroSection>
+        src={hero.imgSrc}
+        alt={hero.imgAlt}
+        imgWidth={800}
+        withReview={false}
+        imageScale="scale-90"
+        rightOffset="right-[-11rem]"
+        minSectionHeight="min-h-[600px]"
+        backgroundImageURL={hero.backgroundImageURL}
+      />
   </div>
 
   <!-- Feature Detail 1: ezCater Integration -->
@@ -233,7 +233,7 @@ const integrationsFaqs = {
   />
 
   <!-- FAQ Section -->
-  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900">
+  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900 mt-12 rounded-2xl">
     <FAQ title={integrationsFaqs.title} faqs={integrationsFaqs} />
   </section>
 

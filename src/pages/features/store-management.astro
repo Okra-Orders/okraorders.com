@@ -1,18 +1,25 @@
 ---
 // Layout and Base Components
 import MainLayout from "@/layouts/MainLayout.astro";
-import HeroSection from "@components/sections/landing/HeroSection.astro";
+// import HeroSection from "@components/sections/landing/HeroSection.astro"; // Will be replaced
+import HeroImage from "@components/sections/landing/HeroImage.astro"; // Import HeroImage
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
-import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
+// import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro"; // No longer needed for these sections
 import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro";
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 import FAQ from "@components/sections/misc/FAQ.astro";
 import IconListSection from "@components/sections/features/IconListSection.astro";
 import CTASection from "@components/sections/misc/CTASection.astro";
 import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
+import storeHoursImage from "@/images/store-hours.png"; // Import the store-hours.png image
+import heroBgImage from "@/images/stacked-waves-haikei.svg"; // Import hero background image
+import addNewStoreImage from "@/images/add-new-store.png"; // Import for new section
+import menuItemsImage from "@/images/menu-items.png"; // Import for new section
+import customUrlImage from "@/images/custom-url.png"; // Import the custom-url.png image
+import { Image } from 'astro:assets'; // Import Astro Image for subtitle HTML
 
 // --- Helper Functions ---
-// Simple SVG placeholder function (replicated for self-containment)
+// Uncommented: Simple SVG placeholder function (replicated for self-containment)
 const svgPlaceholder = (width: number, height: number, text: string = "Placeholder") => {
   // Basic escaping for text within SVG
   const escapedText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -23,10 +30,11 @@ const svgPlaceholder = (width: number, height: number, text: string = "Placehold
 const pageTitle = "Intuitive Store & Menu Management | Okra Orders";
 
 const hero = {
-  title: "Take Control of Your Catering Setup, Effortlessly",
-  subTitle: "From onboarding your first location to managing complex menus across multiple stores, Okra Orders gives you the tools to configure everything precisely and efficiently.",
-  imgAlt: "Admin Dashboard Overview Placeholder",
-  imgSrc: svgPlaceholder(800, 400, "Admin Dashboard Overview"),
+  title: "Manage Your Store Your Way", // Updated title
+  subTitle: "Configure store hours, manage locations, and set up your menu with ease. Okra Orders provides flexible tools to tailor your online presence to your operational needs.", // Updated subtitle
+  imgAlt: "Okra Orders store hours configuration screen", // Updated alt text
+  imgSrc: storeHoursImage, // Use the imported store-hours.png image
+  backgroundImageURL: heroBgImage.src // Added background image URL
 };
 
 const featureOnboarding = {
@@ -36,41 +44,30 @@ const featureOnboarding = {
     {
       heading: "Guided Onboarding Wizard",
       content: "Step-by-step wizard clarifies every option for quick setup.",
-      svg: "heroicons:sparkles",
-      src: svgPlaceholder(500, 300, "Onboarding Step 1"),
-      alt: "Guided Onboarding Wizard Step Placeholder",
-      width: 500,
-      height: 300,
-      first: true,
     },
     {
       heading: "Unified Multi-Store Management",
       content: "Consistent interface simplifies managing multiple stores/brands.",
-      svg: "heroicons:building-storefront",
-      src: svgPlaceholder(500, 300, "Multi-Store View"),
-      alt: "Unified Multi-Store Dashboard Placeholder",
-      width: 500,
-      height: 300,
     },
     {
       heading: "Instant Menu/Item Duplication",
       content: "Copy menus/items from one store to multiple others in clicks.",
-      svg: "heroicons:document-duplicate",
-      src: svgPlaceholder(500, 300, "Menu Copy Action"),
-      alt: "Menu Item Duplication Action Placeholder",
-      width: 500,
-      height: 300,
     },
     {
       heading: "Location-Specific Settings",
       content: "Maintain unique settings like hours and menus per location.",
-      svg: "heroicons:map-pin",
-      src: svgPlaceholder(500, 300, "Location Settings"),
-      alt: "Location Specific Settings Placeholder",
-      width: 500,
-      height: 300,
     },
   ],
+};
+
+// New data structure for FeaturesStatsAlt version of Onboarding
+const onboardingStats = {
+    title: featureOnboarding.title,
+    subTitleHTML: featureOnboarding.subTitle, // Use HTML subtitle
+    benefits: featureOnboarding.features.map(feature => `${feature.heading}: ${feature.content}`),
+    imgSrc: addNewStoreImage.src,
+    imgAlt: "Admin interface for adding a new store in Okra Orders",
+    imagePosition: "right" as const,
 };
 
 const quoteMultiLocation = {
@@ -90,56 +87,44 @@ const featureMenuMastery = {
     {
       heading: "Deep Item Configuration",
       content: "Set options, customizations, pricing units (person, pint, etc.).",
-      svg: "heroicons:cog-6-tooth",
-      src: svgPlaceholder(500, 300, "Item Config Detail"),
-      alt: "Menu Item Configuration Detail Placeholder",
-      width: 500,
-      height: 300,
-      first: true,
     },
     {
       heading: "Categories & Recommendations",
       content: "Define categories and control recommendations (e.g., suggest add-ons).",
-      svg: "heroicons:tag",
-      src: svgPlaceholder(500, 300, "Category Setup"),
-      alt: "Category Setup Placeholder",
-      width: 500,
-      height: 300,
     },
     {
       heading: "Easy Reordering",
       content: "Visually reorder menu categories and items via drag-and-drop.",
-      svg: "heroicons:arrows-up-down",
-      src: svgPlaceholder(500, 300, "Drag & Drop UI"),
-      alt: "Drag and Drop Reordering UI Placeholder",
-      width: 500,
-      height: 300,
     },
     {
       heading: "Reusable Option Sets",
       content: "Define option sets once and reuse them across multiple menu items.",
-      svg: "heroicons:clipboard-document-list",
-      src: svgPlaceholder(500, 300, "Option Sets"),
-      alt: "Reusable Option Sets Placeholder",
-      width: 500,
-      height: 300,
     },
   ],
+};
+
+// New data structure for FeaturesStatsAlt version of Menu Mastery
+const menuMasteryStats = {
+    title: featureMenuMastery.title,
+    subTitle: featureMenuMastery.subTitle,
+    benefits: featureMenuMastery.features.map(feature => `${feature.heading}: ${feature.content}`),
+    imgSrc: menuItemsImage.src,
+    imgAlt: "Okra Orders admin panel showing detailed menu item configuration options",
+    imagePosition: "left" as const,
 };
 
 const featureBranding = {
   title: "Own Your Brand, Enhance Visual Appeal",
   subTitle: "Present a professional image that's uniquely yours. Use your own custom domain (or subdomain) and logo. Need compelling visuals quickly? Leverage our integrated AI to generate consistent, catering-specific images for your menu items.",
-  // Note: The list item about AI image disclaimer is handled differently below for emphasis
   listItems: [
     "Connect your custom domain (e.g., `catering.yourbrand.com`).",
     "Upload your logo for a fully branded experience.",
-    "(Higher tiers) Customize colors to match your brand identity.",
+    "Customize your store setup.",
     "Generate realistic menu photos with AI assistance.*",
   ],
   disclaimer: "*Ensure AI images accurately represent final food presentation.",
-  imgSrc: svgPlaceholder(500, 600, "Visual: White-Label Settings / AI Images"),
-  imgAlt: "White-Label Settings / AI Images Placeholder",
+  imgSrc: customUrlImage.src, // Updated to use customUrlImage.src
+  imgAlt: "Okra Orders admin panel showing custom URL configuration", // Updated alt text
   imagePosition: "left" as const,
 };
 
@@ -206,33 +191,42 @@ const storeManagementFaqs = {
 <MainLayout title={pageTitle}>
 
   <!-- Page Hero Section -->
-  <div class="bg-gradient-to-b from-blue-50 to-white pt-16 md:pt-24 pb-8 md:pb-12"> <!-- Changed accent color -->
-      <HeroSection
+  <div class="mb-12"> {/* Consistent wrapper class */}
+      <HeroImage
         title={hero.title}
         subTitle={hero.subTitle}
         primaryBtn={undefined}
         primaryBtnURL={undefined}
         secondaryBtn={undefined}
         secondaryBtnURL={undefined}
-      >
-        <Fragment slot="image">
-          <div class="mt-8 px-6">
-             <img src={hero.imgSrc} alt={hero.imgAlt} class="h-64 w-full max-w-2xl mx-auto rounded-lg shadow-md object-cover"/>
-          </div>
-        </Fragment>
-      </HeroSection>
+        src={hero.imgSrc}
+        alt={hero.imgAlt}
+        imgWidth={800}
+        withReview={false}
+        imageScale="scale-90"
+        rightOffset="right-[-11rem]"
+        minSectionHeight="min-h-[600px]"
+        backgroundImageURL={hero.backgroundImageURL}
+      />
   </div>
 
-  <!-- Feature Detail 1: Onboarding & Multi-Location -->
+  <!-- Feature Detail 1: Onboarding & Multi-Location (NOW FeaturesStatsAlt) -->
   <section class="py-16 md:py-24 bg-white rounded-xl">
-    <FeaturesNavs
-        title={featureOnboarding.title}
-        tabs={featureOnboarding.features}
-        instanceId="onboarding"
-     />
+    <FeaturesStatsAlt
+        title={onboardingStats.title}
+        benefits={onboardingStats.benefits}
+        imgSrc={onboardingStats.imgSrc}
+        imgAlt={onboardingStats.imgAlt}
+        imgWidth={500} 
+        imgHeight={450} 
+        imagePosition={onboardingStats.imagePosition}
+    >
+        <Fragment slot="subTitle" set:html={onboardingStats.subTitleHTML} />
+    </FeaturesStatsAlt>
   </section>
 
   <!-- Managing Multiple Locations Section -->
+  <section class="my-12 rounded-2xl">
   <QuoteFeatureSplit
       quoteContent={quoteMultiLocation.quoteContent}
       quoteAttribution={quoteMultiLocation.quoteAttribution}
@@ -246,19 +240,23 @@ const storeManagementFaqs = {
           <!-- GIF showing the 'copy item to multiple stores' interface -->
       </Fragment>
   </QuoteFeatureSplit>
-
-  <!-- Feature Detail 2: Menu & Item Mastery -->
+  </section>
+  <!-- Feature Detail 2: Menu & Item Mastery (NOW FeaturesStatsAlt) -->
   <section class="py-16 md:py-24 bg-white rounded-xl">
-    <FeaturesNavs
-        title={featureMenuMastery.title}
-        tabs={featureMenuMastery.features}
-        instanceId="menu-mastery"
-        reverseLayout={true}
+    <FeaturesStatsAlt
+        title={menuMasteryStats.title}
+        subTitle={menuMasteryStats.subTitle}
+        benefits={menuMasteryStats.benefits}
+        imgSrc={menuMasteryStats.imgSrc}
+        imgAlt={menuMasteryStats.imgAlt}
+        imgWidth={500} 
+        imgHeight={500} 
+        imagePosition={menuMasteryStats.imagePosition}
     />
   </section>
 
   <!-- Feature Detail 3: Branding & Visuals -->
-  <section class="py-16 md:py-24 bg-white rounded-xl">
+  <section class="py-16 md:py-24 bg-white rounded-xl mt-12">
      <FeaturesStatsAlt
         title={featureBranding.title}
         subTitle={featureBranding.subTitle}

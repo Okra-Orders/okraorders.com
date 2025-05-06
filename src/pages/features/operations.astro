@@ -1,8 +1,8 @@
 ---
 // Layout and Base Components
 import MainLayout from "@/layouts/MainLayout.astro";
-// import HeroSection from "@components/sections/landing/HeroSection.astro"; // Removed old hero
-import HeroBackground from "@components/sections/landing/HeroBackground.astro"; // Added new hero
+// import HeroBackground from "@components/sections/landing/HeroBackground.astro"; // Removed old hero
+import HeroImage from "@components/sections/landing/HeroImage.astro"; // Added HeroImage
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
 import { Icon } from 'astro-icon/components';
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
@@ -10,10 +10,12 @@ import FAQ from "@components/sections/misc/FAQ.astro";
 import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro";
 import IconListSection from "@components/sections/features/IconListSection.astro";
 import CTASection from "@components/sections/misc/CTASection.astro";
-import heroBgPrep from '@/images/hero-bg-prep.png'; // Import the background image
-import unifiedViewImg from '@/images/ezcater-order-inside-okra.png'; // Import the new image
-import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
-import storeChangeImage from "@/images/store-change.png"; // Import the new image
+// import heroBgPrep from '@/images/hero-bg-prep.png'; // No longer used for hero
+import editOrderImage from '@/images/edit-order.png'; // Import the new hero image
+import heroBgImage from "@/images/stacked-waves-haikei.svg"; // Import hero background consistent with store-management
+import unifiedViewImg from '@/images/ezcater-order-inside-okra.png';
+import ctaBgImage from "@/images/layered-waves-haikei.svg";
+import storeChangeImage from "@/images/store-change.png";
 
 // --- Helper Functions ---
 // Simple SVG placeholder function (replicated for self-containment)
@@ -28,8 +30,9 @@ const pageTitle = "Streamlined Catering Operations & Order Management | Okra Ord
 const hero = {
   title: "Manage Orders, Payments, and Fulfillment – All in One Place",
   subTitle: "Stop chasing orders across different platforms. Okra Orders centralizes your entire catering operation, from viewing incoming orders from multiple sources to managing payments and optimizing kitchen workflow.",
-  imgAlt: "Food preparation background", // Updated Alt text
-  imgSrc: heroBgPrep, // Use imported image
+  imgAlt: "Admin interface showing an order being edited in Okra Orders",
+  imgSrc: editOrderImage,
+  backgroundImageURL: heroBgImage.src
 };
 
 const featureUnifiedView = {
@@ -147,32 +150,24 @@ const operationsFaqs = {
 <MainLayout title={pageTitle}>
 
   <!-- Page Hero Section -->
-  {/* <div class="bg-gradient-to-b from-green-50 to-white pt-16 md:pt-24 pb-8 md:pb-12"> // Removed old wrapper */}
-      {/* <HeroSection
+  <div class="mb-12"> {/* Wrapper div consistent with store-management.astro */}
+      <HeroImage
         title={hero.title}
         subTitle={hero.subTitle}
         primaryBtn={undefined}
         primaryBtnURL={undefined}
         secondaryBtn={undefined}
         secondaryBtnURL={undefined}
-      >
-        <Fragment slot="image">
-          <div class="mt-8 px-6">
-             <img src={hero.imgSrc} alt={hero.imgAlt} class="h-72 w-full max-w-3xl mx-auto rounded-lg shadow-md object-cover"/>
-          </div>
-        </Fragment>
-      </HeroSection> */}
-      <HeroBackground
-        title={hero.title}
-        subTitle={hero.subTitle}
-        imgSrc={hero.imgSrc}
-        imgAlt={hero.imgAlt}
-        minHeight="min-h-[400px] md:min-h-[500px]"
-        textShadow="text-shadow-lg"
+        src={hero.imgSrc}
+        alt={hero.imgAlt}
+        imgWidth={800}
+        withReview={false}
+        imageScale="scale-90"
+        rightOffset="right-[-11rem]"
+        minSectionHeight="min-h-[600px]"
+        backgroundImageURL={hero.backgroundImageURL}
       />
-      {/* Example: Adjust height as needed */}
-      {/* Example: Use a stronger shadow for contrast */}
-  {/* </div> // Removed old wrapper */}
+  </div>
 
   <!-- Feature Detail 1: Unified Order View -->
   <section class="py-16 md:py-24 bg-white rounded-xl my-12">

@@ -92,7 +92,7 @@ if (backgroundImageURL) {
   style={backgroundImageURL ? `background-image: url('${backgroundImageURL}');` : undefined}
 >
   <!-- Title and description container: Determines natural height -->
-  <div id="hero-content" class="pt-16 md:pt-24 z-10 px-4 pb-14 sm:px-6 lg:px-8"> 
+  <div id="hero-content" class="pt-16 md:pt-24 z-10 px-4 pb-6 md:pb-14 sm:px-6 lg:px-8"> 
     <!-- Each h1 and p tag renders a portion of the title and subTitle defined above -->
     <h1
       id="hero-title"
@@ -130,12 +130,16 @@ if (backgroundImageURL) {
   <div 
     id="hero-image-container"
     class:list={[
-        "absolute top-0 md:w-1/2 lg:w-7/12 pointer-events-none",
-        rightOffset, // Apply right offset prop
+        // Mobile: relative (default), full width. Grid will stack it.
+        // Desktop (md+): absolute positioning to allow overlap/offset effects.
+        "w-full", // Ensures it takes width in the grid column on mobile.
+        "md:absolute md:top-0 md:w-1/2 lg:w-7/12", // Desktop overrides for position and width.
+        "pointer-events-none", // Keep pointer-events none as original.
+        rightOffset, // Apply rightOffset prop. User should pass responsive values if needed for mobile (e.g. "right-0 md:right-[-5rem]")
     ]}
   >
-      {/* Simplified inner div */} 
-      <div> 
+      {/* This inner div receives the scale. User should pass responsive scale if needed (e.g. "scale-100 md:scale-90") */}
+      <div class:list={[imageScale]}> 
           <Image
               src={src} 
               alt={alt} 
@@ -145,7 +149,6 @@ if (backgroundImageURL) {
               sizes={`(max-width: 768px) 100vw, 50vw`}
               class:list={[
                   "h-auto w-full block", 
-                  imageScale, // Apply scale prop
               ]}
               draggable={false}
               loading="eager"

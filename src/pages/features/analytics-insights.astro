@@ -1,18 +1,24 @@
 ---
 // Layout and Base Components
 import MainLayout from "@/layouts/MainLayout.astro";
-import HeroSection from "@components/sections/landing/HeroSection.astro";
+// import HeroSection from "@components/sections/landing/HeroSection.astro";
+import HeroImage from "@components/sections/landing/HeroImage.astro"; // Use HeroImage
 import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
-import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
+import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro"; // Restoring import, FeaturesNavs might be used elsewhere or this change might be reverted.
 import QuoteFeatureSplit from "@components/sections/misc/QuoteFeatureSplit.astro"; // Import the reusable component
 import { Icon } from 'astro-icon/components'; // Added import for Iconify
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 import FAQ from "@components/sections/misc/FAQ.astro"; // Import the FAQ component
 import CTASection from "@components/sections/misc/CTASection.astro"; // Added import
+import IconListSection from "@components/sections/features/IconListSection.astro"; // Import IconListSection
 import ctaBgImage from "@/images/layered-waves-haikei.svg"; // Import the background SVG
+import insightsImage from "@/images/insights.png"; // Uncommented: Import the new image
+import dashboardImage from "@/images/dashboard.png"; // Import the dashboard image
+import heroBgImage from "@/images/stacked-waves-haikei.svg"; // Import a background for hero
+import dashboardFullImage from "@/images/dashboard-full.png"; // Import the new dashboard-full.png image
 
 // --- Helper Functions ---
-// Simple SVG placeholder function
+// Uncommented: Simple SVG placeholder function
 const svgPlaceholder = (width: number, height: number, text: string = "Placeholder") => {
   const escapedText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236B7280' font-family='sans-serif' font-size='16'%3E${escapedText}%3C/text%3E%3C/svg%3E`; // Tailwind gray-200 background, gray-500 text
@@ -22,11 +28,12 @@ const svgPlaceholder = (width: number, height: number, text: string = "Placehold
 const pageTitle = "Actionable Analytics & AI Insights for Caterers | Okra Orders";
 
 const hero = {
-  // tagline: "Business Performance", // Removed tagline as HeroSection doesn't support it
+  // tagline: "Business Performance", // HeroImage doesn't use tagline directly in this config
   title: "Understand Your Business Better, Effortlessly",
   subTitle: "Go beyond simple order counts. Okra Orders provides a clear dashboard with key metrics, sales trends, and unique AI-powered insights to help you make smarter decisions for your catering business.",
-  imgAlt: "Main Analytics Dashboard Placeholder",
-  imgSrc: svgPlaceholder(900, 450, "Screenshot: Main Analytics Dashboard"),
+  imgAlt: "Okra Orders Analytics Dashboard showing charts and key metrics",
+  imgSrc: dashboardImage,
+  backgroundImageURL: heroBgImage.src
 };
 
 const featureDashboard = {
@@ -38,53 +45,23 @@ const featureDashboard = {
     "Filter data by specific store or view brand-wide totals.",
     "Simple charts visualize daily and weekly sales trends.",
   ],
-  imgSrc: svgPlaceholder(500, 600, "Screenshot: Dashboard KPIs & Charts"),
-  imgAlt: "Dashboard KPIs & Charts Placeholder",
+  imgSrc: dashboardFullImage.src, // Updated to use dashboardFullImage.src
+  imgAlt: "Full view of the Okra Orders analytics dashboard", // Updated alt text
   imagePosition: "left" as const,
 };
 
-// NEW: Data structure for FeaturesNavs
-const aiInsightsNav = {
-  title: "Get Smarter with AI Insights", // Main title for the section
-  tabs: [
-    {
-      heading: "Automated Daily Analysis",
-      content: "Okra's AI engine reviews your sales data every day, looking for patterns and outliers.",
-      svg: "mdi:chart-timeline-variant-shimmer",
-      src: svgPlaceholder(500, 450, "Visual: Daily Analysis"),
-      alt: "AI Daily Analysis Placeholder",
-      width: 500,
-      height: 450,
-      first: true, // Mark this as the default tab
-    },
-    {
-      heading: "Proactive Alerts",
-      content: "Receive notifications about significant changes, potential issues like zero sales, or emerging trends.",
-      svg: "mdi:bell-alert-outline",
-      src: svgPlaceholder(500, 450, "Visual: Alert Example"),
-      alt: "AI Alert Example Placeholder",
-      width: 500,
-      height: 450,
-    },
-    {
-      heading: "Early Issue Detection",
-      content: "Identify potential problems before they impact your bottom line, allowing you to act quickly.",
-      svg: "mdi:magnify-scan",
-      src: svgPlaceholder(500, 450, "Visual: Issue Detection"),
-      alt: "AI Issue Detection Placeholder",
-      width: 500,
-      height: 450,
-    },
-    {
-      heading: "Focused Attention",
-      content: "The AI highlights where your attention is needed most, saving you time and effort.",
-      svg: "heroicons:sparkles",
-      src: svgPlaceholder(500, 450, "Visual: Focused Insight"),
-      alt: "AI Focused Insight Placeholder",
-      width: 500,
-      height: 450,
-    },
+// RESTRUCTURED: Data for the AI Insights section, to be used with FeaturesStatsAlt
+const aiInsightsSection = {
+  title: "Get Smarter with AI Insights",
+  subTitle: "Automated Daily Analysis: Okra's AI engine reviews your sales data every day, looking for patterns and outliers.", // Content from the first tab of the old structure
+  listItems: [
+    "Easily spot significant changes, potential issues like zero sales, or emerging trends.",
+    "Identify potential problems before they impact your bottom line, allowing you to act quickly.",
+    "The AI highlights where your attention is needed most, saving you time and effort.",
   ],
+  imgSrc: insightsImage.src, // Use .src property for the image path - Assuming insightsImage should still be defined somewhere or removed if not used
+  imgAlt: "AI Powered Insights Illustration",
+  imagePosition: "right" as const,
 };
 
 // Config for the QuoteFeatureSplit (Updated Content)
@@ -98,13 +75,15 @@ const quoteProactive = {
   layoutDirection: "quote-left" as const,
 };
 
-// Config for Unified Reporting section (remains custom)
-const unifiedReporting = {
-    title: "The Complete Picture: Okra + ezCater",
-    subTitle: "Because Okra integrates your ezCater orders, your dashboard metrics and insights reflect your *entire* catering operation. Finally get a true, unified view of your total sales performance across all your channels.",
-    // Logo data needed for graphic
-    ezCaterLogoSrc: svgPlaceholder(100, 40, "ezCater Logo"),
-    ezCaterLogoAlt: "ezCater Logo Placeholder",
+// NEW Config for Unified Reporting section using IconListSection
+const unifiedReportingWithIcons = {
+  title: "The Complete Picture: Okra + ezCater",
+  subTitle: "Because Okra integrates your ezCater orders, your dashboard metrics and insights reflect your *entire* catering operation. Finally get a true, unified view of your total sales performance across all your channels.",
+  items: [
+    { iconName: "heroicons:building-storefront", text: "Direct Okra Orders" },
+    { iconName: "heroicons:link", text: "Synced ezCater Orders" },
+    { iconName: "heroicons:chart-pie", text: "Total Performance Insights" },
+  ]
 };
 
 // Config for Future Potential section (remains custom)
@@ -159,21 +138,23 @@ const analyticsFaqs = {
 <MainLayout title={pageTitle}>
 
   <!-- Page Hero Section -->
-  <div class="bg-gradient-to-b from-blue-50 to-white pt-16 md:pt-24 pb-8 md:pb-12"> <!-- Using Blue accent -->
-      <HeroSection
+  <div class="mb-12"> {/* Adjusted styling to match online-ordering.astro hero container */}
+      <HeroImage
         title={hero.title}
         subTitle={hero.subTitle}
         primaryBtn={undefined}
         primaryBtnURL={undefined}
         secondaryBtn={undefined}
         secondaryBtnURL={undefined}
-      >
-        <Fragment slot="image">
-          <div class="mt-8 px-6">
-             <img src={hero.imgSrc} alt={hero.imgAlt} class="h-72 w-full max-w-3xl mx-auto rounded-lg shadow-md object-cover"/>
-          </div>
-        </Fragment>
-      </HeroSection>
+        src={hero.imgSrc}
+        alt={hero.imgAlt}
+        imgWidth={800}
+        withReview={false}
+        imageScale="scale-90"
+        rightOffset="right-[-11rem]"
+        minSectionHeight="min-h-[600px]"
+        backgroundImageURL={hero.backgroundImageURL}
+      /> {/* Comments moved outside or removed for props like imgWidth, withReview etc. */}
   </div>
 
   <!-- Feature Detail 1: Central Dashboard -->
@@ -190,13 +171,22 @@ const analyticsFaqs = {
      />
   </section>
 
-  <!-- Feature Detail 2: AI-Powered Insights (Now using FeaturesNavs) -->
+  <!-- Feature Detail 2: AI-Powered Insights (Now using FeaturesStatsAlt with media slot) -->
   <section class="py-16 md:py-24">
-    <FeaturesNavs
-        title={aiInsightsNav.title}
-        tabs={aiInsightsNav.tabs}
-        instanceId="ai-insights"
-    />
+    <FeaturesStatsAlt
+        title={aiInsightsSection.title}
+        subTitle={aiInsightsSection.subTitle}
+        benefits={aiInsightsSection.listItems}
+        imagePosition={aiInsightsSection.imagePosition}
+    >
+        <Fragment slot="media">
+            <img 
+                src={aiInsightsSection.imgSrc} 
+                alt={aiInsightsSection.imgAlt} 
+                class="rounded-xl w-full h-auto"
+            />
+        </Fragment>
+    </FeaturesStatsAlt>
   </section>
 
   <!-- Go Beyond Reports Section -->
@@ -214,26 +204,13 @@ const analyticsFaqs = {
       </Fragment>
   </QuoteFeatureSplit>
 
-  <!-- Feature Detail 3: Unified Reporting (Custom Section) -->
-  <section class="py-16 md:py-24 bg-white rounded-xl">
-      <div class="container mx-auto px-6 text-center">
-        <h2 class="text-3xl font-bold text-neutral-800 mb-4">{unifiedReporting.title}</h2>
-        <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
-           {unifiedReporting.subTitle}
-        </p>
-        <!-- Simple graphic: Okra Logo + ezCater Logo -> Graph Icon -->
-         <div class="flex justify-center items-center space-x-4 md:space-x-6 opacity-80">
-            <div class="p-2 rounded bg-white shadow-md text-center">
-                <span class="text-lg font-bold text-neutral-800">Okra<span class="text-primary">Orders</span></span>
-            </div>
-            <span class="text-2xl font-bold text-gray-400">+</span>
-            <div class="p-2 rounded bg-white shadow-md">
-                <img src={unifiedReporting.ezCaterLogoSrc} alt={unifiedReporting.ezCaterLogoAlt} class="h-8 md:h-10" />
-            </div>
-            <Icon name="heroicons:arrow-long-right" class="w-8 h-8 text-gray-400 flex-shrink-0" />
-            <Icon name="heroicons:chart-pie" class="w-14 h-14 text-primary flex-shrink-0" />
-         </div>
-      </div>
+  <!-- Feature Detail 3: Unified Reporting (Now using IconListSection) -->
+  <section class="py-16 md:py-24 bg-white rounded-2xl my-12">
+    <IconListSection 
+        title={unifiedReportingWithIcons.title}
+        subTitle={unifiedReportingWithIcons.subTitle}
+        items={unifiedReportingWithIcons.items}
+    />
   </section>
 
   <!-- Future Potential Section (Custom Simple Section) -->
@@ -259,7 +236,7 @@ const analyticsFaqs = {
   />
 
   <!-- FAQ Section -->
-  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900">
+  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900 my-12 rounded-2xl">
     <FAQ title={analyticsFaqs.title} faqs={analyticsFaqs} />
   </section>
 
