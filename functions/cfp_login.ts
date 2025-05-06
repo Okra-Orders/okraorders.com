@@ -7,14 +7,31 @@ export async function onRequestPost(context: {
 }): Promise<Response> {
   const { request, env } = context;
   const body = await request.formData();
-  const { password, redirect } = Object.fromEntries(body);
-  const hashedPassword = await sha256(password.toString());
-  const hashedCfpPassword = await sha256(env.CFP_PASSWORD);
-  const redirectPath = redirect.toString() || '/';
+  const { password: submittedPassword, redirect } = Object.fromEntries(body);
 
-  if (hashedPassword === hashedCfpPassword) {
+  const configuredPassword = env.CFP_PASSWORD;
+
+  if (!configuredPassword) {
+    // If no server-side password is configured, all login attempts are invalid.
+    // Redirect to login page with error, similar to incorrect password.
+    // Consider a specific error message or logging for this case.
+    const redirectPath = (redirect && redirect.toString()) || '/';
+    return new Response('', {
+      status: 302,
+      headers: {
+        'Cache-Control': 'no-cache',
+        Location: `${redirectPath}?error=1`, // Or a more specific error
+      },
+    });
+  }
+
+  const hashedSubmittedPassword = await sha256(submittedPassword.toString());
+  const hashedCfpPassword = await sha256(configuredPassword);
+
+  if (hashedSubmittedPassword === hashedCfpPassword) {
     // Valid password. Redirect to home page and set cookie with auth hash.
-    const cookieKeyValue = await getCookieKeyValue(env.CFP_PASSWORD);
+    const cookieKeyValue = await getCookieKeyValue(configuredPassword);
+    const redirectPath = (redirect && redirect.toString()) || '/';
 
     return new Response('', {
       status: 302,
@@ -26,12 +43,13 @@ export async function onRequestPost(context: {
     });
   } else {
     // Invalid password. Redirect to login page with error.
+    const redirectPath = (redirect && redirect.toString()) || '/';
     return new Response('', {
       status: 302,
       headers: {
         'Cache-Control': 'no-cache',
-        Location: `${redirectPath}?error=1`
-      }
+        Location: `${redirectPath}?error=1`,
+      },
     });
   }
 }
