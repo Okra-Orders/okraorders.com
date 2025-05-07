@@ -123,7 +123,7 @@ const finalCTA = {
   */}
 
   <!-- 3. Pricing Model Philosophy / Flexibility Explanation -->
-  <section class="py-16 md:py-24 bg-white rounded-xl">
+  <section class="py-8 md:py-24 bg-white rounded-xl">
     <div class="container mx-auto px-6 max-w-3xl text-center">
         <h2 class="text-3xl font-bold text-neutral-800 mb-4">{pricingPhilosophy.headline}</h2>
         <p class="text-lg text-gray-600 mb-6">{pricingPhilosophy.body}</p>
@@ -136,13 +136,13 @@ const finalCTA = {
   </section>
 
   <!-- 4. Pricing Tiers Section - Data passed via prop -->
-  <section class="py-16 md:py-24">
+  <section class="py-0 md:py-24">
      <PricingSection pricing={pricingContent} />
      {/* Removed manual footnote, assuming component handles relevant data from JSON */}
   </section>
 
   <!-- 5. Integrated Payments Note -->
-  <section class="py-16 md:py-24 bg-neutral-50 rounded-xl">
+  <section class="py-6 md:py-24 bg-neutral-50 rounded-xl">
       <div class="container mx-auto px-6 max-w-3xl text-center">
          <Icon name="heroicons:credit-card" class="w-12 h-12 mx-auto text-primary mb-3" />
          <h2 class="text-3xl font-bold text-neutral-800 mb-4">{integratedPayments.headline}</h2>
@@ -151,7 +151,7 @@ const finalCTA = {
   </section>
 
   <!-- 6. FAQ Section -->
-  <section class="py-16 md:py-24 bg-white my-12 rounded-2xl">
+  <section class="py-0 md:py-24 bg-white my-12 rounded-2xl">
     <FAQ title={pricingFaqs.title} faqs={pricingFaqs} />
   </section>
 

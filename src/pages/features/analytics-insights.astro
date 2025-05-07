@@ -138,7 +138,7 @@ const analyticsFaqs = {
 <MainLayout title={pageTitle}>
 
   <!-- Page Hero Section -->
-  <div class="mb-12"> {/* Adjusted styling to match online-ordering.astro hero container */}
+  <div class="mb-8 md:mb-12"> {/* Adjusted styling to match online-ordering.astro hero container */}
       <HeroImage
         title={hero.title}
         subTitle={hero.subTitle}
@@ -158,7 +158,7 @@ const analyticsFaqs = {
   </div>
 
   <!-- Feature Detail 1: Central Dashboard -->
-  <section class="py-16 md:py-24 bg-white rounded-xl">
+  <section class="py-0 md:py-20 bg-white rounded-xl">
     <FeaturesStatsAlt
         title={featureDashboard.title}
         subTitle={featureDashboard.subTitle}
@@ -172,7 +172,7 @@ const analyticsFaqs = {
   </section>
 
   <!-- Feature Detail 2: AI-Powered Insights (Now using FeaturesStatsAlt with media slot) -->
-  <section class="py-16 md:py-24">
+  <section class="py-1 md:py-20">
     <FeaturesStatsAlt
         title={aiInsightsSection.title}
         subTitle={aiInsightsSection.subTitle}
@@ -206,7 +206,7 @@ const analyticsFaqs = {
   </QuoteFeatureSplit>
 
   <!-- Feature Detail 3: Unified Reporting (Now using IconListSection) -->
-  <section class="py-16 md:py-24 bg-white rounded-2xl my-12">
+  <section class="py-8 md:py-20 bg-white rounded-2xl mt-8 mb-2 md:my-12">
     <IconListSection 
         title={unifiedReportingWithIcons.title}
         subTitle={unifiedReportingWithIcons.subTitle}
@@ -215,8 +215,8 @@ const analyticsFaqs = {
   </section>
 
   <!-- Future Potential Section (Custom Simple Section) -->
-  <section class="py-16 md:py-24">
-      <div class="container mx-auto px-6 text-center">
+  <section class="py-8 md:py-16">
+      <div class="container mx-auto px-4 sm:px-6 text-center">
            <h2 class="text-3xl font-bold text-neutral-800 mb-4">{futurePotential.title}</h2>
           <p class="text-lg text-gray-600 max-w-2xl mx-auto">
              {futurePotential.subTitle}
@@ -237,7 +237,7 @@ const analyticsFaqs = {
   />
 
   <!-- FAQ Section -->
-  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900 my-12 rounded-2xl">
+  <section class="py-0 md:py-20 bg-neutral-50 dark:bg-neutral-900 my-8 md:my-12 rounded-2xl">
     <FAQ title={analyticsFaqs.title} faqs={analyticsFaqs} />
   </section>
 

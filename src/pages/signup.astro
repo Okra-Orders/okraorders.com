@@ -64,7 +64,7 @@ const existingUser = {
 
 <MainLayout title={pageTitle} meta={pageDescription}>
 
-  <div class="container mx-auto px-6 py-16 md:py-24">
+  <div class="container mx-auto px-6 py-12 md:py-24">
 
     <!-- 1. Header/Nav assumed handled by MainLayout -->
 
@@ -137,7 +137,7 @@ const existingUser = {
     </section>
 
     <!-- 4. Key Feature Reinforcement -->
-    <section class="text-center mb-16 md:mb-24">
+    <section class="text-center mb-8 md:mb-24">
         <h2 class="text-3xl font-bold text-neutral-800 mb-8">{featureReinforcement.headline}</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 max-w-4xl mx-auto">
            {featureReinforcement.features.map(feature => (
@@ -152,7 +152,7 @@ const existingUser = {
     </section>
 
     <!-- 5. Existing User Link -->
-    <section class="text-center">
+    <section class="text-center mb-0 md:mb-12">
       <p class="text-neutral-600">
         {existingUser.text} <a href={existingUser.linkUrl} class="text-primary hover:underline font-medium">{existingUser.linkText}</a>
       </p>

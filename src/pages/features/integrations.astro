@@ -143,7 +143,7 @@ const integrationsFaqs = {
 <MainLayout title={pageTitle}>
 
   <!-- Page Hero Section -->
-  <div class="mb-12"> {/* Consistent wrapper class */}
+  <div class="mb-0 md:mb-12"> {/* Consistent wrapper class */}
       <HeroImage
         title={hero.title}
         subTitle={hero.subTitle}
@@ -163,7 +163,7 @@ const integrationsFaqs = {
   </div>
 
   <!-- Feature Detail 1: ezCater Integration -->
-  <section class="bg-gradient-to-b from-primary-50 to-transparent pb-16 md:pb-24 rounded-b-xl">
+  <section class="bg-gradient-to-b from-primary-50 to-transparent py-0 md:py-24 rounded-b-xl">
     <FeaturesStatsAlt
         title={featureEzCater.title}
         subTitle={featureEzCater.subTitle}
@@ -181,7 +181,7 @@ const integrationsFaqs = {
   </section>
 
   <!-- Feature Detail 2: QuickBooks Integration -->
-  <section class="py-16 md:py-24">
+  <section class="py-0 md:py-24">
     <FeaturesStatsAlt
         title={featureQuickBooks.title}
         subTitle={featureQuickBooks.subTitle}
@@ -233,7 +233,7 @@ const integrationsFaqs = {
   />
 
   <!-- FAQ Section -->
-  <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900 mt-12 rounded-2xl">
+  <section class="py-0 md:py-24 bg-neutral-50 dark:bg-neutral-900 mt-12 rounded-2xl">
     <FAQ title={integrationsFaqs.title} faqs={integrationsFaqs} />
   </section>
 
