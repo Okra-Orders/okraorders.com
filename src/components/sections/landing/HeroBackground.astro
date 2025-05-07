@@ -21,6 +21,19 @@ const {
   backgroundPosition = "object-center", // Default background position
 } = Astro.props;
 
+// Determine responsive shadow classes
+let responsiveTextShadowClasses: string;
+if (textShadow === "text-shadow-none") {
+  responsiveTextShadowClasses = "text-shadow-none";
+} else if (textShadow === "text-shadow-md") {
+  responsiveTextShadowClasses = "text-shadow-lg md:text-shadow-md";
+} else if (textShadow === "text-shadow-lg") {
+  responsiveTextShadowClasses = "text-shadow-lg";
+} else {
+  // Fallback for unexpected textShadow values: apply stronger mobile shadow, respect prop for desktop
+  responsiveTextShadowClasses = `text-shadow-lg md:${textShadow}`;
+}
+
 // Define TypeScript interface for props
 interface Props {
   title: string;
@@ -73,7 +86,7 @@ interface Props {
   />
 
   <!-- Content Overlay -->
-  <div class:list={["relative z-10 container mx-auto px-6 py-16 text-center", textContrastColor, textShadow]}>
+  <div class:list={["relative z-10 container mx-auto px-6 py-12 pb-8 md:py-16 text-center", textContrastColor, responsiveTextShadowClasses]}>
     <!-- Title -->
     <h1
       class="block text-balance text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl lg:leading-tight"
