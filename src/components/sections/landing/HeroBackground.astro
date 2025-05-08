@@ -16,7 +16,7 @@ const {
   imgSrc,
   imgAlt,
   minHeight = "min-h-[300px] md:min-h-[400px]", // Default minimum height
-  textContrastColor = "text-white", // Default text color for contrast
+  textContrastColor = "text-black", // Default text color for contrast
   textShadow = "text-shadow-md", // Default subtle text shadow
   backgroundPosition = "object-center", // Default background position
 } = Astro.props;
@@ -26,12 +26,12 @@ let responsiveTextShadowClasses: string;
 if (textShadow === "text-shadow-none") {
   responsiveTextShadowClasses = "text-shadow-none";
 } else if (textShadow === "text-shadow-md") {
-  responsiveTextShadowClasses = "text-shadow-lg md:text-shadow-md";
+  responsiveTextShadowClasses = "text-shadow-lg md:text-shadow-md lg:text-shadow-lg";
 } else if (textShadow === "text-shadow-lg") {
   responsiveTextShadowClasses = "text-shadow-lg";
 } else {
-  // Fallback for unexpected textShadow values: apply stronger mobile shadow, respect prop for desktop
-  responsiveTextShadowClasses = `text-shadow-lg md:${textShadow}`;
+  // Fallback for unexpected textShadow values: apply stronger mobile shadow, respect prop for desktop, stronger for lg
+  responsiveTextShadowClasses = `text-shadow-lg md:${textShadow} lg:text-shadow-lg`;
 }
 
 // Define TypeScript interface for props
@@ -54,10 +54,10 @@ interface Props {
 <style>
   /* Simple text-shadow utility if not using a Tailwind plugin */
   .text-shadow-md {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0px 3px rgba(255, 255, 255, 1);
   }
   .text-shadow-lg {
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0px 3px rgba(255, 255, 255, 1);
   }
    .text-shadow-none {
     text-shadow: none;
@@ -68,7 +68,7 @@ interface Props {
   class:list={[
     "relative overflow-hidden rounded-b-2xl",
     minHeight, // Apply minimum height
-    "flex items-center justify-center" // Center content vertically and horizontally
+    "flex items-center justify-start" // Align content to the start (left)
   ]}
 >
   <!-- Background Image -->
@@ -76,7 +76,7 @@ interface Props {
     src={imgSrc}
     alt={imgAlt}
     class:list={[
-      "absolute inset-0 h-full w-full object-cover -z-10 opacity-90",
+      "absolute inset-0 h-full w-full object-cover -z-10 opacity-70",
       backgroundPosition // Apply background position
     ]}
     loading="eager"
@@ -86,7 +86,7 @@ interface Props {
   />
 
   <!-- Content Overlay -->
-  <div class:list={["relative z-10 container mx-auto px-6 py-12 pb-8 md:py-16 text-center", textContrastColor, responsiveTextShadowClasses]}>
+  <div class:list={["relative z-10 px-12 py-12 pb-8 md:py-16 text-left w-full md:w-1/2", textContrastColor, responsiveTextShadowClasses]}>
     <!-- Title -->
     <h1
       class="block text-balance text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl lg:leading-tight"
@@ -95,13 +95,13 @@ interface Props {
 
     <!-- Subtitle -->
     {subTitle &&
-      <p class="mt-4 text-pretty text-lg opacity-90 lg:w-3/4 mx-auto">
+      <p class="mt-4 text-pretty text-lg lg:w-3/4">
         {subTitle}
       </p>
     }
 
     <!-- Action Buttons -->
-    <div class="mt-8 grid w-full gap-3 sm:inline-flex justify-center">
+    <div class="mt-8 grid w-full gap-3 sm:inline-flex justify-start">
       {primaryBtn &&
         <PrimaryCTA title={primaryBtn} url={primaryBtnURL} />
       }
