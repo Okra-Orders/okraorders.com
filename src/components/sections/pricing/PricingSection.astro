@@ -50,6 +50,12 @@ const plans = [pricing.plan1, pricing.plan2, pricing.plan3];
           ? "block rounded-full bg-white/90 px-8 py-3 text-center text-sm font-bold text-primary outline-hidden ring-primary-300 transition duration-300 hover:bg-white focus-visible:ring-3 active:bg-gray-100 md:text-base"
           : "block rounded-full bg-gray-500 px-8 py-3 text-center text-sm font-bold text-gray-100 outline-hidden ring-indigo-300 transition duration-100 hover:bg-gray-600 focus-visible:ring-3 active:text-gray-300 md:text-base";
 
+        let currentFeeDetails = plan.feeDetails;
+        // For the Starter plan (index 0), replace placeholder with dynamic text
+        if (index === 0 && plan.platformFeeDisplayText && currentFeeDetails) {
+          currentFeeDetails = currentFeeDetails.replace("{{platformFee}}", plan.platformFeeDisplayText);
+        }
+
         return (
           <div class={cardClasses}>
             {/* Flex container for Name and Badge */}
@@ -77,9 +83,9 @@ const plans = [pricing.plan1, pricing.plan2, pricing.plan3];
             </div>
 
             {/* Fee Details Section */}
-            {plan.feeDetails && (
+            {currentFeeDetails && (
               <div class="mt-2 mb-4"> {/* Container for spacing */}
-                <p class={`text-xs ${feeDetailsColorClasses}`}>{plan.feeDetails}</p>
+                <p class={`text-xs ${feeDetailsColorClasses}`}>{currentFeeDetails}</p>
               </div>
             )}
 

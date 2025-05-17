@@ -56,16 +56,18 @@ const integratedPayments = {
 };
 
 // FAQ Data
+const starterPlatformFeeTextForFaq = pricingContent.plan1.platformFeeDisplayText || "3%"; // Fallback if not defined
+
 const pricingFaqs = {
   title: "Your Pricing Questions Answered",
   faqs: [
     { question: "Is there a free trial?", answer: "We currently focus on providing personalized demos tailored to your business needs rather than a one-size-fits-all free trial. This allows us to show you the most relevant features and answer your specific questions. Please contact us to schedule your demo!" },
-    { question: "What if I only have one small catering location?", answer: "Absolutely. Our Starter Plan is designed for this, with a low $99 monthly minimum SaaS fee and a 3% revenue-based charge (up to $10k/mo in revenue), making it highly accessible. The goal is for Okra to provide immediate value." },
+    { question: "What if I only have one small catering location?", answer: `Absolutely. Our Starter Plan is designed for this, with a low $${pricingContent.plan1.price} monthly minimum SaaS fee and a ${starterPlatformFeeTextForFaq} revenue-based charge, making it highly accessible. The goal is for Okra to provide immediate value.` },
     { question: "Do I need to sign a long-term contract?", answer: "We offer flexible monthly subscriptions for our Starter and Pro plans, allowing you to adapt as your business evolves." },
     { question: "Are there additional fees for integrating with ezCater or QuickBooks?", answer: "Core integrations like ezCater order viewing and QuickBooks Online sales receipt pushing are included in our Pro Plan and above." },
-    { question: "How does the volume-based pricing work?", answer: "Our Starter Plan links your platform fee to your processed order volume (3% of revenue up to $10,000/month, with a $99/month minimum). This ensures affordability as you grow. Once your volume consistently makes the Pro Plan more economical, we'll guide you to switch." },
+    { question: "How does the volume-based pricing work?", answer: `Our Starter Plan links your platform fee to your processed order volume (with a $${pricingContent.plan1.price}/month minimum). This ensures affordability as you grow. Once your volume consistently makes the Pro Plan more economical, we'll guide you to switch.` },
     { question: "Are there setup fees or hidden costs?", answer: "We believe in transparent pricing. Our Starter and Pro plans have clear monthly SaaS fees plus competitive integrated payment processing rates. Standard onboarding is included. Custom work for Enterprise plans is scoped and quoted separately." },
-    { question: "When does billing for the SaaS plan start?", answer: "Your first monthly SaaS fee (e.g., $99 for Starter, $300 for Pro) is charged only after your payment processing account is fully set up and your Okra Orders store is live and ready to take orders." },
+    { question: "When does billing for the SaaS plan start?", answer: `Your first monthly SaaS fee (e.g., $${pricingContent.plan1.price} for Starter, $${pricingContent.plan2.price} for Pro) is charged only after your payment processing account is fully set up and your Okra Orders store is live and ready to take orders.` },
     { question: "What's included in terms of support?", answer: "All plans include access to our in-app help resources (tours, tooltips, knowledge base) and standard support channels like live chat and email. Higher tiers may include more personalized support options like dedicated account management or priority video calls." }
   ]
 };
@@ -142,6 +144,91 @@ const finalCTA = {
      {/* Removed manual footnote, assuming component handles relevant data from JSON */}
   </section>
 
+  <!-- START: Interactive Pricing Calculator -->
+  <section class="py-12 md:py-20 bg-neutral-50 dark:bg-neutral-800 rounded-xl my-12">
+    <div class="container mx-auto px-6 max-w-3xl text-center">
+      <h2 class="text-3xl font-bold text-neutral-800 dark:text-neutral-200 mb-4">Estimate Your Monthly Cost</h2>
+      <p class="text-lg text-gray-600 dark:text-neutral-400 mb-8">
+        Use the sliders below to estimate your total monthly cost for our Starter and Pro plans.
+      </p>
+
+      <div class="mb-6">
+        <label for="revenueSlider" class="block text-lg font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+          Estimated Monthly Revenue Per Location: <span id="revenueValueDisplay" class="font-bold text-primary">$10,000</span>
+        </label>
+        <input
+          type="range"
+          id="revenueSlider"
+          min="0"
+          max="150000"
+          value="10000"
+          step="250"
+          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-[#8DC640]"
+        />
+      </div>
+
+      <div class="mb-6"> {/* Consistent margin */}
+        <label for="locationsSlider" class="block text-lg font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+          Number of Locations: <span id="locationsValueDisplay" class="font-bold text-primary">1</span>
+        </label>
+        <input
+          type="range"
+          id="locationsSlider"
+          min="1"
+          max="30"
+          value="1"
+          step="1"
+          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-[#8DC640]"
+        />
+      </div>
+
+      <div class="my-6 p-4 bg-primary-50 dark:bg-neutral-750 rounded-lg text-center">
+        <p class="text-lg font-medium text-neutral-700 dark:text-neutral-300">
+          Total Estimated Monthly Revenue (All Locations):
+          <span id="totalRevenueValueDisplay" class="font-bold text-primary">$10,000</span>
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-white dark:bg-neutral-700 p-6 rounded-lg shadow text-left">
+          <h3 class="text-xl font-semibold text-neutral-800 dark:text-neutral-200 mb-3 text-center">Starter Plan Estimate</h3>
+          <p class="flex justify-between items-baseline">
+            <span class="text-neutral-600 dark:text-neutral-300">Okra Fee:</span>
+            <span id="starterOkraFeeDisplay" class="text-2xl font-bold text-primary">$0.00</span>
+          </p>
+          <p class="flex justify-between items-baseline mt-1">
+            <span class="text-sm text-neutral-500 dark:text-neutral-400">Payment Processing Fee (est):</span>
+            <span id="starterPaymentFeeDisplay" class="text-sm font-medium text-neutral-600 dark:text-neutral-400">$0.00</span>
+          </p>
+          <p class="flex justify-between items-baseline mt-2 pt-2 border-t border-neutral-200 dark:border-neutral-600">
+            <span class="text-lg font-semibold text-neutral-700 dark:text-neutral-200">Total Monthly Cost:</span>
+            <span id="starterTotalCostDisplay" class="text-lg font-bold text-primary">$0.00</span>
+          </p>
+        </div>
+        <div class="bg-white dark:bg-neutral-700 p-6 rounded-lg shadow text-left">
+          <h3 class="text-xl font-semibold text-neutral-800 dark:text-neutral-200 mb-3 text-center">Pro Plan Estimate</h3>
+          <p class="flex justify-between items-baseline">
+            <span class="text-neutral-600 dark:text-neutral-300">Okra Fee:</span>
+            <span id="proOkraFeeDisplay" class="text-2xl font-bold text-primary">$0.00</span>
+          </p>
+          <p class="flex justify-between items-baseline mt-1">
+            <span class="text-sm text-neutral-500 dark:text-neutral-400">Payment Processing Fee (est):</span>
+            <span id="proPaymentFeeDisplay" class="text-sm font-medium text-neutral-600 dark:text-neutral-400">$0.00</span>
+          </p>
+          <p class="flex justify-between items-baseline mt-2 pt-2 border-t border-neutral-200 dark:border-neutral-600">
+            <span class="text-lg font-semibold text-neutral-700 dark:text-neutral-200">Total Monthly Cost:</span>
+            <span id="proTotalCostDisplay" class="text-lg font-bold text-primary">$0.00</span>
+          </p>
+        </div>
+      </div>
+
+      <p class="text-xs text-gray-500 dark:text-neutral-500">
+        * Estimates assume an average transaction value of $250 for calculating per-transaction payment processing fees (3.5% + $0.25/transaction). Platform fees for Starter are <span id="disclaimerPlatformFeeText">0%</span> of revenue. Pro plan Okra (SaaS) fee is $299/mo per location. Actual costs may vary.
+      </p>
+    </div>
+  </section>
+  <!-- END: Interactive Pricing Calculator -->
+
   <!-- 5. Integrated Payments Note -->
   <section class="py-6 md:py-24 bg-neutral-50 rounded-xl">
       <div class="container mx-auto px-6 max-w-3xl text-center">
@@ -177,10 +264,10 @@ const finalCTA = {
   </section>
   */}
 
-</MainLayout>
-
 <script>
   // Optional: Add GSAP animations if desired
+  // This script is intentionally placed inside MainLayout, before its closing tag.
+  // It relies on DOMContentLoaded to ensure elements are available.
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -207,3 +294,150 @@ const finalCTA = {
     });
   });
 </script>
+  <script define:vars={{ starterMinSaasFeePassed: Number(pricingContent.plan1.price), proSaasFeePerLocationPassed: Number(pricingContent.plan2.price), starterPlatformFeeNumericalRatePassed: Number(pricingContent.plan1.platformFeeNumericalRate), starterPlatformFeeDisplayTextPassed: pricingContent.plan1.platformFeeDisplayText }}>
+    // Plain JavaScript for Pricing Calculator
+    // Values starterMinSaasFeePassed and proSaasFeePerLocationPassed are injected by Astro's define:vars
+    document.addEventListener('DOMContentLoaded', function() { // Using function() for wider browser compatibility
+      console.log("Pricing Calculator Script Loaded");
+      // Note: starterMinSaasFeePassed and proSaasFeePerLocationPassed are globally available here from define:vars
+      // We'll log them after checking if they exist to avoid reference errors if something went wrong with define:vars
+      if (typeof starterMinSaasFeePassed !== 'undefined' && typeof proSaasFeePerLocationPassed !== 'undefined' && typeof starterPlatformFeeNumericalRatePassed !== 'undefined' && typeof starterPlatformFeeDisplayTextPassed !== 'undefined') {
+        console.log(`define:vars - starterMinSaasFeePassed: ${starterMinSaasFeePassed}, proSaasFeePerLocationPassed: ${proSaasFeePerLocationPassed}, starterPlatformFeeNumericalRatePassed: ${starterPlatformFeeNumericalRatePassed}, starterPlatformFeeDisplayTextPassed: '${starterPlatformFeeDisplayTextPassed}'`);
+      } else {
+        console.error("One or more define:vars values not found. Calculator may use fallback default values.");
+      }
+
+      const revenueSlider = document.getElementById('revenueSlider');
+      const revenueValueDisplay = document.getElementById('revenueValueDisplay');
+      const locationsSlider = document.getElementById('locationsSlider');
+      const locationsValueDisplay = document.getElementById('locationsValueDisplay');
+      const totalRevenueValueDisplay = document.getElementById('totalRevenueValueDisplay'); // New element
+
+      const starterOkraFeeDisplay = document.getElementById('starterOkraFeeDisplay');
+      const starterPaymentFeeDisplay = document.getElementById('starterPaymentFeeDisplay');
+      const starterTotalCostDisplay = document.getElementById('starterTotalCostDisplay');
+
+      const proOkraFeeDisplay = document.getElementById('proOkraFeeDisplay');
+      const proPaymentFeeDisplay = document.getElementById('proPaymentFeeDisplay');
+      const proTotalCostDisplay = document.getElementById('proTotalCostDisplay');
+      const disclaimerPlatformFeeText = document.getElementById('disclaimerPlatformFeeText'); // New element for disclaimer
+
+      console.log({
+        revenueSlider: revenueSlider,
+        revenueValueDisplay: revenueValueDisplay,
+        locationsSlider: locationsSlider,
+        locationsValueDisplay: locationsValueDisplay,
+        totalRevenueValueDisplay: totalRevenueValueDisplay, // New element
+        starterOkraFeeDisplay: starterOkraFeeDisplay,
+        starterPaymentFeeDisplay: starterPaymentFeeDisplay,
+        starterTotalCostDisplay: starterTotalCostDisplay,
+        proOkraFeeDisplay: proOkraFeeDisplay,
+        proPaymentFeeDisplay: proPaymentFeeDisplay,
+        proTotalCostDisplay: proTotalCostDisplay,
+        disclaimerPlatformFeeText: disclaimerPlatformFeeText // New element for disclaimer
+      });
+
+      // Fallback defaults if define:vars fails for some reason, actual values injected by Astro
+      const localStarterMinSaasFee = (typeof starterMinSaasFeePassed !== 'undefined') ? starterMinSaasFeePassed : 99;
+      const localProSaasFeePerLocation = (typeof proSaasFeePerLocationPassed !== 'undefined') ? proSaasFeePerLocationPassed : 299;
+      const localStarterPlatformFeeNumericalRate = (typeof starterPlatformFeeNumericalRatePassed !== 'undefined') ? starterPlatformFeeNumericalRatePassed : 0.03; // Fallback to 3%
+      const localStarterPlatformFeeDisplayText = (typeof starterPlatformFeeDisplayTextPassed !== 'undefined') ? starterPlatformFeeDisplayTextPassed : "3%"; // Fallback to "3%"
+
+
+      const AVERAGE_TRANSACTION_VALUE = 250;
+      const PAYMENT_FEE_PERCENTAGE = 0.035;
+      const PAYMENT_FEE_FIXED = 0.25;
+      // STARTER_PLATFORM_FEE_PERCENTAGE is replaced by localStarterPlatformFeeNumericalRate
+      const STARTER_PLATFORM_FEE_MAX_REVENUE_FOR_PERCENTAGE = 1000000;
+      const STARTER_MAX_PLATFORM_FEE = STARTER_PLATFORM_FEE_MAX_REVENUE_FOR_PERCENTAGE * localStarterPlatformFeeNumericalRate;
+
+      function calculateCosts(monthlyRevenue, numberOfLocations) {
+        console.log('calculateCosts called with: monthlyRevenue=' + monthlyRevenue + ', numberOfLocations=' + numberOfLocations);
+
+        monthlyRevenue = Number(monthlyRevenue) || 0;
+        numberOfLocations = Number(numberOfLocations) || 0;
+
+        const numberOfTransactions = monthlyRevenue > 0 ? Math.max(1, Math.round(monthlyRevenue / AVERAGE_TRANSACTION_VALUE)) : 0;
+        const paymentProcessingFee = (monthlyRevenue * PAYMENT_FEE_PERCENTAGE) + (numberOfTransactions * PAYMENT_FEE_FIXED);
+
+        let starterOkraFee;
+        if (monthlyRevenue > 0) {
+            starterOkraFee = monthlyRevenue * localStarterPlatformFeeNumericalRate;
+            if (starterOkraFee > STARTER_MAX_PLATFORM_FEE) {
+                starterOkraFee = STARTER_MAX_PLATFORM_FEE;
+            }
+            starterOkraFee = Math.max(localStarterMinSaasFee, starterOkraFee);
+        } else { // monthlyRevenue is 0
+            starterOkraFee = localStarterMinSaasFee;
+        }
+
+        const actualStarterOkraFee = starterOkraFee;
+        const actualStarterPaymentFee = paymentProcessingFee; // This will be 0 if revenue is 0
+        const totalStarterCost = actualStarterOkraFee + actualStarterPaymentFee;
+
+        const proOkraFee = localProSaasFeePerLocation * numberOfLocations;
+        const totalProCost = monthlyRevenue > 0 ? proOkraFee + paymentProcessingFee : (numberOfLocations > 0 ? proOkraFee : 0);
+        const actualProOkraFee = numberOfLocations > 0 ? proOkraFee : 0;
+        const actualProPaymentFee = monthlyRevenue > 0 ? paymentProcessingFee : 0;
+
+        const results = {
+          starter: { okraFee: actualStarterOkraFee, paymentProcessingFee: actualStarterPaymentFee, totalCost: totalStarterCost },
+          pro: { okraFee: actualProOkraFee, paymentProcessingFee: actualProPaymentFee, totalCost: totalProCost }
+        };
+        console.log("calculateCosts results:", results);
+        return results;
+      }
+
+      function updateDisplay() {
+        console.log("updateDisplay called");
+        if (!revenueSlider || !revenueValueDisplay || !locationsSlider || !locationsValueDisplay || !totalRevenueValueDisplay ||
+            !starterOkraFeeDisplay || !starterPaymentFeeDisplay || !starterTotalCostDisplay ||
+            !proOkraFeeDisplay || !proPaymentFeeDisplay || !proTotalCostDisplay) {
+          console.error('One or more calculator DOM elements not found in updateDisplay.');
+          return;
+        }
+
+        const revenuePerLocation = revenueSlider.value ? parseFloat(revenueSlider.value) : 0;
+        const numberOfLocations = locationsSlider.value ? parseInt(locationsSlider.value) : 1;
+        const totalMonthlyRevenue = revenuePerLocation * numberOfLocations;
+
+        console.log('updateDisplay values: revenuePerLocation=' + revenuePerLocation + ', numberOfLocations=' + numberOfLocations + ', totalMonthlyRevenue=' + totalMonthlyRevenue);
+
+        if (revenueValueDisplay) revenueValueDisplay.textContent = '$' + revenuePerLocation.toLocaleString();
+        if (locationsValueDisplay) locationsValueDisplay.textContent = String(numberOfLocations);
+        if (totalRevenueValueDisplay) totalRevenueValueDisplay.textContent = '$' + totalMonthlyRevenue.toLocaleString();
+
+        const costs = calculateCosts(totalMonthlyRevenue, numberOfLocations); // Use totalMonthlyRevenue for calculation
+        console.log("costs object in updateDisplay:", costs);
+
+        if (starterOkraFeeDisplay) starterOkraFeeDisplay.textContent = '$' + costs.starter.okraFee.toFixed(2);
+        if (starterPaymentFeeDisplay) starterPaymentFeeDisplay.textContent = '$' + costs.starter.paymentProcessingFee.toFixed(2);
+        if (starterTotalCostDisplay) starterTotalCostDisplay.textContent = '$' + costs.starter.totalCost.toFixed(2);
+
+        if (proOkraFeeDisplay) proOkraFeeDisplay.textContent = '$' + costs.pro.okraFee.toFixed(2);
+        if (proPaymentFeeDisplay) proPaymentFeeDisplay.textContent = '$' + costs.pro.paymentProcessingFee.toFixed(2);
+        if (proTotalCostDisplay) proTotalCostDisplay.textContent = '$' + costs.pro.totalCost.toFixed(2);
+        console.log("Display updated.");
+      }
+
+      if (revenueSlider && locationsSlider) {
+        console.log("Attaching event listeners and running initial updateDisplay.");
+        revenueSlider.addEventListener('input', updateDisplay);
+        locationsSlider.addEventListener('input', updateDisplay);
+
+        // Update disclaimer text once on load
+        if (disclaimerPlatformFeeText && localStarterPlatformFeeDisplayText) {
+            disclaimerPlatformFeeText.textContent = localStarterPlatformFeeDisplayText;
+        } else if (disclaimerPlatformFeeText) { // if the element exists but text doesn't, set a default
+            disclaimerPlatformFeeText.textContent = "3%"; // Default if not passed by define:vars
+            console.warn("starterPlatformFeeDisplayTextPassed not found, disclaimer set to default '3%'");
+        }
+
+
+        updateDisplay(); // Initial calculation for costs
+      } else {
+        console.error("Calculator sliders not found, cannot attach event listeners or run initial calculation.");
+      }
+    });
+  </script>
+</MainLayout>

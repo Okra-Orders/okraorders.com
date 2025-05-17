@@ -11,15 +11,16 @@
     "price": "99",
     "cents": ".00*",
     "billingFrequency": "USD / monthly minimum*",
-    "feeDetails": "Platform fee: 3% of revenue (up to $10k/mo). Payment processing fees apply. Billing starts after payment setup & store go-live.",
+    "platformFeeNumericalRate": 0.04,
+    "platformFeeDisplayText": "4%",
+    "feeDetails": "Platform fee: {{platformFee}} of revenue. Payment processing fees apply (3.5% + $0.25). Billing starts after payment setup & store go-live.",
     "features": [
       "Full Catering Order Management Suite",
       "Integrated Online Ordering Storefront",
       "Automated Customer Notifications (Email)",
       "Core Reporting & Analytics",
       "Standard Support (In-App, Email, Chat)",
-      "Seamless Integrated Payment Processing",
-      "Guidance to Upgrade when Pro Plan is More Cost-Effective"
+      "Seamless Integrated Payment Processing"
     ],
     "purchaseBtnTitle": "Get Started",
     "purchaseLink": "/signup?plan=starter"
@@ -31,7 +32,7 @@
     "price": "299",
     "cents": ".00",
     "billingFrequency": "USD / per month, per location",
-    "feeDetails": "Payment processing fees apply. Billing starts after payment setup & store go-live.",
+    "feeDetails": "Payment processing fees apply (3.5% + $0.25). Billing starts after payment setup & store go-live.",
     "features": [
       "All Starter Plan Features, PLUS:",
       "Fixed Monthly SaaS Fee - No Revenue Percentage",
