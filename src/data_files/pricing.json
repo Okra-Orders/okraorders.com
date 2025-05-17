@@ -28,7 +28,7 @@
   "plan2": {
     "name": "Pro",
     "description": "Ideal for established caterers and multi-location businesses seeking predictable costs and a comprehensive, powerful feature set.",
-    "price": "300",
+    "price": "299",
     "cents": ".00",
     "billingFrequency": "USD / per month, per location",
     "feeDetails": "Payment processing fees apply. Billing starts after payment setup & store go-live.",
