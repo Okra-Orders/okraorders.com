@@ -62,10 +62,10 @@ const pricingFaqs = {
   title: "Your Pricing Questions Answered",
   faqs: [
     { question: "Is there a free trial?", answer: "We currently focus on providing personalized demos tailored to your business needs rather than a one-size-fits-all free trial. This allows us to show you the most relevant features and answer your specific questions. Please contact us to schedule your demo!" },
-    { question: "What if I only have one small catering location?", answer: `Absolutely. Our Starter Plan is designed for this, with a low $${pricingContent.plan1.price} monthly minimum SaaS fee and a ${starterPlatformFeeTextForFaq} revenue-based charge, making it highly accessible. The goal is for Okra to provide immediate value.` },
+    { question: "What if I only have one small catering location?", answer: `Absolutely. Our Starter Plan is designed for this, with a low $${pricingContent.plan1.price} monthly minimum SaaS fee and a revenue-based charge ${starterPlatformFeeTextForFaq}, making it highly accessible. The goal is for Okra to provide immediate value.` },
     { question: "Do I need to sign a long-term contract?", answer: "We offer flexible monthly subscriptions for our Starter and Pro plans, allowing you to adapt as your business evolves." },
     { question: "Are there additional fees for integrating with ezCater or QuickBooks?", answer: "Core integrations like ezCater order viewing and QuickBooks Online sales receipt pushing are included in our Pro Plan and above." },
-    { question: "How does the volume-based pricing work?", answer: `Our Starter Plan links your platform fee to your processed order volume (with a $${pricingContent.plan1.price}/month minimum). This ensures affordability as you grow. Once your volume consistently makes the Pro Plan more economical, we'll guide you to switch.` },
+    { question: "How does the volume-based pricing work?", answer: `Our Starter Plan links your platform fee to your processed order volume at ${starterPlatformFeeTextForFaq} with a $${pricingContent.plan1.price}/month minimum. This ensures affordability as you grow. Please check the calculator above to estimate your monthly fee.` },
     { question: "Are there setup fees or hidden costs?", answer: "We believe in transparent pricing. Our Starter and Pro plans have clear monthly SaaS fees plus competitive integrated payment processing rates. Standard onboarding is included. Custom work for Enterprise plans is scoped and quoted separately." },
     { question: "When does billing for the SaaS plan start?", answer: `Your first monthly SaaS fee (e.g., $${pricingContent.plan1.price} for Starter, $${pricingContent.plan2.price} for Pro) is charged only after your payment processing account is fully set up and your Okra Orders store is live and ready to take orders.` },
     { question: "What's included in terms of support?", answer: "All plans include access to our in-app help resources (tours, tooltips, knowledge base) and standard support channels like live chat and email. Higher tiers may include more personalized support options like dedicated account management or priority video calls." }
@@ -348,7 +348,7 @@ const finalCTA = {
       const PAYMENT_FEE_PERCENTAGE = 0.035;
       const PAYMENT_FEE_FIXED = 0.25;
       // STARTER_PLATFORM_FEE_PERCENTAGE is replaced by localStarterPlatformFeeNumericalRate
-      const STARTER_PLATFORM_FEE_MAX_REVENUE_FOR_PERCENTAGE = 1000000;
+      const STARTER_PLATFORM_FEE_MAX_REVENUE_FOR_PERCENTAGE = 10000;
       const STARTER_MAX_PLATFORM_FEE = STARTER_PLATFORM_FEE_MAX_REVENUE_FOR_PERCENTAGE * localStarterPlatformFeeNumericalRate;
 
       function calculateCosts(monthlyRevenue, numberOfLocations) {

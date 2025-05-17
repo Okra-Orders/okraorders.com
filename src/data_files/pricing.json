@@ -12,8 +12,8 @@
     "cents": ".00*",
     "billingFrequency": "USD / monthly minimum*",
     "platformFeeNumericalRate": 0.04,
-    "platformFeeDisplayText": "4%",
-    "feeDetails": "Platform fee: {{platformFee}} of revenue. Payment processing fees apply (3.5% + $0.25). Billing starts after payment setup & store go-live.",
+    "platformFeeDisplayText": "4% (up to $10k/mo of revenue)",
+    "feeDetails": "Platform fee: {{platformFee}}. Payment processing fees apply (3.5% + $0.25). Billing starts after payment setup & store go-live.",
     "features": [
       "Full Catering Order Management Suite",
       "Integrated Online Ordering Storefront",
