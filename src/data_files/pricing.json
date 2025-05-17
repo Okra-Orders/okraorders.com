@@ -1,58 +1,66 @@
 {
   "title": "Choose Your Okra Orders Plan",
-  "subTitle": "Simple, flexible pricing designed for catering businesses of all sizes.",
+  "subTitle": "Simple, flexible pricing for caterers of all sizes. From our volume-based Starter plan to the fixed-fee Pro plan, find your perfect fit.",
   "badge": "Most Popular",
-  "thirdOption": "Need Custom Features or Volume Pricing?",
-  "btnText": "Contact Sales",
+  "thirdOption": "Need Custom Features, Volume Pricing, or Data Migration?",
+  "btnText": "Contact Sales for Enterprise",
 
   "plan1": {
-    "name": "Basic",
-    "description": "Great for getting started with online ordering.",
-    "price": "0",
+    "name": "Starter",
+    "description": "Perfect for new or smaller catering operations. Essential features with platform costs that scale with your sales volume.",
+    "price": "99",
     "cents": ".00*",
-    "billingFrequency": "USD / monthly (*Platform fee + processing)",
+    "billingFrequency": "USD / monthly minimum*",
+    "feeDetails": "Platform fee: 3% of revenue (up to $10k/mo). Payment processing fees apply. Billing starts after payment setup & store go-live.",
     "features": [
-      "Online Ordering Storefront",
-      "Menu Management",
-      "Basic Order Dashboard",
-      "Standard Email Support"
+      "Full Catering Order Management Suite",
+      "Integrated Online Ordering Storefront",
+      "Automated Customer Notifications (Email)",
+      "Core Reporting & Analytics",
+      "Standard Support (In-App, Email, Chat)",
+      "Seamless Integrated Payment Processing",
+      "Guidance to Upgrade when Pro Plan is More Cost-Effective"
     ],
-    "purchaseBtnTitle": "Start Free Trial",
-    "purchaseLink": "/signup"
+    "purchaseBtnTitle": "Get Started",
+    "purchaseLink": "/signup?plan=starter"
   },
 
   "plan2": {
     "name": "Pro",
-    "description": "For growing businesses needing more automation.",
-    "price": "XX",
+    "description": "Ideal for established caterers and multi-location businesses seeking predictable costs and a comprehensive, powerful feature set.",
+    "price": "300",
     "cents": ".00",
-    "billingFrequency": "USD / monthly + Processing",
+    "billingFrequency": "USD / per month, per location",
+    "feeDetails": "Payment processing fees apply. Billing starts after payment setup & store go-live.",
     "features": [
-      "Everything in Basic",
-      "ezCater Order View Integration",
-      "QuickBooks Online Sync",
-      "Multi-Location Support (up to 3)",
-      "Live Chat Support"
+      "All Starter Plan Features, PLUS:",
+      "Fixed Monthly SaaS Fee - No Revenue Percentage",
+      "QuickBooks Online Integration",
+      "ezCater Integration",
+      "Multi-User & Role Management",
+      "Advanced Configuration Options",
+      "Access to Future Premium Features"
     ],
-    "purchaseBtnTitle": "Start Free Trial",
-    "purchaseLink": "/signup"
+    "purchaseBtnTitle": "Choose Pro",
+    "purchaseLink": "/signup?plan=pro"
   },
 
   "plan3": {
     "name": "Enterprise",
-    "description": "Tailored for multi-unit operations & specific needs.",
+    "description": "For large-scale operations or businesses requiring bespoke solutions, custom integrations, or dedicated support.",
     "price": "Custom",
     "cents": "",
-    "billingFrequency": "Contact Us",
+    "billingFrequency": "Contact Us for Tailored Pricing",
+    "feeDetails": "Custom platform & payment processing fees. Contact us for details.",
     "features": [
-      "Everything in Pro",
-      "Unlimited Locations",
-      "Advanced Reporting & Analytics",
-      "White-Label Branding Options",
-      "Dedicated Account Manager",
-      "API Access (Optional)"
+      "All Pro Plan Features, PLUS:",
+      "More Custom Branding Options",
+      "Data Migration Assistance (e.g., Customer Import, Order Import)",
+      "Bespoke Integrations (Scoped Separately)",
+      "Dedicated Account Management & Priority Support",
+      "Custom Servers Infrastructure"
     ],
     "purchaseBtnTitle": "Contact Sales",
-    "purchaseLink": "/support#contact"
+    "purchaseLink": "/contact-sales"
   }
 }

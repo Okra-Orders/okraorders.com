@@ -37,13 +37,14 @@ const plans = [pricing.plan1, pricing.plan2, pricing.plan3];
         // Determine classes based on index (e.g., highlight plan 2)
         const isHighlighted = index === 1;
         const cardClasses = isHighlighted
-          ? "bg-gradient-primary-highlight text-white shadow-xl p-6 rounded-xl" // Applied custom green gradient class
+          ? "bg-primary text-white shadow-xl p-6 rounded-xl" // Applied custom green gradient class
           : "bg-gray-100 dark:bg-neutral-800 p-6 rounded-xl border border-gray-200 dark:border-neutral-700"; // Standard card style
         const titleClasses = isHighlighted ? "text-white" : "text-neutral-800 dark:text-neutral-100";
         const descriptionClasses = isHighlighted ? "text-primary-100 dark:text-primary-200" : "text-neutral-600 dark:text-neutral-300";
         const priceClasses = isHighlighted ? "text-white" : "text-neutral-800 dark:text-neutral-200";
         const centsClasses = isHighlighted ? "text-primary-200 dark:text-primary-300" : "text-neutral-600 dark:text-neutral-400";
         const frequencyClasses = isHighlighted ? "text-primary-100 dark:text-primary-200" : "text-sm text-neutral-500 dark:text-neutral-400";
+        const feeDetailsColorClasses = isHighlighted ? "text-primary-100 dark:text-primary-200" : "text-neutral-500 dark:text-neutral-400";
         const featureClasses = isHighlighted ? "text-primary-100 dark:text-primary-200" : "text-neutral-600 dark:text-neutral-300";
         const buttonClasses = isHighlighted
           ? "block rounded-full bg-white/90 px-8 py-3 text-center text-sm font-bold text-primary outline-hidden ring-primary-300 transition duration-300 hover:bg-white focus-visible:ring-3 active:bg-gray-100 md:text-base"
@@ -74,11 +75,18 @@ const plans = [pricing.plan1, pricing.plan2, pricing.plan3];
               <span class={`ms-3 ${frequencyClasses}`}>{plan.billingFrequency}</span>
             </div>
 
+            {/* Fee Details Section */}
+            {plan.feeDetails && (
+              <div class="mt-2 mb-4"> {/* Container for spacing */}
+                <p class={`text-xs ${feeDetailsColorClasses}`}>{plan.feeDetails}</p>
+              </div>
+            )}
+
             <ul class={`mb-6 space-y-2 ${featureClasses}`}>
               {
                 plan.features.map((feature: string) => (
                   <li class="flex items-center gap-1.5">
-                    <Icon name="heroicons:check-circle" class="h-5 w-5 shrink-0 text-primary" /> {/* Use primary color for check */} 
+                    <Icon name="heroicons:check-circle" class="h-5 w-5 shrink-0 text-secondary" /> {/* Use primary color for check */}
                     <span>{feature}</span>
                   </li>
                 ))
