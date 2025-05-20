@@ -8,12 +8,14 @@
   "plan1": {
     "name": "Starter",
     "description": "Perfect for new or smaller catering operations. Essential features with platform costs that scale with your sales volume.",
-    "price": "99",
-    "cents": ".00*",
-    "billingFrequency": "USD / monthly minimum*",
-    "platformFeeNumericalRate": 0.04,
-    "platformFeeDisplayText": "4% (up to $10k/mo of revenue)",
-    "feeDetails": "Platform fee: {{platformFee}}. Payment processing fees apply (3.5% + $0.25). Billing starts after payment setup & store go-live.",
+    "price": "3%",
+    "cents": "",
+    "billingFrequency": "of first $10k Monthly Revenue, Min $99/month - Max $300/month) *",
+    "platformFeeNumericalRate": 0.03,
+    "platformFeeDisplayText": "3%",
+    "minimumMonthlyCharge": 99,
+    "maxLocations": 2,
+    "feeDetails": "Max 2 locations. Payment processing fees apply (3.5% + $0.25 per transaction). Billing starts after payment setup & store go-live.",
     "features": [
       "Full Catering Order Management Suite",
       "Integrated Online Ordering Storefront",
@@ -32,7 +34,7 @@
     "price": "299",
     "cents": ".00",
     "billingFrequency": "USD / per month, per location",
-    "feeDetails": "Payment processing fees apply (3.5% + $0.25). Billing starts after payment setup & store go-live.",
+    "feeDetails": "Payment processing fees apply (3.5% + $0.25 per transaction). Billing starts after payment setup & store go-live.",
     "features": [
       "All Starter Plan Features, PLUS:",
       "Fixed Monthly SaaS Fee - No Revenue Percentage",
@@ -52,7 +54,7 @@
     "price": "Custom",
     "cents": "",
     "billingFrequency": "Contact Us for Tailored Pricing",
-    "feeDetails": "Custom platform & payment processing fees. Contact us for details.",
+    "feeDetails": "Interested in compliant dual pricing or surcharging? please reach out to learn more",
     "features": [
       "All Pro Plan Features, PLUS:",
       "More Custom Branding Options",

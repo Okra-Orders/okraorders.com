@@ -190,7 +190,7 @@ const finalCTA = {
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div class="bg-white dark:bg-neutral-700 p-6 rounded-lg shadow text-left">
+        <div id="starter-plan-calculator-card" class="bg-white dark:bg-neutral-700 p-6 rounded-lg shadow text-left">
           <h3 class="text-xl font-semibold text-neutral-800 dark:text-neutral-200 mb-3 text-center">Starter Plan Estimate</h3>
           <p class="flex justify-between items-baseline">
             <span class="text-neutral-600 dark:text-neutral-300">Okra Fee:</span>
@@ -204,6 +204,7 @@ const finalCTA = {
             <span class="text-lg font-semibold text-neutral-700 dark:text-neutral-200">Total Monthly Cost:</span>
             <span id="starterTotalCostDisplay" class="text-lg font-bold text-primary">$0.00</span>
           </p>
+          <div id="starter-plan-limit-message" class="mt-2 text-sm text-red-600" style="display: none;"></div>
         </div>
         <div class="bg-white dark:bg-neutral-700 p-6 rounded-lg shadow text-left">
           <h3 class="text-xl font-semibold text-neutral-800 dark:text-neutral-200 mb-3 text-center">Pro Plan Estimate</h3>
@@ -223,7 +224,7 @@ const finalCTA = {
       </div>
 
       <p class="text-xs text-gray-500 dark:text-neutral-500">
-        * Estimates assume an average transaction value of $250 for calculating per-transaction payment processing fees (3.5% + $0.25/transaction). Platform fees for Starter are <span id="disclaimerPlatformFeeText">0%</span> of revenue. Pro plan Okra (SaaS) fee is $299/mo per location. Actual costs may vary.
+        * Estimates assume an average transaction value of $250 for calculating per-transaction payment processing fees (3.5% + $0.25/transaction). Platform fees for Starter are <span id="disclaimerPlatformFeeText">0%</span> of revenue with a $99/mo per location. Pro plan Okra (SaaS) fee is $299/mo per location. Actual costs may vary.
       </p>
     </div>
   </section>
@@ -294,7 +295,7 @@ const finalCTA = {
     });
   });
 </script>
-  <script define:vars={{ starterMinSaasFeePassed: Number(pricingContent.plan1.price), proSaasFeePerLocationPassed: Number(pricingContent.plan2.price), starterPlatformFeeNumericalRatePassed: Number(pricingContent.plan1.platformFeeNumericalRate), starterPlatformFeeDisplayTextPassed: pricingContent.plan1.platformFeeDisplayText }}>
+  <script define:vars={{ pricingData: pricingContent, starterMinSaasFeePassed: Number(pricingContent.plan1.price), proSaasFeePerLocationPassed: Number(pricingContent.plan2.price), starterPlatformFeeNumericalRatePassed: Number(pricingContent.plan1.platformFeeNumericalRate), starterPlatformFeeDisplayTextPassed: pricingContent.plan1.platformFeeDisplayText }}>
     // Plain JavaScript for Pricing Calculator
     // Values starterMinSaasFeePassed and proSaasFeePerLocationPassed are injected by Astro's define:vars
     document.addEventListener('DOMContentLoaded', function() { // Using function() for wider browser compatibility
@@ -361,15 +362,29 @@ const finalCTA = {
         const paymentProcessingFee = (monthlyRevenue * PAYMENT_FEE_PERCENTAGE) + (numberOfTransactions * PAYMENT_FEE_FIXED);
 
         let starterOkraFee;
+        // Calculate the fee based on percentage of revenue, respecting the cap
+        let percentageBasedStarterFee;
         if (monthlyRevenue > 0) {
-            starterOkraFee = monthlyRevenue * localStarterPlatformFeeNumericalRate;
-            if (starterOkraFee > STARTER_MAX_PLATFORM_FEE) {
-                starterOkraFee = STARTER_MAX_PLATFORM_FEE;
+            // Assuming localStarterPlatformFeeNumericalRate is pricingData.plan1.platformFeeNumericalRate
+            // Assuming STARTER_MAX_PLATFORM_FEE is (10000 * pricingData.plan1.platformFeeNumericalRate)
+            percentageBasedStarterFee = monthlyRevenue * localStarterPlatformFeeNumericalRate;
+            if (percentageBasedStarterFee > STARTER_MAX_PLATFORM_FEE) {
+                percentageBasedStarterFee = STARTER_MAX_PLATFORM_FEE;
             }
-            starterOkraFee = Math.max(localStarterMinSaasFee, starterOkraFee);
-        } else { // monthlyRevenue is 0
-            starterOkraFee = localStarterMinSaasFee;
+        } else {
+            percentageBasedStarterFee = 0;
         }
+
+        // Calculate the total minimum charge based on number of locations
+        // pricingData is assumed to be in scope (e.g., from define:vars)
+        const minChargePerLocation = pricingData.plan1.minimumMonthlyCharge;
+        const totalMinimumBasedOnLocations = minChargePerLocation * numberOfLocations;
+
+        // The final Starter Okra Fee is the greater of the two calculations
+        starterOkraFee = Math.max(totalMinimumBasedOnLocations, percentageBasedStarterFee);
+
+        // If numberOfLocations is 0 (though slider prevents this), totalMinimumBasedOnLocations would be 0.
+        // If revenue is 0, percentageBasedStarterFee is 0. So starterOkraFee = totalMinimumBasedOnLocations. Correct.
 
         const actualStarterOkraFee = starterOkraFee;
         const actualStarterPaymentFee = paymentProcessingFee; // This will be 0 if revenue is 0
@@ -390,9 +405,14 @@ const finalCTA = {
 
       function updateDisplay() {
         console.log("updateDisplay called");
+        // Assuming IDs: 'starter-plan-calculator-card' for the card, 'starter-plan-limit-message' for the message div
+        const starterPlanCardElement = document.getElementById('starter-plan-calculator-card');
+        const starterPlanLimitMessageElement = document.getElementById('starter-plan-limit-message');
+
         if (!revenueSlider || !revenueValueDisplay || !locationsSlider || !locationsValueDisplay || !totalRevenueValueDisplay ||
             !starterOkraFeeDisplay || !starterPaymentFeeDisplay || !starterTotalCostDisplay ||
-            !proOkraFeeDisplay || !proPaymentFeeDisplay || !proTotalCostDisplay) {
+            !proOkraFeeDisplay || !proPaymentFeeDisplay || !proTotalCostDisplay ||
+            !starterPlanCardElement || !starterPlanLimitMessageElement ) { // Added checks for new elements
           console.error('One or more calculator DOM elements not found in updateDisplay.');
           return;
         }
@@ -407,13 +427,36 @@ const finalCTA = {
         if (locationsValueDisplay) locationsValueDisplay.textContent = String(numberOfLocations);
         if (totalRevenueValueDisplay) totalRevenueValueDisplay.textContent = '$' + totalMonthlyRevenue.toLocaleString();
 
+        // Location limit logic for Starter Plan
+        // pricingData is assumed to be in scope (e.g., from define:vars)
+        const maxStarterLocations = pricingData.plan1.maxLocations;
+        let starterCostsDisabled = false;
+
+        if (numberOfLocations > maxStarterLocations) {
+            starterCostsDisabled = true;
+            starterPlanCardElement.classList.add('opacity-50', 'pointer-events-none'); // Add suitable CSS classes for disabling
+            starterPlanLimitMessageElement.textContent = `Starter plan is available for up to ${maxStarterLocations} locations.`;
+            starterPlanLimitMessageElement.style.display = 'block'; // Or manage via CSS classes
+
+            // Display N/A or clear Starter plan costs
+            if (starterOkraFeeDisplay) starterOkraFeeDisplay.textContent = 'N/A';
+            if (starterPaymentFeeDisplay) starterPaymentFeeDisplay.textContent = 'N/A';
+            if (starterTotalCostDisplay) starterTotalCostDisplay.textContent = 'N/A';
+        } else {
+            starterPlanCardElement.classList.remove('opacity-50', 'pointer-events-none');
+            starterPlanLimitMessageElement.textContent = '';
+            starterPlanLimitMessageElement.style.display = 'none';
+        }
+
         const costs = calculateCosts(totalMonthlyRevenue, numberOfLocations); // Use totalMonthlyRevenue for calculation
         console.log("costs object in updateDisplay:", costs);
 
-        if (starterOkraFeeDisplay) starterOkraFeeDisplay.textContent = '$' + costs.starter.okraFee.toFixed(2);
-        if (starterPaymentFeeDisplay) starterPaymentFeeDisplay.textContent = '$' + costs.starter.paymentProcessingFee.toFixed(2);
-        if (starterTotalCostDisplay) starterTotalCostDisplay.textContent = '$' + costs.starter.totalCost.toFixed(2);
-
+        if (!starterCostsDisabled) {
+            if (starterOkraFeeDisplay) starterOkraFeeDisplay.textContent = '$' + costs.starter.okraFee.toFixed(2);
+            if (starterPaymentFeeDisplay) starterPaymentFeeDisplay.textContent = '$' + costs.starter.paymentProcessingFee.toFixed(2);
+            if (starterTotalCostDisplay) starterTotalCostDisplay.textContent = '$' + costs.starter.totalCost.toFixed(2);
+        }
+        // Pro plan costs are updated regardless
         if (proOkraFeeDisplay) proOkraFeeDisplay.textContent = '$' + costs.pro.okraFee.toFixed(2);
         if (proPaymentFeeDisplay) proPaymentFeeDisplay.textContent = '$' + costs.pro.paymentProcessingFee.toFixed(2);
         if (proTotalCostDisplay) proTotalCostDisplay.textContent = '$' + costs.pro.totalCost.toFixed(2);
