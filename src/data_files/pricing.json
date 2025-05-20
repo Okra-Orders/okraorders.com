@@ -10,7 +10,7 @@
     "description": "Perfect for new or smaller catering operations. Essential features with platform costs that scale with your sales volume.",
     "price": "3%",
     "cents": "",
-    "billingFrequency": "of first $10k Monthly Revenue, Min $99/month - Max $300/month) *",
+    "billingFrequency": "of first $10k Monthly Revenue, Min $99/month - Max $300/month",
     "platformFeeNumericalRate": 0.03,
     "platformFeeDisplayText": "3%",
     "minimumMonthlyCharge": 99,
