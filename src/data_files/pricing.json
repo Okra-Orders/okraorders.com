@@ -51,10 +51,10 @@
   "plan3": {
     "name": "Enterprise",
     "description": "For large-scale operations or businesses requiring bespoke solutions, custom integrations, or dedicated support.",
-    "price": "Custom",
+    "price": "",
     "cents": "",
     "billingFrequency": "Contact Us for Tailored Pricing",
-    "feeDetails": "Interested in compliant dual pricing or surcharging? please reach out to learn more",
+    "feeDetails": "",
     "features": [
       "All Pro Plan Features, PLUS:",
       "More Custom Branding Options",

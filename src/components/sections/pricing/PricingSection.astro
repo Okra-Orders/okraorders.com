@@ -82,7 +82,7 @@ const plans = [pricing.plan1, pricing.plan2, pricing.plan3];
               ) : (
                 <>
                   <span class={`text-4xl font-bold ${priceClasses}`}>
-                    {plan.price.startsWith("$") || plan.price === "Custom" ? plan.price : `$${plan.price}`}
+                    {plan.price.startsWith('$') ? plan.price : (!isNaN(parseFloat(plan.price)) && isFinite(plan.price) ? `$${plan.price}` : plan.price)}
                   </span>
                   <span class={`text-lg font-bold ${centsClasses}`}>{plan.cents}</span>
                 </>
