@@ -42,13 +42,6 @@ const coreValueProps = {
   // Note: Descriptions were part of the original custom layout
 };
 
-const pricingPhilosophy = {
-  headline: "Choose the Plan That Fits Your Flow",
-  body: "We understand every catering business is unique. That's why we offer clear pricing options. Whether you're starting out and prefer costs tied to your sales, or you're an established business seeking predictable monthly fees, Okra Orders delivers exceptional value.",
-  optionA: "Our Pro Plan offers a comprehensive suite of features for a flat monthly fee per location, ideal for businesses focused on stability and advanced capabilities.",
-  optionB: "Our Starter Plan is designed for growth, with a platform fee based on your processed order volume (up to a cap) and a low monthly minimum, ensuring affordability as you scale.",
-  cta: "Explore the plans below or contact us to schedule a demo and discuss the best fit for your specific needs."
-};
 
 const integratedPayments = {
   headline: "Competitive, Integrated Payment Processing",
@@ -125,21 +118,10 @@ const finalCTA = {
   </section>
   */}
 
-  <!-- 3. Pricing Model Philosophy / Flexibility Explanation -->
-  <section class="py-8 md:py-24 bg-white rounded-xl">
-    <div class="container mx-auto px-6 max-w-3xl text-center">
-        <h2 class="text-3xl font-bold text-neutral-800 mb-4">{pricingPhilosophy.headline}</h2>
-        <p class="text-lg text-gray-600 mb-6">{pricingPhilosophy.body}</p>
-        <div class="text-left space-y-4 bg-neutral-50 p-6 rounded-lg border border-neutral-200 mb-6">
-           <p><strong class="text-neutral-700">Pro Plan:</strong> {pricingPhilosophy.optionA}</p>
-           <p><strong class="text-neutral-700">Standard Plan:</strong> {pricingPhilosophy.optionB}</p>
-        </div>
-        <p class="text-lg text-gray-700 font-medium">{pricingPhilosophy.cta}</p>
-    </div>
-  </section>
+
 
   <!-- 4. Pricing Tiers Section - Data passed via prop -->
-  <section class="py-0 md:py-24">
+  <section class="py-0 md:py-8">
      <PricingSection pricing={pricingContent} />
      {/* Removed manual footnote, assuming component handles relevant data from JSON */}
   </section>

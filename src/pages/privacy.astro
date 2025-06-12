@@ -1,0 +1,99 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+import { SITE } from "@data/constants";
+
+const pageTitle: string = `Privacy Policy | ${SITE.title}`;
+---
+
+<MainLayout
+  title={pageTitle}
+  structuredData={{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://okraorders.com/privacy",
+    "url": "https://okraorders.com/privacy",
+    "name": `Privacy Policy | ${SITE.title}`,
+    "description": `Privacy policy for ${SITE.title} catering order management software.`,
+    "isPartOf": {
+      "@type": "WebSite",
+      "url": SITE.url,
+      "name": SITE.title,
+      "description": SITE.description_short,
+    },
+    "inLanguage": "en-US"
+  }}
+>
+  <section class="py-16 md:py-24">
+    <div class="container mx-auto px-6 lg:px-8 max-w-4xl">
+      <h1 class="text-4xl font-bold text-neutral-800 mb-8">Privacy Policy</h1>
+      
+      <div class="prose prose-lg max-w-none text-neutral-700">
+        
+        <h2 class="text-2xl font-bold text-neutral-800 mt-8 mb-4">Use of Service</h2>
+        
+        <p><strong>License:</strong> Okra Orders grants you a limited, non-exclusive, non-transferable license to access and use the Service solely for your personal or internal business purposes.</p>
+        
+        <p><strong>Description of Service:</strong> Okra Orders offers you access to internet-based software that helps catering businesses streamline their operations by managing online orders, menu customization, multi-location coordination, and maintaining seamless communication with customers.</p>
+        
+        <p><strong>Prohibited Activities:</strong> You agree not to engage in any of the following prohibited activities: (a) use the Service for any illegal purpose; (b) interfere with or disrupt the Service or servers or networks connected to the Service; (c) attempt to gain unauthorized access to the Service or computer systems or networks connected to the Service; (d) use any robot, spider, or other automatic device, process, or means to access the Service for any purpose, including monitoring or copying any of the material on the Service.</p>
+
+        <h2 class="text-2xl font-bold text-neutral-800 mt-8 mb-4">Data Collection and Usage</h2>
+        
+        <p>For users that register on our website, we store the personal information they provide in their user profile. All users can see, edit, or delete their personal information at any time (except they cannot change their username). Website administrators can also see and edit that information.</p>
+        
+        <p>We collect information necessary to provide our catering management services, including but not limited to:</p>
+        <ul class="list-disc pl-6 mb-4">
+          <li>Business information and contact details</li>
+          <li>Menu items and pricing information</li>
+          <li>Customer order data and preferences</li>
+          <li>Location and delivery information</li>
+          <li>Communication records with customers</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold text-neutral-800 mt-8 mb-4">Intellectual Property</h2>
+        
+        <p><strong>Ownership:</strong> Okra Orders retains all right, title, and interest in and to the Service, including all intellectual property rights.</p>
+        
+        <p><strong>License to User Content:</strong> By submitting or posting any content on the Service, you grant Okra Orders a perpetual, irrevocable, worldwide, royalty-free, and non-exclusive license to use, reproduce, modify, adapt, publish, translate, distribute, transmit, publicly display, publicly perform, sublicense, and create derivative works from such content for the purpose of providing and improving our catering management services.</p>
+
+        <h2 class="text-2xl font-bold text-neutral-800 mt-8 mb-4">Limitation of Liability</h2>
+        
+        <p><strong>Disclaimer:</strong> The Service is provided on an "as-is" and "as available" basis, without any representations or warranties of any kind, express or implied. Okra Orders disclaims all warranties, express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+        
+        <p><strong>Limitation of Liability:</strong> In no event shall Okra Orders be liable for any indirect, consequential, special, incidental, or punitive damages, including, without limitation, damages for loss of profits, goodwill, use, data, or other intangible losses, arising out of or relating to your use or inability to use the Service.</p>
+
+        <h2 class="text-2xl font-bold text-neutral-800 mt-8 mb-4">Indemnification</h2>
+        
+        <p>You agree to indemnify, defend, and hold harmless Okra Orders and its officers, directors, employees, agents, and affiliates from and against any and all claims, liabilities, damages, losses, costs, expenses, or fees (including attorneys' fees) arising out of or relating to your violation of these Terms or your use of the Service.</p>
+
+        <h2 class="text-2xl font-bold text-neutral-800 mt-8 mb-4">Termination</h2>
+        
+        <p>Okra Orders may terminate or suspend your access to the Service immediately, without prior notice or liability, for any reason whatsoever, including, without limitation, if you breach these Terms.</p>
+
+        <h2 class="text-2xl font-bold text-neutral-800 mt-8 mb-4">Governing Law</h2>
+        
+        <p>These Terms shall be governed by and construed in accordance with the laws of the State of Tennessee without regard to its conflict of law provisions.</p>
+
+        <h2 class="text-2xl font-bold text-neutral-800 mt-8 mb-4">Changes to Privacy Policy</h2>
+        
+        <p>Okra Orders reserves the right to update or change this Privacy Policy at any time. Any changes will be effective immediately upon posting the revised Privacy Policy on the Service.</p>
+
+        <h2 class="text-2xl font-bold text-neutral-800 mt-8 mb-4">General Terms</h2>
+        
+        <p>If any provision herein is held by a court of competent jurisdiction to be invalid, void or unenforceable for any reason, the remaining provisions not so declared shall nevertheless continue in full force and effect but shall be construed in a manner so as to effectuate the intent herein, notwithstanding such stricken provision or provisions.</p>
+
+        <h2 class="text-2xl font-bold text-neutral-800 mt-8 mb-4">Contact Us</h2>
+        
+        <p>If you have any questions or concerns about this Privacy Policy, please contact us:</p>
+        
+        <div class="bg-neutral-50 p-6 rounded-lg mt-4">
+          <p class="mb-2"><strong>OKRA PARTNERS, LLC</strong></p>
+          <p class="mb-2">10636 Pentwater Dr.<br>Knoxville, TN 37932</p>
+          <p class="mb-2">Email: <a href="mailto:support@okraorders.com" class="text-primary hover:text-primary-dark">support@okraorders.com</a></p>
+          <p>Phone: <a href="tel:+18652176096" class="text-primary hover:text-primary-dark">+1 865-217-6096</a></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</MainLayout> 
