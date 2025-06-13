@@ -3,9 +3,9 @@
 import MainLayout from "@/layouts/MainLayout.astro";
 // import HeroSection from "@components/sections/landing/HeroSection.astro"; // Remove old hero
 import HeroBackground from "@components/sections/landing/HeroBackground.astro"; // Add new hero
-import ContactSection from "@components/sections/misc/ContactSection.astro"; // For contact form/details
+// import ContactSection from "@components/sections/misc/ContactSection.astro"; // For contact form/details
 import FAQ from "@components/sections/misc/FAQ.astro"; // For FAQ section
-// import { Icon } from 'astro-icon/components'; // Removed duplicate/unused import
+import { Icon } from "astro-icon/components";
 import IconListSection from "@components/sections/features/IconListSection.astro"; // Added import
 import CTASection from "@components/sections/misc/CTASection.astro"; // Added import
 import supportHeroBg from '@/images/okra-header-1.png'; // Import the new background image
@@ -60,44 +60,88 @@ const quoteSupport = {
   layoutDirection: "quote-left" as const,
 };
 
+// Data for the new ProcessSteps component
+// const onboardingProcess = {
+//   title: "Your Path to Going Live: What to Expect After You Sign Up",
+//   subTitle: "Welcome aboard! We're excited to help you streamline your catering business. To ensure you can securely accept payments and manage your operations, our setup process involves two key parts that happen in parallel. Here's a simple breakdown of the journey from signup to your first sale:",
+//   steps: [
+//     {
+//       title: "Step 1: Preparing Your Storefront",
+//       description: `
+//         <p>After you submit the form, our team gets to work preparing your private account. Within 24 hours, you'll receive an email with a unique link to set your password and log in for the first time.</p>
+//         <p class="mt-2">While we guide you through the payment setup in the background, you can immediately start building your storefront. This is a fully-featured preview mode where you can:</p>
+//         <ul class="list-disc list-inside mt-2 space-y-1">
+//           <li>Create and organize your catering menus.</li>
+//           <li>Set your business hours and delivery zones.</li>
+//           <li>Customize your store with your logo and branding.</li>
+//           <li>Share a private link with colleagues for feedback.</li>
+//           <li>Run test orders using a test payment method to see how everything works.</li>
+//         </ul>
+//       `
+//     },
+//     {
+//       title: "Step 2: We Activate Your Payments",
+//       description: `
+//         <p>To enable you to accept online payments, we need to set up your merchant account with one of our dedicated payment partners. This is a standard, secure process required for any business handling online transactions.</p>
+//         <p class="mt-2">Our onboarding team will contact you within one business day to start this process. We'll guide you every step of the way.</p>
+//         <p class="mt-2">This payment activation is essential for you to get paid directly for your orders, and the approval process typically takes just a few days to complete.</p>
+//       `
+//     },
+//     {
+//         title: "Putting It All Together: Going Live",
+//         description: `
+//             <p>Your store becomes fully active and ready to accept customer orders once your payment account is approved.</p>
+//             <p class="mt-2">You have a flexible 14-day window to work with our team and complete this financial setup. Your paid plan and first billing cycle will only begin after this is complete. There are no obligations, and you can cancel anytime.</p>
+//         `
+//     },
+//     {
+//       title: "Have Questions Along the Way?",
+//       description: `
+//         <p>For details on features and costs, please review our <a href="/pricing" class="text-green-600 hover:underline">Pricing Page</a>.</p>
+//         <p>If you need any help during the setup, don't hesitate to reach out through our <a href="#contact" class="text-green-600 hover:underline">Support Form</a>. We're here to help.</p>
+//       `
+//     }
+//   ]
+// };
+
 // Contact Section Data (Leveraging ContactSection component)
-const contact = {
-    title: "Get in Touch with the Okra Team",
-    subTitle: "Have questions about features, pricing, getting started, or how Okra Orders can fit your unique catering business? Don't hesitate to reach out. We're happy to chat!",
-    // ContactSection likely handles form fields internally, but we provide details
-    contactDetails: [
-        { type: "Email", value: "support@okraorders.com", description: "For general inquiries or support requests." },
-        { type: "Live Chat", value: "Available in Admin Panel (9 AM - 5 PM ET, Mon-Fri)", description: "Look for the chat icon during business hours." },
-        { type: "Sales", value: "sales@okraorders.com", description: "For personalized demos or sales discussions (use form or email)." }
-    ]
-};
+// const contact = {
+//     title: "Get in Touch with the Okra Team",
+//     subTitle: "Have questions about features, pricing, getting started, or how Okra Orders can fit your unique catering business? Don't hesitate to reach out. We're happy to chat!",
+//     // ContactSection likely handles form fields internally, but we provide details
+//     contactDetails: [
+//         { type: "Email", value: "support@okraorders.com", description: "For general inquiries or support requests." },
+//         { type: "Live Chat", value: "Available in Admin Panel (9 AM - 5 PM ET, Mon-Fri)", description: "Look for the chat icon during business hours." },
+//         { type: "Sales", value: "sales@okraorders.com", description: "For personalized demos or sales discussions (use form or email)." }
+//     ]
+// };
 
 // FAQ Data
-const supportFaqs = {
-  title: "Your Platform & Support Questions Answered",
-  faqs: [
-    {
-      question: "Is Okra Orders complicated to learn, especially for staff who aren't very tech-savvy?",
-      answer: "We've designed Okra Orders to be intuitive and user-friendly. Plus, we offer extensive in-app help, including tooltips explaining specific fields, guided tours for common tasks (like setting up a menu item), and a searchable knowledge base, all accessible right within the platform to minimize the learning curve."
-    },
-    {
-      question: "What if I run into a problem or have a question that the in-app help doesn't cover?",
-      answer: "We're here to help! You can reach our support team directly via live chat during business hours, using the contact form on this page, or emailing us. For more complex issues or strategic discussions on how to best use Okra for your operations, we can also arrange video calls."
-    },
-    {
-      question: "Can I manage my catering business from my phone or tablet using Okra?",
-      answer: "Yes. Okra Orders is fully responsive. While the admin panel is optimized for desktop use due to the amount of information, you can access and use all core functionalities – check dashboards, manage orders, update basic settings – from your tablet or smartphone."
-    },
-    {
-      question: "How often is the platform updated? Will I need to pay for new features?",
-      answer: "Okra Orders is under active development, meaning we release improvements and new features regularly based on user feedback. Updates are typically included as part of your subscription plan, ensuring you always have access to the latest capabilities."
-    },
-    {
-      question: "Is your support just for technical problems, or can you help with optimizing how we use the app for our catering business?",
-      answer: "Our support is business-focused. While we certainly fix technical issues, our goal is to help you use Okra Orders effectively to streamline your specific catering operations. We can offer guidance on best practices for menu setup, workflow optimization, leveraging integrations, and more, based on our experience."
-    }
-  ]
-};
+// const supportFaqs = {
+//   title: "Your Platform & Support Questions Answered",
+//   faqs: [
+//     {
+//       question: "Is Okra Orders complicated to learn, especially for staff who aren't very tech-savvy?",
+//       answer: "We've designed Okra Orders to be intuitive and user-friendly. Plus, we offer extensive in-app help, including tooltips explaining specific fields, guided tours for common tasks (like setting up a menu item), and a searchable knowledge base, all accessible right within the platform to minimize the learning curve."
+//     },
+//     {
+//       question: "What if I run into a problem or have a question that the in-app help doesn't cover?",
+//       answer: "We're here to help! You can reach our support team directly via live chat during business hours, using the contact form on this page, or emailing us. For more complex issues or strategic discussions on how to best use Okra for your operations, we can also arrange video calls."
+//     },
+//     {
+//       question: "Can I manage my catering business from my phone or tablet using Okra?",
+//       answer: "Yes. Okra Orders is fully responsive. While the admin panel is optimized for desktop use due to the amount of information, you can access and use all core functionalities – check dashboards, manage orders, update basic settings – from your tablet or smartphone."
+//     },
+//     {
+//       question: "How often is the platform updated? Will I need to pay for new features?",
+//       answer: "Okra Orders is under active development, meaning we release improvements and new features regularly based on user feedback. Updates are typically included as part of your subscription plan, ensuring you always have access to the latest capabilities."
+//     },
+//     {
+//       question: "Is your support just for technical problems, or can you help with optimizing how we use the app for our catering business?",
+//       answer: "Our support is business-focused. While we certainly fix technical issues, our goal is to help you use Okra Orders effectively to streamline your specific catering operations. We can offer guidance on best practices for menu setup, workflow optimization, leveraging integrations, and more, based on our experience."
+//     }
+//   ]
+// };
 
 // Final CTA Data
 const finalCTA = {
@@ -139,23 +183,63 @@ const finalCTA = {
   />
 
     <!-- 4. Contact Us Section - Integrated -->
-  <section id="contact" class="py-0 md:py-24 bg-white rounded-xl scroll-mt-16 my-12">
-      <ContactSection
-          title={contact.title}
-          subTitle={contact.subTitle}
-          contactDetails={contact.contactDetails}
-      />
-      <!-- ContactSection should include the form. Adjust props if needed based on its implementation -->
-  </section>
+    <section id="contact" class="py-12 md:py-20 bg-white dark:bg-neutral-900 rounded-xl scroll-mt-16 my-12">
+      <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 sm:text-4xl">
+            Let's Connect
+          </h2>
+          <p class="mt-4 text-lg leading-8 text-neutral-600 dark:text-neutral-400">
+            Whether you have a question about Okra Orders, need assistance with onboarding, or have a support inquiry, we're here to help. Feel free to reach out with any questions related to our platform.
+          </p>
+        </div>
+    
+        <div class="grid grid-cols-1 gap-12 lg:grid-cols-5 lg:gap-8">
+          <div class="lg:order-last lg:col-span-2">
+            <h3 class="text-xl font-semibold text-neutral-800 dark:text-neutral-200">Contact Us Directly</h3>
+            <div class="mt-6 space-y-6">
+                <!-- Email -->
+                <div class="flex items-start">
+                    <Icon name="heroicons:envelope" class="h-6 w-6 flex-shrink-0 text-neutral-500 dark:text-neutral-400 mt-1" />
+                    <div class="ml-4">
+                      <p class="text-base font-medium text-neutral-800 dark:text-neutral-200">Email</p>
+                      <a href="mailto:support@okraorders.com" class="text-base text-green-600 hover:text-green-500">support@okraorders.com</a>
+                    </div>
+                </div>
+                <!-- Phone -->
+                <div class="flex items-start">
+                    <Icon name="heroicons:phone" class="h-6 w-6 flex-shrink-0 text-neutral-500 dark:text-neutral-400 mt-1" />
+                    <div class="ml-4">
+                      <p class="text-base font-medium text-neutral-800 dark:text-neutral-200">Phone</p>
+                      <a href="tel:+18652176096" class="text-base text-green-600 hover:text-green-500">+1 865-217-6096</a>
+                    </div>
+                </div>
+                <!-- Address -->
+                <div class="flex items-start">
+                    <Icon name="heroicons:map-pin" class="h-6 w-6 flex-shrink-0 text-neutral-500 dark:text-neutral-400 mt-1" />
+                    <div class="ml-4">
+                        <p class="text-base font-medium text-neutral-800 dark:text-neutral-200">OKRA PARTNERS, LLC</p>
+                        <p class="text-base text-neutral-600 dark:text-neutral-400">5923 Kingston Pike #303<br>Knoxville, TN 37919</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="lg:col-span-3 min-h-[570px] bg-neutral-50 dark:bg-neutral-800 rounded-lg p-1">
+            <iframe class="clickup-embed clickup-dynamic-height w-full h-full rounded-md" src="https://forms.clickup.com/1372952/f/19wrr-17474/HB9HOCAD9V88R5WEG1" onwheel="" style="background: transparent; border: 1px solid #ccc;"></iframe>
+            <script async src="https://app-cdn.clickup.com/assets/js/forms-embed/v1.js"></script>
+          </div>
+        </div>
+      </div>
+    </section>
   <!-- 2. Feature: Integrated In-App Help (Using IconListSection) -->
-  <section class="py-0 md:py-24 bg-white rounded-xl">
+  <!-- <section class="py-0 md:py-24 bg-white rounded-xl">
     <IconListSection 
         title={inAppHelp.title}
         subTitle={inAppHelp.subTitle}
         items={inAppHelp.items}
     />
     {/* Removed original custom grid layout */}
-  </section>
+  </section> -->
 
   <!-- 3. Feature: Dedicated Human Support (Using IconListSection) -->
   <section class="py-0 md:py-24">
@@ -178,12 +262,10 @@ const finalCTA = {
       layoutDirection={quoteSupport.layoutDirection}
   />
 
-
-
   <!-- 5. FAQ Section -->
-  <section class="py-0 md:py-24 bg-neutral-50 dark:bg-neutral-900 rounded-xl my-12">
+  <!-- <section class="py-0 md:py-24 bg-neutral-50 dark:bg-neutral-900 rounded-xl my-12">
     <FAQ title={supportFaqs.title} faqs={supportFaqs} />
-  </section>
+  </section> -->
 
   <!-- 6. Final CTA Section (Using CTASection Component) -->
   <section class="rounded-xl my-12">

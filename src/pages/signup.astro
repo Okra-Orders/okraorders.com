@@ -4,6 +4,7 @@ import MainLayout from "@/layouts/MainLayout.astro";
 // import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro"; // Removed unused import
 import { Icon } from 'astro-icon/components';
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For demo button link
+import ProcessSteps from "@components/sections/misc/ProcessSteps.astro"; // Import the new component
 
 // --- Page Data ---
 const pageTitle = "Get Started with Okra Orders | Sign Up";
@@ -21,30 +22,47 @@ const signupForm = {
   privacyLink: "/privacy/",
 };
 
-const trialVsDemo = {
-  trial: {
-    icon: "heroicons:building-storefront",
-    headline: "Your Own Private Store",
-    description: "Here's how we'll get you set up:",
-    points: [
-      "We'll create your account on a private *.okraorders.com subdomain.",
-      "Our team will contact you within 24 hours to finalize setup and guide you through payment onboarding.",
-      "You can start configuring menus, hours, and branding as soon as your account is ready.",
-      "Your account will be set up on our Starter Plan by default."
-    ]
-  },
-  demo: {
-    icon: "heroicons:eye", // Changed icon
-    headline: "Take a Quick Look Around",
-    description: "Not ready for a trial? Explore our public demo instantly. Keep in mind:",
-    points: [
-      "Shared Environment: Multiple users may be active simultaneously.",
-      "Data Wiped: All demo data is automatically reset every few hours.",
-      "Caution: Please do not enter any real customer, business, or payment information in the demo."
-    ],
-    buttonText: "Try the Live Demo (No Signup Needed)",
-    buttonUrl: "https://demo.okraorders.com"
-  }
+const onboardingProcess = {
+  title: "Your Path to Going Live: What to Expect After You Sign Up",
+  subTitle: "Here's a simple breakdown of the journey from signup to your first sale:",
+  steps: [
+    {
+      title: "Step 1: Preparing Your Storefront",
+      description: `
+        <p>After you submit the form, our team gets to work preparing your private account. Within 24 hours, you'll receive an email with a unique link to set your password and log in for the first time.</p>
+        <p class="mt-2">While we guide you through the payment setup in the background, you can immediately start building your storefront. This is a fully-featured preview mode where you can:</p>
+        <ul class="list-disc list-inside mt-2 space-y-1">
+          <li>Create and organize your catering menus.</li>
+          <li>Set your business hours and delivery zones.</li>
+          <li>Customize your store with your logo and branding.</li>
+          <li>Run test orders using a test payment method to see how everything works.</li>
+        </ul>
+      `
+    },
+    {
+      title: "Step 2: We Activate Your Payments",
+      description: `
+        <p>To enable you to accept online payments, we need to set up your merchant account with one of our dedicated payment partners. This is a standard, secure process required for any business handling online transactions.</p>
+        <p class="mt-2">Our onboarding team will contact you within one business day to start this process. We'll guide you every step of the way.</p>
+        <p class="mt-2">This payment activation is essential for you to get paid directly for your orders, and the approval process typically takes just a few days to complete.</p>
+      `
+    },
+    {
+        title: "Putting It All Together: Going Live",
+        description: `
+            <p>Your store becomes fully active and ready to accept customer orders once your payment account is approved.</p>
+            <p class="mt-2">You have a flexible 14-day window to work with our team and complete this financial setup. Your paid plan and first billing cycle will only begin after this is complete. There are no obligations, and you can cancel anytime.</p>
+        `
+    },
+    {
+      title: "Not Ready? Take a Quick Look Around",
+      description: `
+        <p>Want to explore our platform without signing up? Check out our public demo instantly. Keep in mind it's a shared environment where data is reset periodically.</p>
+        <p class="mt-4"><a href="https://demo.okraorders.com" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary hover:underline">Try the Live Demo (No Signup Needed) &rarr;</a></p>
+        <p class="mt-2 text-sm">Please do not enter any real customer, business, or payment information in the demo.</p>
+      `
+    }
+  ]
 };
 
 const featureReinforcement = {
@@ -115,32 +133,14 @@ const featureReinforcement = {
         </div>
     </section>
 
-    <!-- 3. Onboarding Process vs. Demo Information -->
-    <section class="mb-16 md:mb-24">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-        <!-- Onboarding Column -->
-        <div class="bg-green-50 p-6 rounded-lg border border-green-200">
-           <Icon name={trialVsDemo.trial.icon} class="w-10 h-10 text-primary mb-3" />
-           <h2 class="text-2xl font-semibold text-neutral-800 mb-2">{trialVsDemo.trial.headline}</h2>
-           <p class="text-neutral-700 mb-4">{trialVsDemo.trial.description}</p>
-           <ul class="space-y-2 text-neutral-600 list-disc list-inside">
-             {trialVsDemo.trial.points.map(point => (<li>{point}</li>))}
-           </ul>
-        </div>
-        <!-- Demo Column -->
-        <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
-           <Icon name={trialVsDemo.demo.icon} class="w-10 h-10 text-gray-500 mb-3" />
-           <h2 class="text-2xl font-semibold text-neutral-800 mb-2">{trialVsDemo.demo.headline}</h2>
-           <p class="text-neutral-700 mb-4">{trialVsDemo.demo.description}</p>
-           <ul class="space-y-2 text-neutral-600 list-disc list-inside mb-6">
-             {trialVsDemo.demo.points.map(point => (<li>{point}</li>))}
-           </ul>
-           <a href={trialVsDemo.demo.buttonUrl} target="_blank" rel="noopener noreferrer" class="inline-block">
-              <SecondaryCTA title={trialVsDemo.demo.buttonText} url={trialVsDemo.demo.buttonUrl}/>
-           </a>
-        </div>
-      </div>
-    </section>
+    <!-- 3. Onboarding Process Section -->
+    <div class="my-16 md:my-24">
+        <ProcessSteps
+            title={onboardingProcess.title}
+            subTitle={onboardingProcess.subTitle}
+            steps={onboardingProcess.steps}
+        />
+    </div>
 
     <!-- 4. Key Feature Reinforcement -->
     <section class="text-center mb-8 md:mb-24">

@@ -1,0 +1,53 @@
+---
+// src/components/sections/misc/ProcessSteps.astro
+
+interface Step {
+  title: string;
+  description: string; // Allows for HTML content like lists
+}
+
+interface Props {
+  title: string;
+  subTitle: string;
+  steps: Step[];
+}
+
+const { title, subTitle, steps } = Astro.props;
+---
+
+<section class="py-12 md:py-20 bg-neutral-50 dark:bg-neutral-900 rounded-xl my-12">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 sm:text-4xl">
+        {title}
+      </h2>
+      <p class="mt-4 text-lg leading-8 text-neutral-600 dark:text-neutral-400">
+        {subTitle}
+      </p>
+    </div>
+
+    <!-- Steps Container -->
+    <div class="relative">
+      <!-- Vertical line -->
+      <div class="absolute left-6 -ml-px w-px bg-neutral-300 dark:bg-neutral-700 h-full" aria-hidden="true"></div>
+
+      <div class="space-y-12">
+        {steps.map((step, index) => (
+          <div class="relative pl-20">
+            <!-- Icon Circle -->
+            <div class="absolute left-0 top-0 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white ring-8 ring-neutral-50 dark:ring-neutral-900">
+                <span class="text-xl font-bold">{index + 1}</span>
+            </div>
+
+            <!-- Step Content -->
+            <div class="pt-1">
+              <h3 class="text-xl font-semibold text-neutral-800 dark:text-neutral-200">{step.title}</h3>
+              <div class="prose prose-neutral dark:prose-invert mt-2 text-base text-neutral-600 dark:text-neutral-400" set:html={step.description} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section> 
