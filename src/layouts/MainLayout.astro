@@ -28,34 +28,8 @@ We set the language of the page to English and add classes for scrollbar and scr
     <Meta meta={meta} structuredData={structuredData} />
     <!-- Define the title of the page -->
     <title>{title}</title>
-    <script type="text/javascript" is:inline>
-      (function (w, d, u) {
-        w.$productFruits = w.$productFruits || [];
-        w.productFruits = w.productFruits || {};
-        w.productFruits.scrV = "2";
-        let a = d.getElementsByTagName("head")[0];
-        let r = d.createElement("script");
-        r.async = 1;
-        r.src = u;
-        a.appendChild(r);
-      })(
-        window,
-        document,
-        "https://app.productfruits.com/static/script.js"
-      );
-    </script>
-    <script is:inline>
-      // REMOVED: Script to handle dark mode.
-      // if (
-      //   localStorage.getItem("hs_theme") === "dark" ||
-      //   (!("hs_theme" in localStorage) &&
-      //     window.matchMedia("(prefers-color-scheme: dark)").matches)
-      // ) {
-      //   document.documentElement.classList.add("dark");
-      // } else {
-      //   document.documentElement.classList.remove("dark");
-      // }
-    </script>
+    
+    
     <script>
       import "@scripts/lenisSmoothScroll.js";
     </script>
