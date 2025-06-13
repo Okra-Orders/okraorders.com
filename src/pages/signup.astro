@@ -6,29 +6,31 @@ import { Icon } from 'astro-icon/components';
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro"; // For demo button link
 
 // --- Page Data ---
-const pageTitle = "Start Free Trial | Okra Orders";
-const pageDescription = "Sign up for a 14-day free trial of Okra Orders catering software. Explore full features, manage menus, sync orders, and automate accounting. No credit card required.";
+const pageTitle = "Get Started with Okra Orders | Sign Up";
+const pageDescription = "Create your Okra Orders account to streamline catering management. We'll set up your store and guide you through payment onboarding to get you started.";
 
 const signupForm = {
-  headline: "Start Your Free 14-Day Okra Orders Trial",
-  subHeadline: "Ready to automate the hassle and focus on the food? Sign up in seconds to explore the full Okra Orders platform with your own private trial environment. See firsthand how easy managing online orders, menus, ezCater sync, and QuickBooks can be. No credit card required.",
+  headline: "Let's Get You Started",
+  subHeadlinePre: "Ready to automate the hassle and focus on the food? Fill out the form below to begin—",
+  subHeadlineBold: "no credit card required",
+  subHeadlinePost: ". We'll create your private account and contact you to finalize billing and payment details, so you can start managing orders and menus.",
   companyHelp: "Used to create your unique Okra Orders web address (e.g., yourcompany.okraorders.com). You can suggest changes later if needed.",
   emailHelp: "This will be your login username.",
-  passwordHelp: "Minimum 8 characters.",
-  submitButton: "Start My Free 14-Day Trial",
+  submitButton: "Create My Account & Get Started",
   termsLink: "/terms/",
   privacyLink: "/privacy/",
 };
 
 const trialVsDemo = {
   trial: {
-    icon: "heroicons:check-circle", // Changed icon
-    headline: "Your Private Sandbox for Real Evaluation",
-    description: "The 14-day free trial gives you full access to:",
+    icon: "heroicons:building-storefront",
+    headline: "Your Own Private Store",
+    description: "Here's how we'll get you set up:",
     points: [
-      "Private Environment: Your data is yours alone and persists throughout the trial.",
-      "Real Store Setup: Configure your actual menu items, settings, hours, and branding.",
-      "True Evaluation: The best way to see how Okra Orders fits your specific catering business."
+      "We'll create your account on a private *.okraorders.com subdomain.",
+      "Our team will contact you within 24 hours to finalize setup and guide you through payment onboarding.",
+      "You can start configuring menus, hours, and branding as soon as your account is ready.",
+      "Your account will be set up on our Starter Plan by default."
     ]
   },
   demo: {
@@ -46,18 +48,12 @@ const trialVsDemo = {
 };
 
 const featureReinforcement = {
-  headline: "What You Can Do During Your Trial:",
+  headline: "Everything You Need to Run Your Catering Business:",
   features: [
-    { icon: "heroicons:clipboard-document-list", text: "Manage Menus Easily: Set up items, options & copy across locations." }, // Changed icon
+    { icon: "heroicons:clipboard-document-list", text: "Manage Menus Easily: Set up items, options & copy across locations." },
     { icon: "heroicons:shopping-cart", text: "Preview Ordering: See the smooth customer experience." },
-    { icon: "heroicons:paint-brush", text: "Brand Your Store: Add your logo and explore setup." } // Changed icon
+    { icon: "heroicons:paint-brush", text: "Brand Your Store: Add your logo and explore setup." }
   ]
-};
-
-const existingUser = {
-  text: "Already have an account?",
-  linkText: "Log In Here",
-  linkUrl: "/login/"
 };
 
 ---
@@ -69,27 +65,29 @@ const existingUser = {
     <!-- 1. Header/Nav assumed handled by MainLayout -->
 
     <!-- 2. Main Content Area: Headline + Signup Form -->
-    <section class="max-w-xl mx-auto text-center mb-16 md:mb-24">
+    <section class="max-w-xl mx-auto text-center mb-16 md:mb-24" id="signup-section">
       <h1 class="text-4xl md:text-5xl font-bold text-neutral-800 mb-4">{signupForm.headline}</h1>
-      <p class="text-lg text-gray-600 mb-8">{signupForm.subHeadline}</p>
+      <p class="text-lg text-gray-600 mb-8">
+          {signupForm.subHeadlinePre}<strong class="font-bold text-neutral-800">{signupForm.subHeadlineBold}</strong>{signupForm.subHeadlinePost}
+      </p>
 
-      <form class="text-left space-y-4">
+      <form id="signup-form" class="text-left space-y-4" name="signup" method="POST" action="https://api.okraorders.com/api:8vZopWhd/signup">
+        <!-- Honeypot field for bot protection. Do not fill this out. -->
+        <div class="hidden" aria-hidden="true">
+          <label for="honeypot-email">Do not fill this out</label>
+          <input type="email" id="honeypot-email" name="email2" tabindex="-1" autocomplete="off">
+        </div>
+
         <div>
           <label for="companyName" class="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
-          <input type="text" id="companyName" name="companyName" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" aria-describedby="companyNameHelp">
+          <input type="text" id="companyName" name="company_name" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary bg-white" aria-describedby="companyNameHelp">
           <p id="companyNameHelp" class="mt-1 text-xs text-gray-500">{signupForm.companyHelp}</p>
         </div>
 
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Your Email Address</label>
-          <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" aria-describedby="emailHelp">
+          <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary bg-white" aria-describedby="emailHelp">
           <p id="emailHelp" class="mt-1 text-xs text-gray-500">{signupForm.emailHelp}</p>
-        </div>
-
-        <div>
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Create Password</label>
-          <input type="password" id="password" name="password" required minlength="8" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" aria-describedby="passwordHelp">
-          <p id="passwordHelp" class="mt-1 text-xs text-gray-500">{signupForm.passwordHelp}</p>
         </div>
 
         <div class="flex items-start">
@@ -109,10 +107,18 @@ const existingUser = {
       </form>
     </section>
 
-    <!-- 3. Trial Benefits vs. Demo Information -->
+    <!-- Success Message -->
+    <section id="success-message" class="hidden max-w-xl mx-auto text-center mb-16 md:mb-24">
+        <div class="bg-green-50 p-8 rounded-lg border border-green-200">
+            <h2 class="text-3xl font-bold text-green-800 mb-4">Thank You!</h2>
+            <p class="text-lg text-neutral-700">We've received your details. Our team will start setting up your account and will be in touch shortly to finalize everything. Welcome aboard!</p>
+        </div>
+    </section>
+
+    <!-- 3. Onboarding Process vs. Demo Information -->
     <section class="mb-16 md:mb-24">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-        <!-- Trial Column -->
+        <!-- Onboarding Column -->
         <div class="bg-green-50 p-6 rounded-lg border border-green-200">
            <Icon name={trialVsDemo.trial.icon} class="w-10 h-10 text-primary mb-3" />
            <h2 class="text-2xl font-semibold text-neutral-800 mb-2">{trialVsDemo.trial.headline}</h2>
@@ -151,16 +157,47 @@ const existingUser = {
         </div>
     </section>
 
-    <!-- 5. Existing User Link -->
-    <section class="text-center mb-0 md:mb-12">
-      <p class="text-neutral-600">
-        {existingUser.text} <a href={existingUser.linkUrl} class="text-primary hover:underline font-medium">{existingUser.linkText}</a>
-      </p>
-    </section>
-
   </div>
 
 </MainLayout>
+
+<script>
+  const form = document.getElementById('signup-form') as HTMLFormElement | null;
+  const signupSection = document.getElementById('signup-section');
+  const successMessage = document.getElementById('success-message');
+
+  if (form && signupSection && successMessage) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const submitButton = form.querySelector('button[type="submit"]');
+
+      // Disable button to prevent multiple submissions
+      if (submitButton) {
+        submitButton.setAttribute('disabled', 'true');
+        submitButton.textContent = 'Submitting...';
+      }
+
+      try {
+        await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+      } catch (error) {
+        // Log error for debugging, but still show success to the user/bot
+        console.error('Form submission error:', error);
+      } finally {
+        // Hide form section and show success message
+        signupSection.classList.add('hidden');
+        successMessage.classList.remove('hidden');
+      }
+    });
+  }
+</script>
 
 <style>
   /* Optional: Add minor style adjustments if needed */
