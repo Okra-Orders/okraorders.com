@@ -38,18 +38,9 @@ const footerLinks = [
     ],
   },
   {
-    section: "Company",
-    links: [
-      // { name: "About us", url: "#" }, // Removed from HTML
-      { name: "Contact Us", url: "/contact" },
-      // { name: "Careers", url: "#" }, // Removed from HTML
-      // { name: "Customers", url: "#" }, // Removed from HTML
-    ],
-  },
-   {
     section: "Support & Legal", // New Section
     links: [
-      { name: "Help Center", url: "/support/" },
+      { name: "Support", url: "/support/" },
       { name: "Privacy Policy", url: "/privacy/" },
       { name: "Terms of Service", url: "/terms/" },
     ],
